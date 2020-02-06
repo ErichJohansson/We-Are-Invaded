@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1b012efc9190034e87807e85899fa4a, type: 3}
+  m_Name: medium_3s_3p
+  m_EditorClassIdentifier: 
+  shot: {fileID: 3239072593341738175, guid: 6ab1891183eeaf847a28cd6645d7d4c8, type: 3}
+  totalShots: 3
+  force: 2
+  direction: {x: -1, y: 0, z: 0}
+  shotCooldown: 1
+  cyclesCount: 3
+  cycleCooldown: 3

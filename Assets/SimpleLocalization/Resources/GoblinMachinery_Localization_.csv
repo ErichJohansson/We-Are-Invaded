@@ -1,0 +1,18 @@
+Key,English
+GameOver.GameInfo,"""Game over :C 
+ Scored {0} points!
+ Traveled {1} m"""
+GameOver.RestartButton,Restart
+GameStart.StartButton,Play!
+GameStart.ExitButton,Exit
+GameStart.SettingsButton,Settings
+GameStart.SelectVehicle,Vehicle
+GameStart.ExitQuestion,Are you sure you want to exit?
+Game.Pause,Pause
+TankSelect.Reload,Reload:
+TankSelect.Turning,Turning:
+TankSelect.Health,Health:
+TankSelect.Armor,Armor:
+TankSelect.Apply,Select vehicle
+TankSelect.Speed,Speed:
+TankSelect.Damage,Damage:

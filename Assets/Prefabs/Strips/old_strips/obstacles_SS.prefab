@@ -1,0 +1,121 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7218997213901560496
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7218997213901560497}
+  - component: {fileID: 7218997213901560498}
+  - component: {fileID: 7218997213901560499}
+  - component: {fileID: 131719066}
+  m_Layer: 11
+  m_Name: obstacles_SS
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7218997213901560497
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7218997213901560496}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -26.45, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7218997213901560498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7218997213901560496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c05519efd9131ca48bba70503a10e371, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allowedObjects:
+  - {fileID: 3847798794094625764, guid: 553cda8ba7cacbf489e53506864b5f95, type: 3}
+  allowedDecorations:
+  - {fileID: 5861099982172928340, guid: 3895ea68aa1e1de409b259f2685a4463, type: 3}
+  - {fileID: 1891737739103956787, guid: 20ab43e296742924babce9a62b3166b3, type: 3}
+  - {fileID: 1180752810167728858, guid: 44323ff3de9bd89499ad5ff1d73407e9, type: 3}
+  - {fileID: 3124557884120490463, guid: b70b1c2a4ef3ce9489a58cfb6fd7e1dd, type: 3}
+  - {fileID: 9039463669254175020, guid: a5f619c45a1939c4a8fd8dc75fdba7e9, type: 3}
+  - {fileID: 3222420948281008065, guid: 9180f2abd1b1c5e4a8ffb6438a6044c5, type: 3}
+  personalSpace: {fileID: 7218997213901560499}
+  reachingSpace: {fileID: 131719066}
+  maxObjects: 5
+  triesPerObject: 3
+  maxDecorObjects: 15
+  triesPerDecorObject: 3
+  pickable: {fileID: 2636498264992710604, guid: 2653d93e547c1c34287b5708dc28f119,
+    type: 3}
+  minPickableRows: 2
+  maxPickableRows: 3
+  minPickablesInRow: 8
+  maxPickablesInRow: 16
+  spawnedUnits: []
+--- !u!61 &7218997213901560499
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7218997213901560496}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -2.52}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 25, y: 6.484415}
+  m_EdgeRadius: 0
+--- !u!61 &131719066
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7218997213901560496}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -2.52}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 35, y: 6.484413}
+  m_EdgeRadius: 0
