@@ -47,20 +47,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allowedObjects:
   - {fileID: 5197549572127611422, guid: a15c1eaf8667a564b8bc557146ea5774, type: 3}
-  - {fileID: 5197549572127611422, guid: a15c1eaf8667a564b8bc557146ea5774, type: 3}
   allowedDecorations: []
+  allowedBoosters:
+  - {fileID: 7300748150202546873, guid: d53851aec796e0f428ea4b80373abd84, type: 3}
+  - {fileID: 6794819712278861529, guid: d98f41a8bd7d44b49bb50429f85017c0, type: 3}
   personalSpace: {fileID: 5680492033668574837}
   reachingSpace: {fileID: 5059356187934459346}
   maxObjects: 15
   triesPerObject: 20
   maxDecorObjects: 0
   triesPerDecorObject: 0
-  pickable: {fileID: 2636498264992710604, guid: 2653d93e547c1c34287b5708dc28f119,
-    type: 3}
-  minPickableRows: 0
-  maxPickableRows: 0
-  minPickablesInRow: 0
-  maxPickablesInRow: 0
   spawnedUnits: []
 --- !u!61 &5680492033668574837
 BoxCollider2D:

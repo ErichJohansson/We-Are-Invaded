@@ -8,8 +8,11 @@ public class Follower : MonoBehaviour
     public float distanceToStopFollowing;
     public float speedModifier;
 
+    [Header("Warning Settings")]
+    public GameObject dangerSign;
+    public float blinkTime;
+
     private float distanceToPlayer;
-    //private PlayerUnit player;
     private float speedThreshold;
     private bool isFollowing;
     private Vector3 startPos = new Vector3(-200, 0, 0);
@@ -39,9 +42,10 @@ public class Follower : MonoBehaviour
         if (isFollowing)
         {
             distanceToPlayer = gc.PlayerUnit.gameObject.transform.position.x - gameObject.transform.position.x;
-            Debug.Log(distanceToPlayer);
             if (distanceToPlayer > distanceToStopFollowing)
             {
+                StopCoroutine("DangerSign");
+                dangerSign.SetActive(false);
                 isFollowing = false;
                 return;
             }
@@ -51,6 +55,7 @@ public class Follower : MonoBehaviour
         else if(gc.PlayerUnit.currentSpeed < speedThreshold)
         {
             isFollowing = true;
+            StartCoroutine("DangerSign");
             gameObject.transform.position = new Vector3(gc.PlayerUnit.transform.position.x - initialDeltaX, 0, 0);
         }
     }
@@ -61,6 +66,15 @@ public class Follower : MonoBehaviour
         if (pu != null)
         {
             pu.DealDamage(99999, startPos);
+        }
+    }
+
+    private IEnumerator DangerSign()
+    {
+        while(true)
+        {
+            dangerSign.SetActive(!dangerSign.activeSelf);
+            yield return new WaitForSeconds(blinkTime * (distanceToPlayer / initialDeltaX));
         }
     }
 }

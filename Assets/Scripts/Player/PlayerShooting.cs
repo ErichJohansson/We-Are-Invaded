@@ -16,7 +16,6 @@ public class PlayerShooting : MonoBehaviour
 
     public float shootingDistance;
     public int magazineCapacity;
-    private int currentAmmo;
 
     private GameController gc;
 
@@ -24,13 +23,12 @@ public class PlayerShooting : MonoBehaviour
     private ParticleSystem particleSystem;
 
     [Header("Effects")]
-    /// <summary>
-    /// located within hit area
-    /// </summary>
     public Animator hitEffectAnimator;
 
     public bool Firing { get; set; }
     public bool Reloading { get; private set; }
+    public int CurrentAmmo { get; private set; }
+    public bool InfiniteAmmo { get; set; }
 
     private void Awake()
     {
@@ -43,7 +41,7 @@ public class PlayerShooting : MonoBehaviour
     {
         if(!Reloading)
         gc.uc.UpdateReloadSlider(1f);
-        gc.uc.UpdateAmmo(currentAmmo);
+        gc.uc.UpdateAmmo(CurrentAmmo);
     }
 
     private void Update()
@@ -57,14 +55,15 @@ public class PlayerShooting : MonoBehaviour
         if (Reloading || cooldown || !gameObject.activeSelf)
             return;
 
-        currentAmmo--;
-        gc.uc.UpdateAmmo(currentAmmo);
+        if(!InfiniteAmmo)
+            CurrentAmmo--;
+        gc.uc.UpdateAmmo(CurrentAmmo);
 
         Fire();
 
         StartCoroutine("Cooldown");
 
-        if (currentAmmo <= 0)
+        if (CurrentAmmo <= 0)
             StartCoroutine("Reload");
     }
 
@@ -120,10 +119,11 @@ public class PlayerShooting : MonoBehaviour
     {
         StopAllCoroutines();
 
-        currentAmmo = magazineCapacity;
-        gc.uc.UpdateAmmo(currentAmmo);
+        CurrentAmmo = magazineCapacity;
+        gc.uc.UpdateAmmo(CurrentAmmo);
         cooldown = false;
         Reloading = false;
+        InfiniteAmmo = false;
     }
 
     #region coroutines
@@ -138,8 +138,8 @@ public class PlayerShooting : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         Reloading = false;
-        currentAmmo = magazineCapacity;
-        gc.uc.UpdateAmmo(currentAmmo);
+        CurrentAmmo = magazineCapacity;
+        gc.uc.UpdateAmmo(CurrentAmmo);
     }
 
     private IEnumerator Cooldown()

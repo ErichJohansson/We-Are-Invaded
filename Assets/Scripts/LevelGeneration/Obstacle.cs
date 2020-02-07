@@ -23,6 +23,8 @@ public class Obstacle : MonoBehaviour
     public bool forceY;
     public float forcedY;
 
+    public bool isModifier;
+
     [Header("Visual Effects")]
     public bool createPopUp;
     public bool createEnemyRemains;
@@ -106,6 +108,9 @@ public class Obstacle : MonoBehaviour
 
     public void Die(float diePosZ)
     {
+        if (isModifier)
+            return;
+
         if(addScoreOnDeath)
             gc.uc.AddScore(scoreAmount);
         if (createEnemyRemains && remainsSpawner != null)

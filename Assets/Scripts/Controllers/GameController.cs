@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-using System;
+using UnityEngine.UI;
+using System.Collections.Generic;
 using Assets.SimpleLocalization;
 
 public class GameController : MonoBehaviour

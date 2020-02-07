@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,9 +24,43 @@ public class UIController : MonoBehaviour
     public float damageEffectLength;
     public float currentDamageEffectLength;
 
+    [Header("Modifier Icons")]
+    public List<Image> modifierIcons;
+    public Sprite empty;
+    private int lastOccupiedImage;
+
     void Start()
     {
         gc = FindObjectOfType<GameController>();
+        lastOccupiedImage = -1;
+    }
+
+    public int AddModifierIcon(Sprite icon)
+    {
+        if (lastOccupiedImage >= 4)
+            return modifierIcons.Count - 1;
+        lastOccupiedImage++;
+        Debug.Log(lastOccupiedImage);
+        modifierIcons[lastOccupiedImage].sprite = icon;
+        return lastOccupiedImage;
+    }
+
+    public void RemoveModifierIcon(Sprite iconToRemove)
+    {
+        for (int i = 0; i < modifierIcons.Count; i++)
+        {
+            if (modifierIcons[i].sprite == iconToRemove)
+            {
+                modifierIcons[i].sprite = empty;
+                for (int j = i; j + 1 < modifierIcons.Count; j++)
+                {
+                    modifierIcons[j].sprite = modifierIcons[j + 1].sprite;
+                    modifierIcons[j + 1].sprite = empty;
+                }
+                break;
+            }           
+        }
+        lastOccupiedImage--;
     }
 
     public void AddScore(int score)
@@ -41,7 +76,7 @@ public class UIController : MonoBehaviour
 
     public void UpdateAmmo(int currentAmmo)
     {
-        ammo.text = currentAmmo.ToString();
+        ammo.text = (currentAmmo % 1000).ToString();
     }
 
     public void UpdateTraveledDistance()

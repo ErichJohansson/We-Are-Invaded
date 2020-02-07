@@ -48,18 +48,15 @@ MonoBehaviour:
   allowedObjects:
   - {fileID: 1675130430024704282, guid: 02409da5c495287498046573b10c8c1d, type: 3}
   allowedDecorations: []
+  allowedBoosters:
+  - {fileID: 7300748150202546873, guid: d53851aec796e0f428ea4b80373abd84, type: 3}
+  - {fileID: 6794819712278861529, guid: d98f41a8bd7d44b49bb50429f85017c0, type: 3}
   personalSpace: {fileID: 2783782344014084361}
   reachingSpace: {fileID: 3333406475441984174}
   maxObjects: 2
   triesPerObject: 20
   maxDecorObjects: 0
   triesPerDecorObject: 0
-  pickable: {fileID: 2636498264992710604, guid: 2653d93e547c1c34287b5708dc28f119,
-    type: 3}
-  minPickableRows: 0
-  maxPickableRows: 0
-  minPickablesInRow: 0
-  maxPickablesInRow: 0
   spawnedUnits: []
 --- !u!61 &2783782344014084361
 BoxCollider2D:

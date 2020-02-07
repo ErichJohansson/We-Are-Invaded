@@ -18,18 +18,21 @@ public class PlayerUnit : MonoBehaviour
     public float currentSpeedBoostLength;
     public bool speedingUp;
 
-    public GameObject bounds;
-
     public Collider2D frontCollider;
 
     private Vector3 movingTo = Vector3.zero;
     private GameController gc;
 
-
     [Header("Trail")]
     public TrailRenderer[] trails;
     public float trailLifetime;
     private Coroutine trailRoutine;
+
+    private InfiniteAmmo infiniteAmmo;
+    public InfiniteAmmo InfiniteAmmo { get { return infiniteAmmo; } set { infiniteAmmo = value; } }
+
+    private IncreasedDamage increasedDamage;
+    public IncreasedDamage IncreasedDamage { get { return increasedDamage; } set { increasedDamage = value; } }
 
     public float Direction 
     { 
@@ -42,6 +45,8 @@ public class PlayerUnit : MonoBehaviour
 
     private void Awake()
     {
+        infiniteAmmo = null;
+        increasedDamage = null;
         gc = FindObjectOfType<GameController>();
         shooting = GetComponent<PlayerShooting>();
     }
@@ -57,6 +62,15 @@ public class PlayerUnit : MonoBehaviour
     #region Utility
     public void Restart()
     {
+        if(infiniteAmmo != null)
+        {
+            infiniteAmmo.Deactivate();
+        }
+        if (increasedDamage != null)
+        {
+            increasedDamage.Deactivate();
+        }
+
         currentSpeed = 0;
         currentSpeedBoostLength = 0;
         shooting.Restart();
@@ -74,6 +88,8 @@ public class PlayerUnit : MonoBehaviour
         gameObject.SetActive(false);
         gc.uc.RestartDamageEffect();
         gc.uc.gameOverScreen.ShowGameOverScreen();
+        foreach (TrailRenderer trail in trails)
+            trail.Clear();
     }
     #endregion
 
@@ -184,6 +200,7 @@ public class PlayerUnit : MonoBehaviour
                 if(trailRoutine == null)
                     trailRoutine = StartCoroutine("TrailLifetime");
             }
+            return;
         }
     }
 

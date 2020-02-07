@@ -108,7 +108,7 @@ MonoBehaviour:
   spawnerName: 'Spawner: Blood splatters'
   remainsSpawner: {fileID: 0}
   bloodSplatterPos: {fileID: 3851277975349657514}
-  bloodTrailLength: 0.3
+  bloodTrailLength: 0
   animator: {fileID: 3851277974544937164}
 --- !u!61 &177998493
 BoxCollider2D:

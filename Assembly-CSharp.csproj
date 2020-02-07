@@ -92,12 +92,13 @@
     <Compile Include="Assets\Scripts\Misc\SaveManager.cs" />
     <Compile Include="Assets\Scripts\Misc\TankData.cs" />
     <Compile Include="Assets\Scripts\Misc\Vehicle.cs" />
-    <Compile Include="Assets\Scripts\Modifiers\IModifier.cs" />
+    <Compile Include="Assets\Scripts\Modifiers\IncreasedDamage.cs" />
+    <Compile Include="Assets\Scripts\Modifiers\InfiniteAmmo.cs" />
+    <Compile Include="Assets\Scripts\Modifiers\Modifier.cs" />
     <Compile Include="Assets\Scripts\PlatformerLogic\Enemy.cs" />
     <Compile Include="Assets\Scripts\PlatformerLogic\EnemyMovement.cs" />
     <Compile Include="Assets\Scripts\PlatformerLogic\EnemyShooting.cs" />
     <Compile Include="Assets\Scripts\PlatformerLogic\Follower.cs" />
-    <Compile Include="Assets\Scripts\PlatformerLogic\Pickable.cs" />
     <Compile Include="Assets\Scripts\PlatformerLogic\PlatformerShooting.cs" />
     <Compile Include="Assets\Scripts\PlatformerLogic\PlatformerShot.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerShooting.cs" />

@@ -326,7 +326,7 @@ MonoBehaviour:
   spawnerName: 'Spawner: Blood splatters'
   remainsSpawner: {fileID: 0}
   bloodSplatterPos: {fileID: 8539700382994160342}
-  bloodTrailLength: 1
+  bloodTrailLength: 4
   animator: {fileID: 5197549571572657558}
 --- !u!114 &5197549572127611418
 MonoBehaviour:
