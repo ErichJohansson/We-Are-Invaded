@@ -98,10 +98,19 @@ MonoBehaviour:
   personalSpace: {fileID: 0}
   reachingSpace: {fileID: 0}
   hardness: 5
-  slowAmount: 0.2
+  slowAmount: 1
   effectName: 
   useAnimationToDie: 0
+  addScoreOnDeath: 0
+  scoreAmount: 0
   hierarchyObject: 0
   forceY: 0
   forcedY: 0
+  isModifier: 0
   createPopUp: 1
+  createEnemyRemains: 0
+  spawnerName: 
+  remainsSpawner: {fileID: 0}
+  bloodSplatterPos: {fileID: 0}
+  bloodTrailLength: 0
+  animator: {fileID: 0}

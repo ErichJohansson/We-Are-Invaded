@@ -40,7 +40,7 @@ public class UIController : MonoBehaviour
         if (lastOccupiedImage >= 4)
             return modifierIcons.Count - 1;
         lastOccupiedImage++;
-        Debug.Log(lastOccupiedImage);
+        //Debug.Log(lastOccupiedImage);
         modifierIcons[lastOccupiedImage].sprite = icon;
         return lastOccupiedImage;
     }

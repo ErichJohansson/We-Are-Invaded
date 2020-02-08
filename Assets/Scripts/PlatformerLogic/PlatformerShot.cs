@@ -101,7 +101,7 @@ public class PlatformerShot : MonoBehaviour
 
         if (player != null)
         {
-            player.DealDamage(damage, lastPos);
+            player.DealDamage(damage, lastPos, false);
         }
 
         if (pe != null)

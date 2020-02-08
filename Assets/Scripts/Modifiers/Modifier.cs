@@ -8,15 +8,17 @@ public class Modifier : MonoBehaviour
     public GameObject visualEffect;
     public Sprite icon;
 
-    private float timeRemains;
     private bool isIndependent;
+
+    public float TimeRemains { get; private set; }
+    public bool Activated { get; protected set; }
 
     public virtual void Deactivate() { }
     public virtual void Activate() { }
 
     protected void RenewTime()
     {
-        timeRemains = lifetime;
+        TimeRemains = lifetime;
     }
 
     private void MakeIndependent()
@@ -31,15 +33,17 @@ public class Modifier : MonoBehaviour
 
     protected IEnumerator Lifetime()
     {
-        timeRemains = lifetime;
+        TimeRemains = lifetime;
         if (!isIndependent)
             MakeIndependent();
 
-        while (timeRemains > 0)
+        while (TimeRemains > 0)
         {
-            timeRemains -= Time.deltaTime;
+            TimeRemains -= Time.deltaTime;
+            Debug.Log(TimeRemains);
             yield return new WaitForEndOfFrame();
         }
+        Debug.Log("over");
         Deactivate();
     }
 

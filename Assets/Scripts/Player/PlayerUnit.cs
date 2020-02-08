@@ -17,11 +17,14 @@ public class PlayerUnit : MonoBehaviour
     public float totalSpeedBoostLength;
     public float currentSpeedBoostLength;
     public bool speedingUp;
+    public float scoreModifier;
 
     public Collider2D frontCollider;
+    public Collider2D sideCollider;
 
     private Vector3 movingTo = Vector3.zero;
     private GameController gc;
+    private SpriteRenderer sr;
 
     [Header("Trail")]
     public TrailRenderer[] trails;
@@ -34,6 +37,12 @@ public class PlayerUnit : MonoBehaviour
     private IncreasedDamage increasedDamage;
     public IncreasedDamage IncreasedDamage { get { return increasedDamage; } set { increasedDamage = value; } }
 
+    private IncreasedScore increasedScore;
+    public IncreasedScore IncreasedScore { get { return increasedScore; } set { increasedScore = value; } }
+
+    private SpeedBoost speedBoost;
+    public SpeedBoost SpeedBoost { get { return speedBoost; } set { speedBoost = value; } }
+
     public float Direction 
     { 
         get
@@ -45,8 +54,12 @@ public class PlayerUnit : MonoBehaviour
 
     private void Awake()
     {
+        speedBoost = null;
         infiniteAmmo = null;
+        increasedScore = null;
         increasedDamage = null;
+
+        sr = GetComponent<SpriteRenderer>();
         gc = FindObjectOfType<GameController>();
         shooting = GetComponent<PlayerShooting>();
     }
@@ -54,6 +67,7 @@ public class PlayerUnit : MonoBehaviour
     void Start()
     {
         CurrentHP = maxHP;
+        scoreModifier = 1;
         gc.uc.UpdateHitPoints(this, false);
         currentSpeedBoostLength = 0;
         ActivateParallax();
@@ -63,13 +77,13 @@ public class PlayerUnit : MonoBehaviour
     public void Restart()
     {
         if(infiniteAmmo != null)
-        {
             infiniteAmmo.Deactivate();
-        }
         if (increasedDamage != null)
-        {
             increasedDamage.Deactivate();
-        }
+        if (increasedScore != null)
+            increasedScore.Deactivate();
+        if (speedBoost != null)
+            speedBoost.Deactivate(true);
 
         currentSpeed = 0;
         currentSpeedBoostLength = 0;
@@ -119,6 +133,19 @@ public class PlayerUnit : MonoBehaviour
             trail.emitting = false;
         trailRoutine = null;
     }
+
+    private IEnumerator Invincible()
+    {
+        float t = 0;
+        float waitTime = 0.25f;
+        while(t < 4f)
+        {
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, (t / waitTime) % 2);
+            t += waitTime;
+            yield return new WaitForSeconds(waitTime);
+        }
+        MakeVulnerable(false);
+    }
     #endregion
 
     #region Movement
@@ -161,7 +188,7 @@ public class PlayerUnit : MonoBehaviour
 
         if(Time.timeScale != 0)
         {
-            gc.AddDistance(Time.deltaTime * gc.PlayerUnit.currentSpeed);
+            gc.AddDistance(Time.deltaTime * gc.PlayerUnit.currentSpeed * scoreModifier);
             gc.uc.UpdateTraveledDistance();
         }
     }
@@ -188,7 +215,7 @@ public class PlayerUnit : MonoBehaviour
 
             currentSpeed -= speedingUp ? 0 : currentSpeed - obs.slowAmount >= 0 ? obs.slowAmount : currentSpeed;
             if (obs.hardness > hardness)
-                DealDamage(obs.hardness - hardness, gameObject.transform.position);
+                DealDamage(obs.hardness - hardness, gameObject.transform.position, false);
             float diePosZ = gameObject.transform.position.z;
             if(obs.hardness <= hardness)
             {
@@ -204,7 +231,7 @@ public class PlayerUnit : MonoBehaviour
         }
     }
 
-    public void DealDamage(int damage, Vector2 hitPosition)
+    public void DealDamage(int damage, Vector2 hitPosition, bool critical)
     {
         CurrentHP -= damage;
         if (CurrentHP <= 0)
@@ -214,8 +241,24 @@ public class PlayerUnit : MonoBehaviour
         else
         {
             gc.uc.currentDamageEffectLength = gc.uc.damageEffectLength;
-            DamagePopup.CreatePopup(damage, hitPosition);
+            DamagePopup.CreatePopup(damage, hitPosition, critical);
         }
         gc.uc.UpdateHitPoints(this, true);
+    }
+
+    public void MakeInvincible(bool startBlinking)
+    {
+        frontCollider.enabled = false;
+        sideCollider.enabled = false;
+        if(startBlinking)
+            StartCoroutine("Invincible");
+    }
+
+    public void MakeVulnerable(bool stopBlinking)
+    {
+        if(stopBlinking)
+            StopCoroutine("Invincible");
+        frontCollider.enabled = true;
+        sideCollider.enabled = true;
     }
 }

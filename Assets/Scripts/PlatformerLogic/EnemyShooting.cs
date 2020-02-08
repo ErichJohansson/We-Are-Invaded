@@ -35,14 +35,11 @@ public class EnemyShooting : MonoBehaviour
 
     private void ApplyDamage(Collider2D col, int damage)
     {
-        //if (Random.Range(0, 1f) <= 0.15f)
-        //    return;
-        //Debug.Log(col.gameObject.name);
         Debug.Log(col.gameObject.layer);
         PlayerUnit pu;
         if (col.transform.parent.TryGetComponent(out pu))
         {
-            pu.DealDamage(damage, pu.transform.position);
+            pu.DealDamage(damage, pu.transform.position, damage > this.damage);
         }
     }
 
@@ -99,7 +96,7 @@ public class EnemyShooting : MonoBehaviour
                 //Debug.Log("col = null");
                 continue;
             }
-            new List<Collider2D>(colliders).ForEach(col => ApplyDamage(col, damage));
+            new List<Collider2D>(colliders).ForEach(col => ApplyDamage(col, (int)Random.Range(damage - 0.25f * damage, damage + 0.15f * damage)));
         }
     }
     #endregion

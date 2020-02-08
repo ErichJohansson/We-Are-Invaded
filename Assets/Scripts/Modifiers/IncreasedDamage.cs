@@ -14,6 +14,7 @@ public class IncreasedDamage : Modifier
 
     public override void Activate()
     {
+        Activated = true;
         // do visuals
         DisableAppereance();
         gc.uc.AddModifierIcon(icon);
@@ -40,7 +41,7 @@ public class IncreasedDamage : Modifier
             Debug.Log((gc.PlayerUnit.IncreasedDamage == null) + " damage");
             if (gc.PlayerUnit.IncreasedDamage == null)
                 Activate();
-            else
+            else if(!Activated)
             {
                 gc.PlayerUnit.IncreasedDamage.RenewTime();
                 Destroy(gameObject);

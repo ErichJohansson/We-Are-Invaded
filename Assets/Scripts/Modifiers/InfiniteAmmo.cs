@@ -15,6 +15,7 @@ public class InfiniteAmmo : Modifier
 
     public override void Activate()
     {
+        Activated = true;
         // do visuals
         DisableAppereance();
 
@@ -46,7 +47,7 @@ public class InfiniteAmmo : Modifier
             Debug.Log((gc.PlayerUnit.InfiniteAmmo == null) + " ammo");
             if (gc.PlayerUnit.InfiniteAmmo == null)
                 Activate();
-            else
+            else if(!Activated)
             {
                 gc.PlayerUnit.InfiniteAmmo.RenewTime();
                 Destroy(gameObject);

@@ -121,6 +121,7 @@ public class PlayerShooting : MonoBehaviour
 
         CurrentAmmo = magazineCapacity;
         gc.uc.UpdateAmmo(CurrentAmmo);
+        gc.uc.UpdateReloadSlider(1f);
         cooldown = false;
         Reloading = false;
         InfiniteAmmo = false;
