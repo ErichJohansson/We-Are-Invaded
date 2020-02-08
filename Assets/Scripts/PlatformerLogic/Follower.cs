@@ -17,6 +17,7 @@ public class Follower : MonoBehaviour
     private bool isFollowing;
     private Vector3 startPos = new Vector3(-200, 0, 0);
     private GameController gc;
+    private bool wokeUp;
 
     private void Awake()
     {
@@ -26,17 +27,22 @@ public class Follower : MonoBehaviour
     public void StartFollowing()
     {
         speedThreshold = gc.PlayerUnit.maxSpeed / 3f;
+        isFollowing = false;
+        wokeUp = false;
+        StartCoroutine("Delay");
     }
 
     public void Restart()
     {
         gameObject.transform.position = startPos;
         isFollowing = false;
+        wokeUp = false;
+        StartCoroutine("Delay");
     }
 
     private void Update()
     {
-        if (gc.PlayerUnit == null || gc.Pause)
+        if (gc.PlayerUnit == null || gc.Pause || !wokeUp)
             return;
 
         if (isFollowing)
@@ -76,5 +82,11 @@ public class Follower : MonoBehaviour
             dangerSign.SetActive(!dangerSign.activeSelf);
             yield return new WaitForSeconds(blinkTime * (distanceToPlayer / initialDeltaX));
         }
+    }
+
+    private IEnumerator Delay()
+    {
+        yield return new WaitForSeconds(10f);
+        wokeUp = true;
     }
 }

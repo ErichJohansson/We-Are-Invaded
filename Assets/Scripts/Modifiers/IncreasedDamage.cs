@@ -14,6 +14,8 @@ public class IncreasedDamage : Modifier
 
     public override void Activate()
     {
+        if (gc.PlayerUnit.SpeedBoost != null)
+            return;
         Activated = true;
         // do visuals
         DisableAppereance();

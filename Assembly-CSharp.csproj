@@ -93,9 +93,9 @@
     <Compile Include="Assets\Scripts\Misc\TankData.cs" />
     <Compile Include="Assets\Scripts\Misc\Vehicle.cs" />
     <Compile Include="Assets\Scripts\Modifiers\IncreasedDamage.cs" />
-    <Compile Include="Assets\Scripts\Modifiers\IncreasedScore.cs" />
     <Compile Include="Assets\Scripts\Modifiers\InfiniteAmmo.cs" />
     <Compile Include="Assets\Scripts\Modifiers\Modifier.cs" />
+    <Compile Include="Assets\Scripts\Modifiers\RepairKit.cs" />
     <Compile Include="Assets\Scripts\Modifiers\SpeedBoost.cs" />
     <Compile Include="Assets\Scripts\PlatformerLogic\Enemy.cs" />
     <Compile Include="Assets\Scripts\PlatformerLogic\EnemyMovement.cs" />

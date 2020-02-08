@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 2367508689221949954}
   - component: {fileID: 4444729526324884839}
   - component: {fileID: 238489952816310968}
-  m_Layer: 11
+  m_Layer: 17
   m_Name: Trigger_regenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -17,7 +17,6 @@ public class PlayerUnit : MonoBehaviour
     public float totalSpeedBoostLength;
     public float currentSpeedBoostLength;
     public bool speedingUp;
-    public float scoreModifier;
 
     public Collider2D frontCollider;
     public Collider2D sideCollider;
@@ -37,9 +36,6 @@ public class PlayerUnit : MonoBehaviour
     private IncreasedDamage increasedDamage;
     public IncreasedDamage IncreasedDamage { get { return increasedDamage; } set { increasedDamage = value; } }
 
-    private IncreasedScore increasedScore;
-    public IncreasedScore IncreasedScore { get { return increasedScore; } set { increasedScore = value; } }
-
     private SpeedBoost speedBoost;
     public SpeedBoost SpeedBoost { get { return speedBoost; } set { speedBoost = value; } }
 
@@ -56,7 +52,6 @@ public class PlayerUnit : MonoBehaviour
     {
         speedBoost = null;
         infiniteAmmo = null;
-        increasedScore = null;
         increasedDamage = null;
 
         sr = GetComponent<SpriteRenderer>();
@@ -67,7 +62,6 @@ public class PlayerUnit : MonoBehaviour
     void Start()
     {
         CurrentHP = maxHP;
-        scoreModifier = 1;
         gc.uc.UpdateHitPoints(this, false);
         currentSpeedBoostLength = 0;
         ActivateParallax();
@@ -80,8 +74,6 @@ public class PlayerUnit : MonoBehaviour
             infiniteAmmo.Deactivate();
         if (increasedDamage != null)
             increasedDamage.Deactivate();
-        if (increasedScore != null)
-            increasedScore.Deactivate();
         if (speedBoost != null)
             speedBoost.Deactivate(true);
 
@@ -188,7 +180,7 @@ public class PlayerUnit : MonoBehaviour
 
         if(Time.timeScale != 0)
         {
-            gc.AddDistance(Time.deltaTime * gc.PlayerUnit.currentSpeed * scoreModifier);
+            gc.AddDistance(Time.deltaTime * gc.PlayerUnit.currentSpeed);
             gc.uc.UpdateTraveledDistance();
         }
     }
@@ -260,5 +252,11 @@ public class PlayerUnit : MonoBehaviour
             StopCoroutine("Invincible");
         frontCollider.enabled = true;
         sideCollider.enabled = true;
+    }
+
+    public void Repair(int hp)
+    {
+        CurrentHP = CurrentHP + hp >= maxHP ? maxHP : CurrentHP + hp;
+        gc.uc.UpdateHitPoints(this, false);
     }
 }
