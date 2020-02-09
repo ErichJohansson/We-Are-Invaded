@@ -52,7 +52,7 @@ public class PlayerShooting : MonoBehaviour
 
     private void PlayerFire()
     {
-        if (Reloading || cooldown || !gameObject.activeSelf)
+        if (Reloading || cooldown || !gameObject.activeSelf || gc.PlayerUnit.IsFastTraveling)
             return;
 
         if(!InfiniteAmmo)

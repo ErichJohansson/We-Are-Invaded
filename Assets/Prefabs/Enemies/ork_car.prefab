@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 25
-  hardness: 10
+  hardness: 15
   movementController: {fileID: 0}
   enemyShooting: {fileID: 0}
   hitAnimator: {fileID: 3851277974615193014}
@@ -103,6 +103,7 @@ MonoBehaviour:
   hierarchyObject: 0
   forceY: 0
   forcedY: 0
+  isModifier: 0
   createPopUp: 1
   createEnemyRemains: 1
   spawnerName: 'Spawner: Blood splatters'

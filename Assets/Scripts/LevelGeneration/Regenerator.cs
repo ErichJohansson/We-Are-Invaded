@@ -18,14 +18,14 @@ public class Regenerator : MonoBehaviour
         PlayerUnit player = collider.gameObject.GetComponentInParent<PlayerUnit>();
         if (player == null)
             return;
+        regenerating = true;
         StartCoroutine("RegenerationCooldown");
         parent.Regenerate();
     }
 
     private IEnumerator RegenerationCooldown()
     {
-        regenerating = true;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(1f);
         regenerating = false;
     }
 }

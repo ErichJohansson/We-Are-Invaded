@@ -12,8 +12,6 @@ public class PlatformerController : MonoBehaviour
     public int levelPartsAtOneTime;
     public Transform world;
 
-    private bool worldPopulated;
-
     public void GenerateWorld()
     {
         if(gc == null)
@@ -26,13 +24,6 @@ public class PlatformerController : MonoBehaviour
 
         GenerateLevel();
         RespawnPlayer(spawnedLevelParts[0].GetComponent<LevelPart>().spawnPoint.position);
-    }
-
-    void Update()
-    {
-        if (!worldPopulated)
-            return;
-        gc.PlayerUnit.MoveForward();
     }
 
     public void SpawnPlayer(GameObject playerObject)
@@ -59,10 +50,10 @@ public class PlatformerController : MonoBehaviour
         {
             GameObject go = allowedLevelParts[Random.Range(0, allowedLevelParts.Count)];
             LevelPart lp = go.GetComponent<LevelPart>();
+            lp.ID = i;
             spawnedLevelParts.Add(Instantiate(go, new Vector3(prevPos.x + lp.Length, prevPos.y, prevPos.z), Quaternion.identity, world));
             prevPos = spawnedLevelParts[spawnedLevelParts.Count - 1].transform.position;
         }
-        worldPopulated = true;
     }
 
     public void RestartGame()
@@ -79,5 +70,12 @@ public class PlatformerController : MonoBehaviour
             prevPos = spawnedLevelParts[i].transform.position;
         }
         RespawnPlayer(spawnedLevelParts[0].GetComponent<LevelPart>().spawnPoint.position);
+    }
+
+    public GameObject GetSpawnedPart(int id)
+    {
+        if (id < 0 || id >= spawnedLevelParts.Count)
+            return null;
+        return spawnedLevelParts[id];
     }
 }

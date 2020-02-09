@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74dd02d56b73b0748b437d0c51ac7aae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifetime: 8
+  lifetime: 1.5
   visualEffect: {fileID: 0}
   icon: {fileID: -6469987652469440005, guid: 13ab5526dc3a46d4eb56cd65a26fbb69, type: 3}
 --- !u!61 &2055338890662457145

@@ -40,10 +40,10 @@ public class Modifier : MonoBehaviour
         while (TimeRemains > 0)
         {
             TimeRemains -= Time.deltaTime;
-            Debug.Log(TimeRemains);
+            //Debug.Log(TimeRemains);
             yield return new WaitForEndOfFrame();
         }
-        Debug.Log("over");
+        //Debug.Log("over");
         Deactivate();
     }
 

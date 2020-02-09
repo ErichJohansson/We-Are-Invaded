@@ -313,7 +313,7 @@ MonoBehaviour:
   personalSpace: {fileID: 588105626166525353}
   reachingSpace: {fileID: 0}
   hardness: 0
-  slowAmount: 1.2
+  slowAmount: 2.4
   effectName: 
   useAnimationToDie: 1
   addScoreOnDeath: 1
@@ -321,6 +321,7 @@ MonoBehaviour:
   hierarchyObject: 0
   forceY: 0
   forcedY: 0
+  isModifier: 0
   createPopUp: 0
   createEnemyRemains: 1
   spawnerName: 'Spawner: Blood splatters'

@@ -17,6 +17,7 @@ public class SpeedBoost : Modifier
     {
         if (gc.PlayerUnit.SpeedBoost != null)
             return;
+        //Application.targetFrameRate = 30;
         gc.follower.gameObject.SetActive(false);
         Activated = true;
         DisableAppereance();
@@ -24,10 +25,11 @@ public class SpeedBoost : Modifier
 
         gc.PlayerUnit.MakeInvincible(false); // make invincible and NOT blinking i.e. invincible for the whole speed boost time
 
-        oldSpeedUpRate = gc.PlayerUnit.speedUpRate;
-        oldSpeed = gc.PlayerUnit.maxSpeed;
-        gc.PlayerUnit.maxSpeed = 80f;
-        gc.PlayerUnit.speedUpRate = 30f;
+        gc.PlayerUnit.FastTravel(lifetime);
+        //oldSpeedUpRate = gc.PlayerUnit.speedUpRate;
+        //oldSpeed = gc.PlayerUnit.maxSpeed;
+        //gc.PlayerUnit.maxSpeed = 80f;
+        //gc.PlayerUnit.speedUpRate = 30f;
 
         gc.uc.AddModifierIcon(icon);
         StartCoroutine("Lifetime");
@@ -36,9 +38,9 @@ public class SpeedBoost : Modifier
     public override void Deactivate()
     {
         gc.follower.gameObject.SetActive(true);
-
-        gc.PlayerUnit.maxSpeed = oldSpeed;
-        gc.PlayerUnit.speedUpRate = oldSpeedUpRate;
+        //Application.targetFrameRate = -1;
+        //gc.PlayerUnit.maxSpeed = oldSpeed;
+        //gc.PlayerUnit.speedUpRate = oldSpeedUpRate;
 
         gc.PlayerUnit.MakeInvincible(true); // make invincible and blinking i.e. invincible for the short blinking time
 
@@ -49,8 +51,9 @@ public class SpeedBoost : Modifier
 
     public void Deactivate(bool forceDeactivate)
     {
-        gc.PlayerUnit.maxSpeed = oldSpeed;
-        gc.PlayerUnit.speedUpRate = oldSpeedUpRate;
+        //Application.targetFrameRate = -1;
+        //gc.PlayerUnit.maxSpeed = oldSpeed;
+        //gc.PlayerUnit.speedUpRate = oldSpeedUpRate;
         gc.PlayerUnit.MakeVulnerable(true);
         gc.PlayerUnit.SpeedBoost = null;
         gc.uc.RemoveModifierIcon(icon);

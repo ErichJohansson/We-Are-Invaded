@@ -47,12 +47,21 @@ public class PlayerUnit : MonoBehaviour
         } 
     }
     public int CurrentHP { get; private set; }
+    public bool IsFastTraveling { get; private set; }
+
+    private Vector3 start;
+    private Vector3 finish;
+    private float t;
+    private float fastTravelingTime;
 
     private void Awake()
     {
         speedBoost = null;
         infiniteAmmo = null;
         increasedDamage = null;
+
+        fastTravelingTime = 0f;
+        t = 0f;
 
         sr = GetComponent<SpriteRenderer>();
         gc = FindObjectOfType<GameController>();
@@ -65,6 +74,25 @@ public class PlayerUnit : MonoBehaviour
         gc.uc.UpdateHitPoints(this, false);
         currentSpeedBoostLength = 0;
         ActivateParallax();
+    }
+
+    void Update()
+    {
+        if (gc.Pause)
+            return;
+        if (IsFastTraveling)
+        {
+            t += Time.deltaTime / fastTravelingTime;
+            gameObject.transform.position = Vector3.Lerp(start, finish, t);
+            if (Mathf.Abs(gameObject.transform.position.x - finish.x) < 1)
+            {
+                gc.AddDistance(finish.x - start.x);
+                IsFastTraveling = false;
+                SpeedBoost.Deactivate();
+            }
+            return;
+        }
+        MoveForward();
     }
 
     #region Utility
@@ -81,7 +109,10 @@ public class PlayerUnit : MonoBehaviour
         currentSpeedBoostLength = 0;
         shooting.Restart();
         foreach (TrailRenderer trail in trails)
+        {
             trail.Clear();
+            trail.emitting = false;
+        }
         StopAllCoroutines();
         ActivateParallax();
         gc.uc.RestartDamageEffect();
@@ -95,7 +126,10 @@ public class PlayerUnit : MonoBehaviour
         gc.uc.RestartDamageEffect();
         gc.uc.gameOverScreen.ShowGameOverScreen();
         foreach (TrailRenderer trail in trails)
+        {
             trail.Clear();
+            trail.emitting = false;
+        }
     }
     #endregion
 
@@ -128,6 +162,7 @@ public class PlayerUnit : MonoBehaviour
 
     private IEnumerator Invincible()
     {
+        IsFastTraveling = false;
         float t = 0;
         float waitTime = 0.25f;
         while(t < 4f)
@@ -153,7 +188,7 @@ public class PlayerUnit : MonoBehaviour
         gameObject.transform.position = new Vector3(gameObject.transform.position.x, newPos.y, 9 + newPos.y / 10.00f);
     }
 
-    public void MoveForward()
+    private void MoveForward()
     {
         if (speedingUp)
         {
@@ -194,6 +229,19 @@ public class PlayerUnit : MonoBehaviour
         currentSpeedBoostLength -= 2 * Time.deltaTime;
 
         gc.uc.UpdateSpeedUpSlider();
+    }
+
+    private IEnumerator FastTraveling(float distanceX, float fastTravelingTime)
+    {
+        float t = 0;
+        float deltaTime = 0.01f;
+
+        while(t < fastTravelingTime)
+        {
+            t += Time.deltaTime / fastTravelingTime;
+            gameObject.transform.position = Vector3.Lerp(start, finish, t);
+            yield return new WaitForEndOfFrame();
+        }
     }
     #endregion
 
@@ -242,8 +290,11 @@ public class PlayerUnit : MonoBehaviour
     {
         frontCollider.enabled = false;
         sideCollider.enabled = false;
-        if(startBlinking)
+        if (startBlinking)
+        {
+            currentSpeed = maxSpeed;
             StartCoroutine("Invincible");
+        }
     }
 
     public void MakeVulnerable(bool stopBlinking)
@@ -258,5 +309,17 @@ public class PlayerUnit : MonoBehaviour
     {
         CurrentHP = CurrentHP + hp >= maxHP ? maxHP : CurrentHP + hp;
         gc.uc.UpdateHitPoints(this, false);
+    }
+
+    public void FastTravel(float time)
+    {
+        fastTravelingTime = time;
+        t = 0f;
+
+        IsFastTraveling = true;
+        start = gameObject.transform.position;
+        finish = new Vector3(start.x + 150, start.y, start.z);
+
+        //StartCoroutine(FastTraveling(200, t));
     }
 }

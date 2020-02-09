@@ -21,12 +21,6 @@ public class InputController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButton(0))
-            HandleMousePlatformer();
-
-        if (Input.GetMouseButtonUp(0))
-            StopCoroutine("ChangingPosition");
-
         if (gc.Pause && Input.GetKeyDown(KeyCode.Escape))
         {
             gc.uc.pauseScreen.BackToMainMenu();
@@ -35,6 +29,15 @@ public class InputController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
             gc.uc.pauseScreen.ActivatePause();
+
+        if (gc.PlayerUnit.IsFastTraveling)
+            return;
+
+        if (Input.GetMouseButton(0))
+            HandleMousePlatformer();
+
+        if (Input.GetMouseButtonUp(0))
+            StopCoroutine("ChangingPosition");
     }
 
     void HandleMousePlatformer()
@@ -43,29 +46,6 @@ public class InputController : MonoBehaviour
             return;
 
         Vector3 mousePos = Input.touchSupported ? Input.touchCount > 1 ? GetRightTouch() : Input.mousePosition : Input.mousePosition;
-
-        //Vector3 mousePos = Vector3.one;
-        //if (Input.touchSupported)
-        //{
-        //    if (Input.touchCount > 1)
-        //        mousePos = GetLeftTouch();
-        //    else if (EventSystem.current.IsPointerOverGameObject())
-        //    {
-        //        Debug.Log("Touch = TRUE, is over UI");
-        //        return;
-        //    }
-        //    mousePos = Input.mousePosition;
-        //}
-        //else
-        //{
-        //    if (!EventSystem.current.IsPointerOverGameObject())
-        //        mousePos = Input.mousePosition;
-        //    else
-        //    {
-        //        Debug.Log("Touch = FALSE, is over UI");
-        //        return;
-        //    }
-        //}
 
         if (mousePos.x > halfWidth)
         {

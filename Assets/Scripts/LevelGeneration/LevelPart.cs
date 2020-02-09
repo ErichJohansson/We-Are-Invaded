@@ -6,7 +6,6 @@ using UnityEngine;
 public class LevelPart : MonoBehaviour
 {
     [Header("Spawned objects settings")]
-
     public Transform spawnPoint;
     public List<GameObject> allowedStrips;
 
@@ -14,6 +13,8 @@ public class LevelPart : MonoBehaviour
     public int triesPerStrip;
 
     public BoxCollider2D chunkArea;
+
+    public int ID;
 
     [Header("Background sprites")]
     public List<Sprite> allowedBackgrounds;
@@ -79,7 +80,14 @@ public class LevelPart : MonoBehaviour
 
         spawnedStrips.ForEach(x => Destroy(x));
         spawnedStrips.Clear();
+        Debug.Log(gameObject.transform.position.x + " old pos " + gameObject.GetInstanceID());
         gameObject.transform.position += new Vector3(restart ? 0 : levelOffest, 0, 0);
+        Debug.Log(gameObject.transform.position.x + " new pos " + gameObject.GetInstanceID());
+
+        LevelPart lp = FindObjectOfType<PlatformerController>().GetSpawnedPart(ID == 0 ? 2 : ID - 1).GetComponent<LevelPart>();
+        if (lp.transform.position.x - gameObject.transform.position.x < -384)
+            lp.Regenerate();
+
         SpawnStrips();
     }
 }

@@ -6474,7 +6474,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialDeltaX: 26
   distanceToStopFollowing: 40
-  speedModifier: 0.7
+  speedModifier: 1
   dangerSign: {fileID: 342239805}
   blinkTime: 1
 --- !u!1 &1100144309
