@@ -7,6 +7,6 @@ public class VehicleDisplay : MonoBehaviour
 
     private void Start()
     {
-        GetComponent<Image>().sprite = vehicle.previewImage;
+        GetComponent<Image>().sprite = vehicle.colorSchemes[vehicle.selectedColorScheme];
     }
 }

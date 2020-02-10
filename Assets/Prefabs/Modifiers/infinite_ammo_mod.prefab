@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6794819712278861538}
   m_Layer: 0
   m_Name: infinite_ammo_mod
-  m_TagString: Untagged
+  m_TagString: mod_inf_ammo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,8 +111,7 @@ MonoBehaviour:
   isModifier: 0
   createPopUp: 0
   createEnemyRemains: 0
-  spawnerName: 
-  remainsSpawner: {fileID: 0}
+  allowedRemainsTags: []
   bloodSplatterPos: {fileID: 0}
   bloodTrailLength: 0
   animator: {fileID: 0}
@@ -157,7 +156,6 @@ MonoBehaviour:
   lifetime: 15
   visualEffect: {fileID: 0}
   icon: {fileID: 1674083654147458483, guid: 13ab5526dc3a46d4eb56cd65a26fbb69, type: 3}
-  timeRemains: 0
 --- !u!1 &6794819713416240708
 GameObject:
   m_ObjectHideFlags: 0

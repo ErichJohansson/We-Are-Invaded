@@ -275,7 +275,7 @@ GameObject:
   - component: {fileID: 5197549572127611423}
   m_Layer: 0
   m_Name: ork_1
-  m_TagString: Untagged
+  m_TagString: ork_default
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -324,8 +324,10 @@ MonoBehaviour:
   isModifier: 0
   createPopUp: 0
   createEnemyRemains: 1
-  spawnerName: 'Spawner: Blood splatters'
-  remainsSpawner: {fileID: 0}
+  allowedRemainsTags:
+  - blood_splatter_0
+  - blood_splatter_1
+  - blood_splatter_2
   bloodSplatterPos: {fileID: 8539700382994160342}
   bloodTrailLength: 4
   animator: {fileID: 5197549571572657558}

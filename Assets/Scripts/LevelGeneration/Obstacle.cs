@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 public class Obstacle : MonoBehaviour
 {
@@ -28,8 +27,7 @@ public class Obstacle : MonoBehaviour
     [Header("Visual Effects")]
     public bool createPopUp;
     public bool createEnemyRemains;
-    public string spawnerName;
-    public RemainsSpawner remainsSpawner;
+    public string[] allowedRemainsTags;
     public Transform bloodSplatterPos;
     public float bloodTrailLength;
     public Animator animator;
@@ -37,29 +35,29 @@ public class Obstacle : MonoBehaviour
     private Quaternion effectRotation = new Quaternion(180, 0, 0, 1);
     private GameObject effect;
     private GameController gc;
+    private ObjectPooler pooler;
 
     private void Awake()
     {
+        gc = FindObjectOfType<GameController>();
+        currentHardness = hardness;
         if (createEnemyRemains)
         {
-            RemainsSpawner[] spawners = FindObjectsOfType<RemainsSpawner>();
-            for (int i = 0; i < spawners.Length; i++)
-            {
-                if (spawners[i].gameObject.name == spawnerName)
-                {
-                    remainsSpawner = spawners[i];
-                    break;
-                }
-            }
+            pooler = FindObjectOfType<ObjectPooler>();
         }
     }
 
-    void Start()
+    private void OnEnable()
     {
-        gc = FindObjectOfType<GameController>();
-        currentHardness = hardness;
         Vector2 pos = gameObject.transform.position;
         gameObject.transform.position = new Vector3(pos.x, pos.y, 9 + (pos.y / 10.00f));
+        SetAdditionalCollidersActive(false);
+    }
+
+
+    private void OnDisable()
+    {
+        SetAdditionalCollidersActive(true);
     }
 
     /// <summary>
@@ -90,7 +88,6 @@ public class Obstacle : MonoBehaviour
         {
             if (col.GetComponent<Enemy>() == null)
                 return;
-            //Debug.Log("got PE");
             if (pe.movementController != null)
             {
                 pe.movementController.currentSpeed *= pe.hardness < hardness ? slowAmount * slowAmount : slowAmount;
@@ -113,8 +110,13 @@ public class Obstacle : MonoBehaviour
 
         if(addScoreOnDeath)
             gc.uc.AddScore(scoreAmount);
-        if (createEnemyRemains && remainsSpawner != null)
-            remainsSpawner.CreateRemains(new Vector3(bloodSplatterPos.position.x, bloodSplatterPos.position.y, 9 + bloodSplatterPos.position.y / 10f), 15f);
+        if (createEnemyRemains && allowedRemainsTags.Length != 0)
+        {
+            GameObject obj = pooler.GetPooledObject(allowedRemainsTags[Random.Range(0, allowedRemainsTags.Length)]);
+            obj.transform.position = new Vector3(bloodSplatterPos.position.x, bloodSplatterPos.position.y, 9 + bloodSplatterPos.position.y / 10f);
+            obj.SetActive(true);
+            StartCoroutine(DeactivateAfterDelay(15f, obj));
+        }
 
         // use animation of dying instead of particle effect
         if (useAnimationToDie)
@@ -125,7 +127,6 @@ public class Obstacle : MonoBehaviour
             {
                 StartCoroutine("AnimationDelay");            
             }
-            StopCoroutines();
             return;
         }
 
@@ -138,7 +139,7 @@ public class Obstacle : MonoBehaviour
                 ExplosionEffect.CreateEffect(gameObject.transform.position, effectName, gameObject.transform.parent.parent.parent);
         }
 
-        DestroyManually();
+        gameObject.SetActive(false);
     }
 
     private IEnumerator AnimationDelay()
@@ -146,28 +147,20 @@ public class Obstacle : MonoBehaviour
         yield return new WaitForSeconds(Random.Range(0, 0.1f));
         animator.SetTrigger("die");
         animator.speed = Random.Range(1f, 1.5f);
-        Destroy(gameObject, animator.GetCurrentAnimatorStateInfo(0).length * 7);
+        DeactivateAfterDelay(animator.GetCurrentAnimatorStateInfo(0).length * 7, gameObject);
     }
 
-    private void StopCoroutines()
-    {
-        //Enemy pe = GetComponentInParent<Enemy>();
-        //if (pe != null && pe.psController != null)
-        //    pe.psController.StopAllCoroutines();
-    }
-
-    public void DestroyManually()
-    {
-        StopCoroutines();
-        Destroy(effect);
-        Destroy(gameObject);
-    }
-
-    public void DisableAdditionalColliders()
+    public void SetAdditionalCollidersActive(bool state)
     {
         if (personalSpace != null)
-            personalSpace.enabled = false;
+            personalSpace.enabled = state;
         if (reachingSpace != null)
-            reachingSpace.enabled = false;
+            reachingSpace.enabled = state;
+    }
+
+    private IEnumerator DeactivateAfterDelay(float delay, GameObject obj)
+    {
+        yield return new WaitForSeconds(delay);
+        obj.SetActive(false);
     }
 }

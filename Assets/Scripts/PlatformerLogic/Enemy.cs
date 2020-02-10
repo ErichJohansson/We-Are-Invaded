@@ -10,25 +10,22 @@ public class Enemy : MonoBehaviour
     public int hardness;
 
     public EnemyMovement movementController;
-    //public PlatformerShooting psController;
     public EnemyShooting enemyShooting;
 
     public Animator hitAnimator;
 
     public bool isBoss;
 
-    //private GameController gc;
     private Obstacle obstacle;
 
     private void Awake()
     {
         enemyShooting = GetComponent<EnemyShooting>();
+        obstacle = GetComponent<Obstacle>();
     }
 
-    void Start()
+    private void OnEnable()
     {
-        obstacle = GetComponent<Obstacle>();
-        //gc = FindObjectOfType<GameController>();
         currentHP = maxHP;
     }
 
@@ -41,9 +38,6 @@ public class Enemy : MonoBehaviour
         currentHP -= damage;
         if (currentHP <= 0)
         {
-            if (isBoss)
-                SetActiveEnemies(true);
-            //gc.uc.AddScore(0);
             if (obstacle != null)
                 obstacle.Die(gameObject.transform.position.y);
             else
@@ -64,10 +58,7 @@ public class Enemy : MonoBehaviour
 
     public void Restart()
     {
-        //if (psController != null)
-        //{
-        //    psController.Restart();
-        //}
+
     }
 
     public static void SetActiveEnemies(bool state)

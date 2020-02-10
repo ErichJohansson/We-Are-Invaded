@@ -23,7 +23,7 @@ public class EnemyShooting : MonoBehaviour
     public GameObject groundHitAnimator;
     public Animator unitAnimator;
 
-    private void Start()
+    private void OnEnable()
     {
         reloading = false;
         affectedArea.enabled = false;

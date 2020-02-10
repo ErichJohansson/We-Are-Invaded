@@ -5,7 +5,6 @@ using UnityEngine;
 public class StageStrip : MonoBehaviour
 {
     public List<GameObject> allowedObjects;
-    public List<GameObject> allowedDecorations;
     public List<GameObject> allowedBoosters;
 
     public BoxCollider2D personalSpace;
@@ -14,15 +13,19 @@ public class StageStrip : MonoBehaviour
     [Header("Obstacles and Enemies")]
     public int maxObjects;
     public int triesPerObject;
-    [Header("Decorations")]
-    public int maxDecorObjects;
-    public int triesPerDecorObject;
+
+    public List<GameObject> spawnedObjects;
+    public List<Enemy> spawnedUnits;
 
     private float xOffset;
     private float yOffset;
 
-    public List<GameObject> spawnedObjects;
-    public List<Enemy> spawnedUnits;
+    private ObjectPooler pooler;
+
+    private void Awake()
+    {
+        pooler = FindObjectOfType<ObjectPooler>();
+    }
 
     void Start()
     {
@@ -32,7 +35,6 @@ public class StageStrip : MonoBehaviour
         yOffset = personalSpace.size.y / 2;
 
         SpawnObjects();
-        SpawnDecorations();
     }
 
     public void SpawnObjects()
@@ -57,22 +59,13 @@ public class StageStrip : MonoBehaviour
                 if (LevelUtils.IsOverlapping(position, obs.personalSpace, spawnedObjects) || !personalSpace.bounds.Contains(position))
                     continue;
 
-                spawnedObjects.Add(Instantiate(go, new Vector3(curX, curY, 0f), Quaternion.identity, this.gameObject.transform));
-
-                Enemy pe;
-                if(spawnedObjects[spawnedObjects.Count - 1].TryGetComponent(out pe))
-                    spawnedUnits.Add(pe);
+                UseObject(go.tag, curX, curY);
 
                 break;
             }
         }
 
         SpawnBoosters();
-
-        for (int i = 0; i < spawnedObjects.Count; i++)
-        {
-            spawnedObjects[i].GetComponent<Obstacle>().DisableAdditionalColliders();
-        }
     }
 
     private void SpawnBoosters()
@@ -94,42 +87,28 @@ public class StageStrip : MonoBehaviour
             if (LevelUtils.IsOverlapping(position, obs.personalSpace, spawnedObjects) || !personalSpace.bounds.Contains(position))
                 continue;
 
-            spawnedObjects.Add(Instantiate(go, new Vector3(curX, curY, 0f), Quaternion.identity, this.gameObject.transform));
+            UseObject(go.tag, curX, curY);
 
             break;
         }
     }
 
-    public void SpawnDecorations()
+    private void UseObject(string tag, float x, float y)
     {
-        Vector2 pos = gameObject.transform.position;
-        GameObject go;
-        GroundDecor decor = null;
-
-        for (int i = 0; i < maxDecorObjects; i++)
+        GameObject obj = pooler.GetPooledObject(tag);
+        if (obj == null)
         {
-            for (int j = 0; j < triesPerDecorObject; j++)
-            {
-                float curX = Random.Range(pos.x - xOffset, pos.x + xOffset);
-                float curY = Random.Range(pos.y - yOffset, pos.y + yOffset);
-
-                go = allowedDecorations[Random.Range(0, allowedDecorations.Count)];
-                decor = go.GetComponentInChildren<GroundDecor>();
-
-                Vector2 position = new Vector2(curX, curY);
-
-                if (LevelUtils.IsOverlapping(position, decor.personalSpace, spawnedObjects) || !personalSpace.bounds.Contains(position))
-                    continue;
-
-                spawnedObjects.Add(Instantiate(go, position, Quaternion.identity, this.gameObject.transform));
-
-                Enemy pe;
-                if (spawnedObjects[spawnedObjects.Count - 1].TryGetComponent(out pe))
-                    spawnedUnits.Add(pe);
-
-                break;
-            }
+            Debug.Log(tag + " is null");
+            return;
         }
+        obj.transform.parent = transform;
+        obj.transform.position = new Vector3(x, y, 0f);
+        obj.SetActive(true);
+        spawnedObjects.Add(obj);
+
+        Enemy pe;
+        if (obj.TryGetComponent(out pe))
+            spawnedUnits.Add(pe);
     }
 
     public void ActivateUnits()
@@ -139,5 +118,18 @@ public class StageStrip : MonoBehaviour
             if(pe.movementController != null)
                 pe.movementController.StartMoving();
         }
+    }
+
+    public void ClearChildrenObjects()
+    {
+        foreach (GameObject obj in spawnedObjects)
+        {
+            if (obj == null)
+                continue;
+            obj.transform.parent = transform.parent.parent;
+            obj.SetActive(false);
+        }
+
+        spawnedObjects.Clear();
     }
 }

@@ -1,5 +1,31 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!61 &4768611635635777844
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927655715721381816}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.14888763, y: -0.4729495}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 3.2946777, y: 1.1050997}
+  m_EdgeRadius: 0
 --- !u!1 &1675130430024704282
 GameObject:
   m_ObjectHideFlags: 0
@@ -12,7 +38,7 @@ GameObject:
   - component: {fileID: 7545471134790675928}
   m_Layer: 0
   m_Name: ork_car_l
-  m_TagString: Untagged
+  m_TagString: ork_car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53,13 +79,14 @@ MonoBehaviour:
   effectName: 
   useAnimationToDie: 0
   addScoreOnDeath: 0
+  scoreAmount: 0
   hierarchyObject: 1
   forceY: 0
   forcedY: 0
+  isModifier: 0
   createPopUp: 0
   createEnemyRemains: 0
-  spawnerName: 
-  remainsSpawner: {fileID: 0}
+  allowedRemainsTags: []
   bloodSplatterPos: {fileID: 0}
   bloodTrailLength: 0
   animator: {fileID: 0}
@@ -119,32 +146,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 28.111095, y: 6.715663}
-  m_EdgeRadius: 0
---- !u!61 &4768611635635777844
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 927655715721381816}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.14888763, y: -0.4729495}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 3.2946777, y: 1.1050997}
   m_EdgeRadius: 0
 --- !u!61 &3151282153417130088
 BoxCollider2D:

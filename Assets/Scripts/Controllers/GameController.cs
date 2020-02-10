@@ -94,9 +94,6 @@ public class GameController : MonoBehaviour
         if(follower != null)
             follower.Restart();
 
-        foreach (RemainsSpawner rs in FindObjectsOfType<RemainsSpawner>())
-            rs.Restart();
-
         DistanceTraveled = 0;
         uc.UpdateTraveledDistance();
         ScoredPoints = 0;
@@ -171,7 +168,11 @@ public class GameController : MonoBehaviour
                 if(vehicleSelection.vehicles[j].id == gd.tankData[i].id)
                 {
                     vehicleSelection.vehicles[j].purchased = gd.tankData[i].purchased;
-                    // set other vehicle properties here if needed
+                    vehicleSelection.vehicles[j].damage = (gd.tankData[i].damageLevel == 0 ? vehicleSelection.vehicles[j].defaultStats.damageLevel : gd.tankData[i].damageLevel) * 5;
+                    vehicleSelection.vehicles[j].health = (gd.tankData[i].healthLevel == 0 ? vehicleSelection.vehicles[j].defaultStats.healthLevel : gd.tankData[i].healthLevel) * 10;
+                    vehicleSelection.vehicles[j].reloadTime = 100f / ((gd.tankData[i].reloadLevel == 0 ? vehicleSelection.vehicles[j].defaultStats.reloadLevel : gd.tankData[i].reloadLevel) * 10);
+                    vehicleSelection.vehicles[j].turning = (gd.tankData[i].turningLevel == 0 ? vehicleSelection.vehicles[j].defaultStats.turningLevel : gd.tankData[i].turningLevel) * 0.1f;
+                    vehicleSelection.vehicles[j].speed = (gd.tankData[i].speedLevel == 0 ? vehicleSelection.vehicles[j].defaultStats.speedLevel : gd.tankData[i].speedLevel) * 1.92f;
                     break;
                 }
             }

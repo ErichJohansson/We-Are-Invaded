@@ -6,15 +6,15 @@ using UnityEngine;
 public class Vehicle : ScriptableObject
 {
     public GameObject playerObject;
-    public Sprite previewImage;
+    public Sprite[] colorSchemes;
+    public RuntimeAnimatorController[] animatorControllers;
 
     public int id;
+    public int selectedColorScheme;
 
     public int health;
-    public int armor;
     public float fireRate;
     public float reloadTime;
-    public float shotPower;
     public int damage;
     public int magazineCapacity;
 
@@ -23,4 +23,6 @@ public class Vehicle : ScriptableObject
 
     public int price;
     public bool purchased;
+
+    public TankData defaultStats;
 }

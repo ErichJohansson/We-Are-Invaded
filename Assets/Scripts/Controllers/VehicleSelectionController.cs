@@ -29,6 +29,7 @@ public class VehicleSelectionController : MonoBehaviour
     private GameObject playerObject;
     private GameController gc;
     private Vehicle selectedVehicle;
+    private int vehicleUpgradeCost;
 
     void Start()
     {
@@ -38,10 +39,10 @@ public class VehicleSelectionController : MonoBehaviour
     public void ShowVehicle(Vehicle vehicle)
     {
         selectedVehicle = vehicle;
-        vehicleImage.sprite = vehicle.purchased ? vehicle.previewImage : lockedVahicle;
+        vehicleImage.sprite = vehicle.purchased ? vehicle.colorSchemes[vehicle.selectedColorScheme] : lockedVahicle;
         damage.text = vehicle.damage.ToString();
         health.text = vehicle.health.ToString();
-        armor.text = vehicle.armor.ToString();
+        //armor.text = vehicle.armor.ToString();
         maxSpeed.text = vehicle.speed.ToString();
         turning.text = vehicle.turning.ToString();
         reloadTime.text = vehicle.reloadTime.ToString();
@@ -59,7 +60,7 @@ public class VehicleSelectionController : MonoBehaviour
     {
         if (gc.playerObject != null)
             Destroy(gc.playerObject);
-        gc.pc.SpawnPlayer(playerObject);
+        gc.pc.SpawnPlayer(playerObject, selectedVehicle);
     }
 
     public void SelectVehicle(int id)
@@ -69,7 +70,7 @@ public class VehicleSelectionController : MonoBehaviour
             return;
         if (gc.playerObject != null)
             Destroy(gc.playerObject);
-        gc.pc.SpawnPlayer(playerObject);
+        gc.pc.SpawnPlayer(playerObject, selectedVehicle);
     }
 
     public void SelectVehicle(Vehicle vehicle)
@@ -78,7 +79,7 @@ public class VehicleSelectionController : MonoBehaviour
 
         if (gc.playerObject != null)
             Destroy(gc.playerObject);
-        gc.pc.SpawnPlayer(playerObject);
+        gc.pc.SpawnPlayer(playerObject, vehicle);
     }
 
     public void PurchaseVehicle()
@@ -95,5 +96,21 @@ public class VehicleSelectionController : MonoBehaviour
             ShowVehicle(selectedVehicle);
             gc.uc.UpdateCash();
         }
+    }
+
+    public void UpgradeSelectedVehilce()
+    {
+        if (selectedVehicle == null || gc.cash < vehicleUpgradeCost)
+            return;
+        gc.cash -= vehicleUpgradeCost;
+        /*
+         Upgrade vehicle stats
+         recalculate vehicleUpgradeCost
+         Update UI
+         Respawn player / or update player stats
+
+        TODO: add UI elements for upgrading and picking color scheme
+        */
+        gc.SaveGame();
     }
 }

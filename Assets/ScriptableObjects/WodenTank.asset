@@ -14,17 +14,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerObject: {fileID: 7505592894125759207, guid: 9a5eb28fb2988f542841ad2c1dfca73b,
     type: 3}
-  previewImage: {fileID: 1096136756875279331, guid: 901be247c6e983644b79a3c34d77638b,
-    type: 3}
+  colorSchemes:
+  - {fileID: 1096136756875279331, guid: 901be247c6e983644b79a3c34d77638b, type: 3}
   id: 1
+  selectedColorScheme: 0
   health: 35
-  armor: 8
   fireRate: 0.7
   reloadTime: 0.7
-  shotPower: 2
   damage: 10
   magazineCapacity: 0
   speed: 1.6
   turning: 1.6
-  price: 500
+  price: 8500
   purchased: 0
+  defaultStats:
+    id: 1
+    currentlySelectedPaintScheme: 0
+    purchased: 0
+    damageLevel: 1
+    healthLevel: 1
+    reloadLevel: 1
+    speedLevel: 1
+    turningLevel: 1

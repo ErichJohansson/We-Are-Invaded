@@ -81,6 +81,7 @@
     <Compile Include="Assets\Scripts\Enums\GunType.cs" />
     <Compile Include="Assets\Scripts\LevelGeneration\GroundDecor.cs" />
     <Compile Include="Assets\Scripts\LevelGeneration\LevelPart.cs" />
+    <Compile Include="Assets\Scripts\LevelGeneration\ObjectPooler.cs" />
     <Compile Include="Assets\Scripts\LevelGeneration\Obstacle.cs" />
     <Compile Include="Assets\Scripts\LevelGeneration\PlatformerController.cs" />
     <Compile Include="Assets\Scripts\LevelGeneration\Regenerator.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Assets\Scripts\Misc\GameData.cs" />
     <Compile Include="Assets\Scripts\Misc\IShotRecycler.cs" />
     <Compile Include="Assets\Scripts\Misc\LevelUtils.cs" />
+    <Compile Include="Assets\Scripts\Misc\ObjectToPool.cs" />
     <Compile Include="Assets\Scripts\Misc\SaveManager.cs" />
     <Compile Include="Assets\Scripts\Misc\TankData.cs" />
     <Compile Include="Assets\Scripts\Misc\Vehicle.cs" />
@@ -116,8 +118,6 @@
     <Compile Include="Assets\Scripts\VisualEffects\DamagePopup.cs" />
     <Compile Include="Assets\Scripts\VisualEffects\ExplosionEffect.cs" />
     <Compile Include="Assets\Scripts\VisualEffects\HitEffectSpawner.cs" />
-    <Compile Include="Assets\Scripts\VisualEffects\Outliner.cs" />
-    <Compile Include="Assets\Scripts\VisualEffects\RemainsSpawner.cs" />
     <Compile Include="Assets\SimpleLocalization\Downloader.cs" />
     <Compile Include="Assets\SimpleLocalization\Example.cs" />
     <Compile Include="Assets\SimpleLocalization\LocalizationManager.cs" />

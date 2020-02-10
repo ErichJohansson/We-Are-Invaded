@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 952047241}
   m_Layer: 0
   m_Name: car_wall_stacked_0
-  m_TagString: Untagged
+  m_TagString: car_pile_0
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54,9 +54,18 @@ MonoBehaviour:
   slowAmount: 0
   effectName: 
   useAnimationToDie: 0
+  addScoreOnDeath: 0
+  scoreAmount: 0
   hierarchyObject: 0
   forceY: 0
   forcedY: 0
+  isModifier: 0
+  createPopUp: 0
+  createEnemyRemains: 0
+  allowedRemainsTags: []
+  bloodSplatterPos: {fileID: 0}
+  bloodTrailLength: 0
+  animator: {fileID: 0}
 --- !u!61 &6540878574901837847
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -2,12 +2,13 @@
 public class TankData
 {
     public int id;
-    public bool purchased;
+    public int currentlySelectedPaintScheme;
 
+    public bool purchased;
     // levels!!
-    public int damageIncrease;
-    public int healthIncrease;
-    public int armorIncrease;
-    public int cooldownDecrease;
-    public int reloadDecrease;
+    public int damageLevel;
+    public int healthLevel;
+    public int reloadLevel;
+    public int speedLevel;
+    public int turningLevel;
 }

@@ -21,14 +21,14 @@ public class PlayerUnit : MonoBehaviour
     public Collider2D frontCollider;
     public Collider2D sideCollider;
 
-    private Vector3 movingTo = Vector3.zero;
-    private GameController gc;
-    private SpriteRenderer sr;
-
     [Header("Trail")]
     public TrailRenderer[] trails;
     public float trailLifetime;
     private Coroutine trailRoutine;
+
+    private Vector3 movingTo = Vector3.zero;
+    private GameController gc;
+    private SpriteRenderer sr;
 
     private InfiniteAmmo infiniteAmmo;
     public InfiniteAmmo InfiniteAmmo { get { return infiniteAmmo; } set { infiniteAmmo = value; } }
@@ -130,6 +130,18 @@ public class PlayerUnit : MonoBehaviour
             trail.Clear();
             trail.emitting = false;
         }
+    }
+
+    public void ApplyStats(Vehicle vehicle)
+    {
+        GetComponent<Animator>().runtimeAnimatorController = vehicle.animatorControllers[vehicle.selectedColorScheme];
+        maxSpeed = vehicle.speed;
+        maxHP = vehicle.health;
+        turnRate = vehicle.turning;
+        shooting.reloadTime = vehicle.reloadTime;
+        shooting.baseDamage = vehicle.damage;
+        CurrentHP = maxHP;
+        gc.uc.UpdateHitPoints(this, false);
     }
     #endregion
 

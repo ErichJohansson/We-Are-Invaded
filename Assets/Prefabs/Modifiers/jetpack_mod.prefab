@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 4855016564568035738}
   m_Layer: 0
   m_Name: jetpack_mod
-  m_TagString: Untagged
+  m_TagString: mod_jetpack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -210,8 +210,7 @@ MonoBehaviour:
   isModifier: 0
   createPopUp: 0
   createEnemyRemains: 0
-  spawnerName: 
-  remainsSpawner: {fileID: 0}
+  allowedRemainsTags: []
   bloodSplatterPos: {fileID: 0}
   bloodTrailLength: 0
   animator: {fileID: 0}

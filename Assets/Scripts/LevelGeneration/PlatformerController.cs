@@ -1,16 +1,16 @@
-﻿using System.Collections;
-using System.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 
 public class PlatformerController : MonoBehaviour
 {
-    private GameController gc;
     public List<GameObject> allowedLevelParts;
-    private List<GameObject> spawnedLevelParts;
     public int levelPartsAtOneTime;
     public Transform world;
+
+    private GameController gc;
+
+    private List<GameObject> spawnedLevelParts;
 
     public void GenerateWorld()
     {
@@ -26,7 +26,7 @@ public class PlatformerController : MonoBehaviour
         RespawnPlayer(spawnedLevelParts[0].GetComponent<LevelPart>().spawnPoint.position);
     }
 
-    public void SpawnPlayer(GameObject playerObject)
+    public void SpawnPlayer(GameObject playerObject, Vehicle vehicle)
     {
         if (gc == null)
             gc = FindObjectOfType<GameController>();
@@ -35,6 +35,7 @@ public class PlatformerController : MonoBehaviour
         gc.playerObject = go;
         gc.camera.Follow = gc.playerObject.transform;
         gc.PlayerUnit = gc.playerObject.GetComponent<PlayerUnit>();
+        gc.PlayerUnit.ApplyStats(vehicle);
     }
 
     private void RespawnPlayer(Vector3 respawnAt)

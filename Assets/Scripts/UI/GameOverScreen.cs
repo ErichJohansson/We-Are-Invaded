@@ -7,9 +7,11 @@ public class GameOverScreen : MonoBehaviour
     public Text info;
     public UIObject panel;
     private GameController gc;
+    private ObjectPooler pooler;
 
-    private void Start()
+    private void Awake()
     {
+        pooler = FindObjectOfType<ObjectPooler>();
         gc = FindObjectOfType<GameController>();
     }
 
@@ -36,6 +38,7 @@ public class GameOverScreen : MonoBehaviour
 
     public void RestartGame()
     {
+        pooler.Restart();
         gc.UpdateCash();
         gc.SetPause(!panel.isShown);
         gc.StartGame();

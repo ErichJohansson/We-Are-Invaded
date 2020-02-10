@@ -106,8 +106,10 @@ MonoBehaviour:
   isModifier: 0
   createPopUp: 1
   createEnemyRemains: 1
-  spawnerName: 'Spawner: Blood splatters'
-  remainsSpawner: {fileID: 0}
+  allowedRemainsTags:
+  - blood_splatter_0
+  - blood_splatter_1
+  - blood_splatter_2
   bloodSplatterPos: {fileID: 3851277975349657514}
   bloodTrailLength: 0
   animator: {fileID: 3851277974544937164}

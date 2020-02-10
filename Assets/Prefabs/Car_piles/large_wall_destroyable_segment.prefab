@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4900414929101999620}
   m_Layer: 0
   m_Name: large_wall_destroyable_segment
-  m_TagString: Untagged
+  m_TagString: car_pile_wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53,9 +53,18 @@ MonoBehaviour:
   slowAmount: 0
   effectName: 
   useAnimationToDie: 0
+  addScoreOnDeath: 0
+  scoreAmount: 0
   hierarchyObject: 1
   forceY: 1
   forcedY: -2.29
+  isModifier: 0
+  createPopUp: 0
+  createEnemyRemains: 0
+  allowedRemainsTags: []
+  bloodSplatterPos: {fileID: 0}
+  bloodTrailLength: 0
+  animator: {fileID: 0}
 --- !u!61 &372282404
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -146,11 +155,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4900414929101999621}
     m_Modifications:
-    - target: {fileID: 5298043523677276995, guid: b57452be26bf99f45a1e838e7484ad8a,
-        type: 3}
-      propertyPath: m_Name
-      value: destroyable_1
-      objectReference: {fileID: 0}
     - target: {fileID: 5298043523677276996, guid: b57452be26bf99f45a1e838e7484ad8a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -205,6 +209,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5298043523677276995, guid: b57452be26bf99f45a1e838e7484ad8a,
+        type: 3}
+      propertyPath: m_Name
+      value: destroyable_1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b57452be26bf99f45a1e838e7484ad8a, type: 3}
