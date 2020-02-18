@@ -10,7 +10,7 @@ public class InputController : MonoBehaviour
 
     float halfWidth;
 
-    void Start()
+    void Awake()
     {
         halfWidth = Screen.width / 2;
         cam = Camera.main;
@@ -30,7 +30,7 @@ public class InputController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
             gc.uc.pauseScreen.ActivatePause();
 
-        if (gc.PlayerUnit.IsFastTraveling)
+        if (gc.PlayerUnit == null || gc.PlayerUnit.IsFastTraveling)
             return;
 
         if (Input.GetMouseButton(0))

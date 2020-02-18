@@ -93,6 +93,7 @@
     <Compile Include="Assets\Scripts\Misc\ObjectToPool.cs" />
     <Compile Include="Assets\Scripts\Misc\SaveManager.cs" />
     <Compile Include="Assets\Scripts\Misc\TankData.cs" />
+    <Compile Include="Assets\Scripts\Misc\UpgradeLevel.cs" />
     <Compile Include="Assets\Scripts\Misc\Vehicle.cs" />
     <Compile Include="Assets\Scripts\Modifiers\IncreasedDamage.cs" />
     <Compile Include="Assets\Scripts\Modifiers\InfiniteAmmo.cs" />
@@ -110,11 +111,12 @@
     <Compile Include="Assets\Scripts\Player\PlayerUnit.cs" />
     <Compile Include="Assets\Scripts\UI\GameOverScreen.cs" />
     <Compile Include="Assets\Scripts\UI\PauseScreen.cs" />
+    <Compile Include="Assets\Scripts\UI\ScrollSnap.cs" />
     <Compile Include="Assets\Scripts\UI\StartGameScreen.cs" />
     <Compile Include="Assets\Scripts\UI\Tutorial.cs" />
     <Compile Include="Assets\Scripts\UI\UIObject.cs" />
-    <Compile Include="Assets\Scripts\UI\VehicleDisplay.cs" />
     <Compile Include="Assets\Scripts\UI\VehicleSelectionScreen.cs" />
+    <Compile Include="Assets\Scripts\UI\VehicleShowcase.cs" />
     <Compile Include="Assets\Scripts\VisualEffects\DamagePopup.cs" />
     <Compile Include="Assets\Scripts\VisualEffects\ExplosionEffect.cs" />
     <Compile Include="Assets\Scripts\VisualEffects\HitEffectSpawner.cs" />

@@ -14,7 +14,7 @@ public class PlatformerController : MonoBehaviour
 
     public void GenerateWorld()
     {
-        if(gc == null)
+        if (gc == null)
             gc = FindObjectOfType<GameController>();
 
         if (spawnedLevelParts != null)
@@ -31,15 +31,25 @@ public class PlatformerController : MonoBehaviour
         if (gc == null)
             gc = FindObjectOfType<GameController>();
 
+        if (playerObject == null)
+            return;
+
+        if (gc.playerObject != null)
+            Destroy(gc.playerObject);
+
         GameObject go = Instantiate(playerObject, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, 9 + gameObject.transform.position.y / 10.00f), Quaternion.identity, world);
         gc.playerObject = go;
         gc.camera.Follow = gc.playerObject.transform;
-        gc.PlayerUnit = gc.playerObject.GetComponent<PlayerUnit>();
-        gc.PlayerUnit.ApplyStats(vehicle);
+        PlayerUnit pu = gc.playerObject.GetComponent<PlayerUnit>();
+        pu.ApplyStats(vehicle);
+        gc.PlayerUnit = pu;
     }
 
     private void RespawnPlayer(Vector3 respawnAt)
     {
+        if (gc.playerObject == null)
+            return;
+        PlayerUnit unit = gc.playerObject.GetComponent<PlayerUnit>();
         gc.playerObject.transform.position = new Vector3(respawnAt.x, respawnAt.y, 9 + respawnAt.y / 10.00f);
         gc.playerObject.SetActive(true);
     }

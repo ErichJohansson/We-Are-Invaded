@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class PlayerUnit : MonoBehaviour
 {
     public PlayerShooting shooting;
@@ -53,6 +54,7 @@ public class PlayerUnit : MonoBehaviour
     private Vector3 finish;
     private float t;
     private float fastTravelingTime;
+    private Transform playerTansform;
 
     private void Awake()
     {
@@ -66,6 +68,7 @@ public class PlayerUnit : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         gc = FindObjectOfType<GameController>();
         shooting = GetComponent<PlayerShooting>();
+        playerTansform = transform;
     }
 
     void Start()
@@ -83,8 +86,8 @@ public class PlayerUnit : MonoBehaviour
         if (IsFastTraveling)
         {
             t += Time.deltaTime / fastTravelingTime;
-            gameObject.transform.position = Vector3.Lerp(start, finish, t);
-            if (Mathf.Abs(gameObject.transform.position.x - finish.x) < 1)
+            playerTansform.position = Vector3.Lerp(start, finish, t);
+            if (Mathf.Abs(playerTansform.position.x - finish.x) < 1)
             {
                 gc.AddDistance(finish.x - start.x);
                 IsFastTraveling = false;
@@ -192,12 +195,12 @@ public class PlayerUnit : MonoBehaviour
     {
         movingTo = moveTo;
 
-        Vector3 newPos = Vector3.MoveTowards(new Vector3(0, gameObject.transform.position.y), new Vector3(0, movingTo.y), currentSpeed * Time.deltaTime * turnRate);
+        Vector3 newPos = Vector3.MoveTowards(new Vector3(0, playerTansform.position.y), new Vector3(0, movingTo.y), currentSpeed * Time.deltaTime * turnRate);
 
-        if (newPos.y > 1.28f || (newPos.y < -4.5f && newPos.y - gameObject.transform.position.y < 0))
+        if (newPos.y > 1.28f || (newPos.y < -4.5f && newPos.y - playerTansform.position.y < 0))
             return;
 
-        gameObject.transform.position = new Vector3(gameObject.transform.position.x, newPos.y, 9 + newPos.y / 10.00f);
+        playerTansform.position = new Vector3(playerTansform.position.x, newPos.y, 9 + newPos.y / 10.00f);
     }
 
     private void MoveForward()
@@ -221,9 +224,9 @@ public class PlayerUnit : MonoBehaviour
         }
 
         Vector3 movement = new Vector3(currentSpeed * Time.deltaTime, 0);
-        gameObject.transform.position += movement;
-
-        shooting.mainAnimator.speed = currentSpeed / maxSpeed;
+        playerTansform.position += movement;
+        float animSpeed = currentSpeed / maxSpeed;
+        shooting.mainAnimator.speed = animSpeed < 1 ? 1 : animSpeed;
 
         if(Time.timeScale != 0)
         {
@@ -246,7 +249,6 @@ public class PlayerUnit : MonoBehaviour
     private IEnumerator FastTraveling(float distanceX, float fastTravelingTime)
     {
         float t = 0;
-        float deltaTime = 0.01f;
 
         while(t < fastTravelingTime)
         {
@@ -331,7 +333,5 @@ public class PlayerUnit : MonoBehaviour
         IsFastTraveling = true;
         start = gameObject.transform.position;
         finish = new Vector3(start.x + 150, start.y, start.z);
-
-        //StartCoroutine(FastTraveling(200, t));
     }
 }

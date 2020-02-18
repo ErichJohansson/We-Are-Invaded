@@ -16,8 +16,10 @@ MonoBehaviour:
     type: 3}
   colorSchemes:
   - {fileID: 5624922562270785702, guid: 42257a5ee2c9c404d8cbd6c23258bb9d, type: 3}
-  id: 0
+  animatorControllers: []
+  id: 99
   selectedColorScheme: 0
+  currentLevel: 0
   health: 40
   fireRate: 0.5
   reloadTime: 0.5
@@ -27,12 +29,4 @@ MonoBehaviour:
   turning: 1.5
   price: 10000
   purchased: 0
-  defaultStats:
-    id: 0
-    currentlySelectedPaintScheme: 0
-    purchased: 0
-    damageLevel: 1
-    healthLevel: 1
-    reloadLevel: 1
-    speedLevel: 1
-    turningLevel: 1
+  upgradeLevels: []

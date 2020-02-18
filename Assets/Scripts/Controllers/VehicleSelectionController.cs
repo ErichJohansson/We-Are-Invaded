@@ -1,56 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class VehicleSelectionController : MonoBehaviour
 {
-    public Image vehicleImage;
-    public Text damage;
-    public Text health;
-    public Text armor;
-    public Text maxSpeed;
-    public Text turning;
-    public Text reloadTime;
-    public Text price;
-    public Button selectVehicleButton;
-
-    public Vehicle[] vehicles;
-
-    [SerializeField]
-    private Sprite lockedVahicle;
-
-    [Header("Price tag colors")]
-    [SerializeField]
-    private Color notEnoughMoneyColor;
-    [SerializeField]
-    private Color enoughMoneyColor;
+    public VehicleShowcase[] vehicles;
+    public GameObject selectVehicleButton;
 
     private GameObject playerObject;
     private GameController gc;
     private Vehicle selectedVehicle;
-    private int vehicleUpgradeCost;
+    private ScrollSnap scrollSnap;
 
-    void Start()
+    void Awake()
     {
         gc = FindObjectOfType<GameController>();
-    }
-
-    public void ShowVehicle(Vehicle vehicle)
-    {
-        selectedVehicle = vehicle;
-        vehicleImage.sprite = vehicle.purchased ? vehicle.colorSchemes[vehicle.selectedColorScheme] : lockedVahicle;
-        damage.text = vehicle.damage.ToString();
-        health.text = vehicle.health.ToString();
-        //armor.text = vehicle.armor.ToString();
-        maxSpeed.text = vehicle.speed.ToString();
-        turning.text = vehicle.turning.ToString();
-        reloadTime.text = vehicle.reloadTime.ToString();
-        playerObject = vehicle.playerObject;
-
-        price.text = vehicle.purchased ? "" : vehicle.price.ToString();
-        price.color = gc.cash >= vehicle.price ? enoughMoneyColor : notEnoughMoneyColor;
-        selectVehicleButton.interactable = vehicle.purchased;
+        scrollSnap = FindObjectOfType<ScrollSnap>();
+        scrollSnap.PropertyChanged += PropertyChangedHandler;
     }
 
     /// <summary>
@@ -60,57 +28,94 @@ public class VehicleSelectionController : MonoBehaviour
     {
         if (gc.playerObject != null)
             Destroy(gc.playerObject);
-        gc.pc.SpawnPlayer(playerObject, selectedVehicle);
+        PickVehicle();
     }
 
     public void SelectVehicle(int id)
     {
-        ShowVehicle(vehicles[id]);
+        Debug.Log("selected " + id);
         if (id >= vehicles.Length)
             return;
         if (gc.playerObject != null)
             Destroy(gc.playerObject);
-        gc.pc.SpawnPlayer(playerObject, selectedVehicle);
+        PickVehicle(id);
     }
 
     public void SelectVehicle(Vehicle vehicle)
     {
-        ShowVehicle(vehicle);
-
         if (gc.playerObject != null)
             Destroy(gc.playerObject);
-        gc.pc.SpawnPlayer(playerObject, vehicle);
+        PickVehicle(vehicle.id);
     }
 
-    public void PurchaseVehicle()
+    public void PurchaseVehicle(Vehicle vehicle)
     {
-        if (selectedVehicle == null || selectedVehicle.purchased)
+        if (vehicle == null || vehicle.upgradeLevels.Length == vehicle.currentLevel + 1 || gc.cash < vehicle.upgradeLevels[vehicle.currentLevel + 1].upgradeCost || gc.cash < vehicle.price)
             return;
 
-        if(gc.cash >= selectedVehicle.price)
+        if (!vehicle.purchased)
         {
-            gc.cash -= selectedVehicle.price;
-            selectedVehicle.purchased = true;
-            gc.SaveGame();
-
-            ShowVehicle(selectedVehicle);
-            gc.uc.UpdateCash();
+            // BUY
+            gc.cash -= vehicle.price;
+            vehicle.purchased = true;
         }
+        else if (vehicle.currentLevel + 1 < vehicle.upgradeLevels.Length)
+        {
+            // UPGRADE
+            vehicle.currentLevel++;
+            gc.cash -= vehicle.upgradeLevels[vehicle.currentLevel].upgradeCost;
+            vehicle.UpdateStats();
+            for (int i = 0; i < vehicles.Length; i++)
+                vehicles[i].ShowVehicle();
+            if (selectedVehicle == vehicle)
+                SetAndSpawnVehicle();
+        }
+
+        for (int i = 0; i < vehicles.Length; i++)
+        {
+            vehicles[i].ShowVehicle();
+        }
+        gc.uc.UpdateCash();
+        gc.SaveGame();
     }
 
-    public void UpgradeSelectedVehilce()
+    private void PickVehicle()
     {
-        if (selectedVehicle == null || gc.cash < vehicleUpgradeCost)
-            return;
-        gc.cash -= vehicleUpgradeCost;
-        /*
-         Upgrade vehicle stats
-         recalculate vehicleUpgradeCost
-         Update UI
-         Respawn player / or update player stats
+        selectedVehicle = vehicles[scrollSnap.CurrentPage].vehicle;
+        SetAndSpawnVehicle();
+    }
 
-        TODO: add UI elements for upgrading and picking color scheme
-        */
-        gc.SaveGame();
+    private void PickVehicle(int id)
+    {
+        selectVehicleButton.GetComponent<Button>().interactable = vehicles[id].vehicle.purchased;
+        selectVehicleButton.SetActive(false);
+        for (int i = 0; i < vehicles.Length; i++)
+        {
+            if (vehicles[i].vehicle.id == vehicles[id].vehicle.id)
+            {
+                selectedVehicle = vehicles[i].vehicle;
+                break;
+            }
+        }
+        SetAndSpawnVehicle();
+    }
+
+    private void SetAndSpawnVehicle()
+    {
+        playerObject = selectedVehicle.playerObject;
+        gc.pc.SpawnPlayer(playerObject, selectedVehicle);
+    }
+
+    private void PropertyChangedHandler(object sender, PropertyChangedEventArgs e)
+    {
+        try
+        {
+            selectVehicleButton.GetComponent<Button>().interactable = vehicles[scrollSnap.CurrentPage].vehicle.purchased;
+            selectVehicleButton.SetActive(selectedVehicle.id == vehicles[scrollSnap.CurrentPage].vehicle.id ? false : vehicles[scrollSnap.CurrentPage].vehicle.purchased);
+        }
+        catch (System.NullReferenceException)
+        {
+            selectVehicleButton.SetActive(false);
+        }
     }
 }

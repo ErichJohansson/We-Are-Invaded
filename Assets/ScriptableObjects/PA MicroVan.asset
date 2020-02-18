@@ -16,23 +16,36 @@ MonoBehaviour:
     type: 3}
   colorSchemes:
   - {fileID: -145770839551985629, guid: 069e348e2e45400469619f748e5ef66d, type: 3}
-  id: 2
+  animatorControllers:
+  - {fileID: 9100000, guid: 55ee521d3f139424d9605adeff250b48, type: 2}
+  id: 0
   selectedColorScheme: 0
-  health: 40
-  fireRate: 2
-  reloadTime: 3
-  damage: 15
+  currentLevel: 2
+  health: 50
+  fireRate: 0.5
+  reloadTime: 6.6666665
+  damage: 20
   magazineCapacity: 2
-  speed: 2.5
-  turning: 1.3
+  speed: 7.2000003
+  turning: 0.4
   price: 100
   purchased: 1
-  defaultStats:
-    id: 2
-    currentlySelectedPaintScheme: 0
-    purchased: 0
-    damageLevel: 2
-    healthLevel: 4
+  upgradeLevels:
+  - upgradeCost: 0
+    damageLevel: 3
+    healthLevel: 3
     reloadLevel: 2
     speedLevel: 5
-    turningLevel: 5
+    turningLevel: 3
+  - upgradeCost: 750
+    damageLevel: 4
+    healthLevel: 3
+    reloadLevel: 2
+    speedLevel: 6
+    turningLevel: 3
+  - upgradeCost: 1250
+    damageLevel: 4
+    healthLevel: 5
+    reloadLevel: 3
+    speedLevel: 6
+    turningLevel: 4

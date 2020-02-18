@@ -142,8 +142,9 @@ public class GameController : MonoBehaviour
         {
             // save other vehicle properties here if needed
             gd.tankData[i] = new TankData();
-            gd.tankData[i].id = vehicleSelection.vehicles[i].id;
-            gd.tankData[i].purchased = vehicleSelection.vehicles[i].purchased;
+            gd.tankData[i].id = vehicleSelection.vehicles[i].vehicle.id;
+            gd.tankData[i].purchased = vehicleSelection.vehicles[i].vehicle.purchased;
+            gd.tankData[i].currentLevel = vehicleSelection.vehicles[i].vehicle.currentLevel;
         }
         SaveManager.SaveGame(gd);
     }
@@ -154,6 +155,14 @@ public class GameController : MonoBehaviour
         if (gd == null)
         {
             cash = initialCash;
+
+            initialVehicle.currentLevel = 0;
+            initialVehicle.purchased = true;
+            initialVehicle.UpdateStats();
+
+            foreach (VehicleShowcase vhcl in vehicleSelection.vehicles)
+                vhcl.ShowVehicle();
+
             vehicleSelection.SelectVehicle(initialVehicle);
             UpdateCash();
             return;
@@ -163,20 +172,20 @@ public class GameController : MonoBehaviour
         firstLaunch = gd.firstLaunch;
         for (int i = 0; i < gd.tankData.Length; i++)
         {
-            for (int j = 0; j < vehicleSelection.vehicles.Length; j++)
+            if (gd.tankData[i] == null)
+                continue;
+
+            foreach (VehicleShowcase vhcl in vehicleSelection.vehicles)
             {
-                if(vehicleSelection.vehicles[j].id == gd.tankData[i].id)
+                if(vhcl.vehicle.id == gd.tankData[i].id)
                 {
-                    vehicleSelection.vehicles[j].purchased = gd.tankData[i].purchased;
-                    vehicleSelection.vehicles[j].damage = (gd.tankData[i].damageLevel == 0 ? vehicleSelection.vehicles[j].defaultStats.damageLevel : gd.tankData[i].damageLevel) * 5;
-                    vehicleSelection.vehicles[j].health = (gd.tankData[i].healthLevel == 0 ? vehicleSelection.vehicles[j].defaultStats.healthLevel : gd.tankData[i].healthLevel) * 10;
-                    vehicleSelection.vehicles[j].reloadTime = 100f / ((gd.tankData[i].reloadLevel == 0 ? vehicleSelection.vehicles[j].defaultStats.reloadLevel : gd.tankData[i].reloadLevel) * 10);
-                    vehicleSelection.vehicles[j].turning = (gd.tankData[i].turningLevel == 0 ? vehicleSelection.vehicles[j].defaultStats.turningLevel : gd.tankData[i].turningLevel) * 0.1f;
-                    vehicleSelection.vehicles[j].speed = (gd.tankData[i].speedLevel == 0 ? vehicleSelection.vehicles[j].defaultStats.speedLevel : gd.tankData[i].speedLevel) * 1.92f;
+                    vhcl.vehicle.UpdateStats(gd.tankData[i].currentLevel, gd.tankData[i].purchased);
+                    vhcl.ShowVehicle();
                     break;
                 }
             }
         }
+
         vehicleSelection.SelectVehicle(gd.selectedTankID);
         UpdateCash();
     }

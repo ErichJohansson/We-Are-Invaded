@@ -861,7 +861,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shooting: {fileID: 0}
-  ID: 2
+  ID: 0
   maxHP: 40
   hardness: 5
   maxSpeed: 9.6
