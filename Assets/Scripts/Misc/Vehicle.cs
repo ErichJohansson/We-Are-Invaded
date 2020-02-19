@@ -6,8 +6,7 @@ using UnityEngine;
 public class Vehicle : ScriptableObject
 {
     public GameObject playerObject;
-    public Sprite[] colorSchemes;
-    public RuntimeAnimatorController[] animatorControllers;
+    public ColorScheme[] colorSchemes;
 
     public int id;
     public int selectedColorScheme;

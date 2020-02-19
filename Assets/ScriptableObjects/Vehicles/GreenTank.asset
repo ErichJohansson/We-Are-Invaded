@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71b4774b654924847921aa4a8526079e, type: 3}
+  m_Name: GreenTank
+  m_EditorClassIdentifier: 
+  playerObject: {fileID: 7522217291444870677, guid: dda68aa251600cd4da97d468ae277f89,
+    type: 3}
+  colorSchemes:
+  - {fileID: 0}
+  id: 99
+  selectedColorScheme: 0
+  currentLevel: 0
+  health: 40
+  fireRate: 0.5
+  reloadTime: 0.5
+  damage: 12
+  magazineCapacity: 10
+  speed: 1.5
+  turning: 1.5
+  price: 10000
+  purchased: 0
+  upgradeLevels: []

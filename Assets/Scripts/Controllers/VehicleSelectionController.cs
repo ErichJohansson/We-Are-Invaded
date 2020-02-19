@@ -11,8 +11,9 @@ public class VehicleSelectionController : MonoBehaviour
 
     private GameObject playerObject;
     private GameController gc;
-    private Vehicle selectedVehicle;
     private ScrollSnap scrollSnap;
+
+    public Vehicle SelectedVehicle { get; private set; }
 
     void Awake()
     {
@@ -65,12 +66,35 @@ public class VehicleSelectionController : MonoBehaviour
             vehicle.currentLevel++;
             gc.cash -= vehicle.upgradeLevels[vehicle.currentLevel].upgradeCost;
             vehicle.UpdateStats();
-            for (int i = 0; i < vehicles.Length; i++)
-                vehicles[i].ShowVehicle();
-            if (selectedVehicle == vehicle)
+            if (SelectedVehicle.id == vehicle.id)
                 SetAndSpawnVehicle();
         }
 
+        FinishSelection();
+    }
+
+    public bool ActivateColorSheme(Vehicle vehicle, int colorShemeID)
+    {
+        if (vehicle == null || colorShemeID >= vehicle.colorSchemes.Length || gc.cash < vehicle.colorSchemes[colorShemeID].price)
+            return false;
+
+        if (!vehicle.colorSchemes[colorShemeID].purchased)
+        {
+            gc.cash -= vehicle.colorSchemes[colorShemeID].price;
+
+        }
+        if (SelectedVehicle.id == vehicle.id)
+        {
+            SetAndSpawnVehicle();
+            SelectedVehicle.selectedColorScheme = colorShemeID;
+        }
+
+        FinishSelection();
+        return true;
+    }
+
+    private void FinishSelection()
+    {
         for (int i = 0; i < vehicles.Length; i++)
         {
             vehicles[i].ShowVehicle();
@@ -81,29 +105,37 @@ public class VehicleSelectionController : MonoBehaviour
 
     private void PickVehicle()
     {
-        selectedVehicle = vehicles[scrollSnap.CurrentPage].vehicle;
+        for (int i = 0; i < vehicles.Length; i++)
+            vehicles[i].colorSchemeScrollView.SetActive(false);
+        SelectedVehicle = vehicles[scrollSnap.CurrentPage].vehicle;
+        vehicles[scrollSnap.CurrentPage].colorSchemeScrollView.SetActive(true);
+        selectVehicleButton.SetActive(false);
         SetAndSpawnVehicle();
     }
 
     private void PickVehicle(int id)
     {
+        for (int i = 0; i < vehicles.Length; i++)
+            vehicles[i].colorSchemeScrollView.SetActive(false);
         selectVehicleButton.GetComponent<Button>().interactable = vehicles[id].vehicle.purchased;
         selectVehicleButton.SetActive(false);
         for (int i = 0; i < vehicles.Length; i++)
         {
             if (vehicles[i].vehicle.id == vehicles[id].vehicle.id)
             {
-                selectedVehicle = vehicles[i].vehicle;
+                SelectedVehicle = vehicles[i].vehicle;
                 break;
             }
         }
+        vehicles[scrollSnap.CurrentPage].colorSchemeScrollView.SetActive(true);
+        selectVehicleButton.SetActive(false);
         SetAndSpawnVehicle();
     }
 
     private void SetAndSpawnVehicle()
     {
-        playerObject = selectedVehicle.playerObject;
-        gc.pc.SpawnPlayer(playerObject, selectedVehicle);
+        playerObject = SelectedVehicle.playerObject;
+        gc.pc.SpawnPlayer(playerObject, SelectedVehicle);
     }
 
     private void PropertyChangedHandler(object sender, PropertyChangedEventArgs e)
@@ -111,7 +143,7 @@ public class VehicleSelectionController : MonoBehaviour
         try
         {
             selectVehicleButton.GetComponent<Button>().interactable = vehicles[scrollSnap.CurrentPage].vehicle.purchased;
-            selectVehicleButton.SetActive(selectedVehicle.id == vehicles[scrollSnap.CurrentPage].vehicle.id ? false : vehicles[scrollSnap.CurrentPage].vehicle.purchased);
+            selectVehicleButton.SetActive(SelectedVehicle.id == vehicles[scrollSnap.CurrentPage].vehicle.id ? false : vehicles[scrollSnap.CurrentPage].vehicle.purchased);
         }
         catch (System.NullReferenceException)
         {

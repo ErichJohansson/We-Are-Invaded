@@ -96,6 +96,7 @@ public class ScrollSnap : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDr
         }
 
         _lerp = false;
+        startingPage = FindObjectOfType<GameController>().PlayerUnit.ID;
 
         // init
         SetPagePositions();
@@ -118,7 +119,7 @@ public class ScrollSnap : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDr
         if (_lerp)
         {
             // prevent overshooting with values greater than 1
-            float decelerate = Mathf.Min(decelerationRate * Time.deltaTime, 1f);
+            float decelerate = Mathf.Min(decelerationRate * Time.unscaledDeltaTime, 1f);
             _container.anchoredPosition = Vector2.Lerp(_container.anchoredPosition, _lerpTo, decelerate);
             // time to stop lerping?
             if (Vector2.SqrMagnitude(_container.anchoredPosition - _lerpTo) < 0.25f)
@@ -151,9 +152,9 @@ public class ScrollSnap : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDr
         if (_horizontal)
         {
             // screen width in pixels of scrollrect window
-            width = (int)_scrollRectRect.rect.width;
+            width = (int)(_scrollRectRect.rect.width);
             // center position of all pages
-            offsetX = width / 2;
+            //offsetX = (int)_scrollRectRect.rect.width / 4;
             // total width
             containerWidth = width * _pageCount;
             // limit fast swipe length - beyond this length it is fast swipe no more
@@ -183,7 +184,7 @@ public class ScrollSnap : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDr
             Vector2 childPosition;
             if (_horizontal)
             {
-                childPosition = new Vector2(i * width - containerWidth / 2 + offsetX, 0f);
+                childPosition = new Vector2(i * 750/*width - containerWidth / 2 + offsetX*/, 0f);
             }
             else
             {

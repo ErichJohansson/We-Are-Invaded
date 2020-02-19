@@ -87,6 +87,7 @@
     <Compile Include="Assets\Scripts\LevelGeneration\Regenerator.cs" />
     <Compile Include="Assets\Scripts\LevelGeneration\StageStrip.cs" />
     <Compile Include="Assets\Scripts\LevelGeneration\StripTrigger.cs" />
+    <Compile Include="Assets\Scripts\Misc\ColorScheme.cs" />
     <Compile Include="Assets\Scripts\Misc\GameData.cs" />
     <Compile Include="Assets\Scripts\Misc\IShotRecycler.cs" />
     <Compile Include="Assets\Scripts\Misc\LevelUtils.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="Assets\Scripts\Player\PlayerShooting.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerShootingPhysical.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerUnit.cs" />
+    <Compile Include="Assets\Scripts\UI\ColorShowcase.cs" />
     <Compile Include="Assets\Scripts\UI\GameOverScreen.cs" />
     <Compile Include="Assets\Scripts\UI\PauseScreen.cs" />
     <Compile Include="Assets\Scripts\UI\ScrollSnap.cs" />

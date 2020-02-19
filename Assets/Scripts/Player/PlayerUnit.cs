@@ -137,7 +137,7 @@ public class PlayerUnit : MonoBehaviour
 
     public void ApplyStats(Vehicle vehicle)
     {
-        GetComponent<Animator>().runtimeAnimatorController = vehicle.animatorControllers[vehicle.selectedColorScheme];
+        GetComponent<Animator>().runtimeAnimatorController = vehicle.colorSchemes[vehicle.selectedColorScheme].animatorController;
         maxSpeed = vehicle.speed;
         maxHP = vehicle.health;
         turnRate = vehicle.turning;

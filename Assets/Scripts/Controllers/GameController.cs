@@ -103,6 +103,8 @@ public class GameController : MonoBehaviour
     public void UpdateCash()
     {
         cash += ScoredPoints;
+        foreach (VehicleShowcase vhcl in vehicleSelection.vehicles)
+            vhcl.ShowVehicle();
         ScoredPoints = 0;
         uc.UpdateCash();
     }

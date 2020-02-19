@@ -13,10 +13,12 @@ public class VehicleShowcase : MonoBehaviour
     public Text reloadTime;
     public Text price;
     public Button selectVehicleButton;
+    public GameObject colorSchemeScrollView;
+
+    public ColorShowcase[] colorShowcases;
 
     [SerializeField]
     private Sprite lockedVahicle;
-
     [Header("Price tag colors")]
     [SerializeField]
     private Color notEnoughMoneyColor;
@@ -32,7 +34,7 @@ public class VehicleShowcase : MonoBehaviour
 
     public void ShowVehicle()
     {
-        vehicleImage.sprite = vehicle.purchased ? vehicle.colorSchemes[vehicle.selectedColorScheme] : lockedVahicle;
+        vehicleImage.sprite = vehicle.purchased ? vehicle.colorSchemes[vehicle.selectedColorScheme].previewSprite : lockedVahicle;
         damage.text = vehicle.damage.ToString();
         health.text = vehicle.health.ToString();
         maxSpeed.text = vehicle.speed.ToString();
@@ -47,6 +49,10 @@ public class VehicleShowcase : MonoBehaviour
             price.color = vehicle.upgradeLevels[vehicle.currentLevel + 1].upgradeCost <= gc.cash ? enoughMoneyColor : notEnoughMoneyColor;
         
         selectVehicleButton.interactable = vehicle.purchased;
+        foreach (ColorShowcase cs in colorShowcases)
+            cs.ShowScheme();
+        if(gc.vehicleSelection.SelectedVehicle != null)
+            colorSchemeScrollView.SetActive(gc.vehicleSelection.SelectedVehicle.id == vehicle.id);
     }
 
     public void BuyOrUpgrade()
