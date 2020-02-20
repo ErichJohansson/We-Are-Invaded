@@ -25,14 +25,12 @@ public class PlayerShootingPhysical : MonoBehaviour, IShotRecycler
     public bool Reloading { get; private set; }
     private bool cooldown;
 
-    private GameController gc;
     public float height;
 
     public BoxCollider2D shootingCollider;
 
     void Start()
     {
-        gc = FindObjectOfType<GameController>();
         spawnedShots = new List<PlatformerShot>();
         freeShots = new List<PlatformerShot>();
         for (int i = 0; i < availableShots.Count; i++)
@@ -51,7 +49,7 @@ public class PlayerShootingPhysical : MonoBehaviour, IShotRecycler
         }
 
         currentAmmo = magazineCapacity;
-        gc.uc.UpdateReloadSlider(1f);
+        UIController.Instance.UpdateReloadSlider(1f);
     }
 
     public void RecycleShot(PlatformerShot sender)
@@ -84,7 +82,7 @@ public class PlayerShootingPhysical : MonoBehaviour, IShotRecycler
         while (t < reloadTime)
         {
             t += Time.deltaTime;
-            gc.uc.UpdateReloadSlider(t / reloadTime);
+            UIController.Instance.UpdateReloadSlider(t / reloadTime);
             yield return new WaitForEndOfFrame();
         }
         Reloading = false;
@@ -147,7 +145,7 @@ public class PlayerShootingPhysical : MonoBehaviour, IShotRecycler
     public void Restart()
     {
         StopAllCoroutines();
-        gc.uc.UpdateReloadSlider(0);
+        UIController.Instance.UpdateReloadSlider(0);
         freeShots.Clear();
         currentAmmo = magazineCapacity;
         cooldown = false;

@@ -8,15 +8,17 @@ public class PlatformerController : MonoBehaviour
     public int levelPartsAtOneTime;
     public Transform world;
 
-    private GameController gc;
-
     private List<GameObject> spawnedLevelParts;
+
+    public static PlatformerController Instance { get; private set; }
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     public void GenerateWorld()
     {
-        if (gc == null)
-            gc = FindObjectOfType<GameController>();
-
         if (spawnedLevelParts != null)
             spawnedLevelParts.ForEach(x => Destroy(x));
 
@@ -28,30 +30,27 @@ public class PlatformerController : MonoBehaviour
 
     public void SpawnPlayer(GameObject playerObject, Vehicle vehicle)
     {
-        if (gc == null)
-            gc = FindObjectOfType<GameController>();
-
         if (playerObject == null)
             return;
 
-        if (gc.playerObject != null)
-            Destroy(gc.playerObject);
+        if (GameController.Instance.playerObject != null)
+            Destroy(GameController.Instance.playerObject);
 
         GameObject go = Instantiate(playerObject, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, 9 + gameObject.transform.position.y / 10.00f), Quaternion.identity, world);
-        gc.playerObject = go;
-        gc.camera.Follow = gc.playerObject.transform;
-        PlayerUnit pu = gc.playerObject.GetComponent<PlayerUnit>();
+        GameController.Instance.playerObject = go;
+        GameController.Instance.camera.Follow = GameController.Instance.playerObject.transform;
+        PlayerUnit pu = GameController.Instance.playerObject.GetComponent<PlayerUnit>();
         pu.ApplyStats(vehicle);
-        gc.PlayerUnit = pu;
+        GameController.Instance.PlayerUnit = pu;
     }
 
     private void RespawnPlayer(Vector3 respawnAt)
     {
-        if (gc.playerObject == null)
+        if (GameController.Instance.playerObject == null)
             return;
-        PlayerUnit unit = gc.playerObject.GetComponent<PlayerUnit>();
-        gc.playerObject.transform.position = new Vector3(respawnAt.x, respawnAt.y, 9 + respawnAt.y / 10.00f);
-        gc.playerObject.SetActive(true);
+        PlayerUnit unit = GameController.Instance.playerObject.GetComponent<PlayerUnit>();
+        GameController.Instance.playerObject.transform.position = new Vector3(respawnAt.x, respawnAt.y, 9 + respawnAt.y / 10.00f);
+        GameController.Instance.playerObject.SetActive(true);
     }
 
     private void GenerateLevel()

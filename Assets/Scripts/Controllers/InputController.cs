@@ -5,7 +5,6 @@ using UnityEngine.EventSystems;
 
 public class InputController : MonoBehaviour
 {
-    private GameController gc;
     private Camera cam;
 
     float halfWidth;
@@ -14,23 +13,22 @@ public class InputController : MonoBehaviour
     {
         halfWidth = Screen.width / 2;
         cam = Camera.main;
-        gc = FindObjectOfType<GameController>();
-        if(gc.playerObject != null)
-            gc.playerObject.transform.position = new Vector3(gc.playerObject.transform.position.x, gc.playerObject.transform.position.y, -gc.playerObject.transform.position.y / 10f);
+        if(GameController.Instance.playerObject != null)
+            GameController.Instance.playerObject.transform.position = new Vector3(GameController.Instance.playerObject.transform.position.x, GameController.Instance.playerObject.transform.position.y, -GameController.Instance.playerObject.transform.position.y / 10f);
     }
 
     void Update()
     {
-        if (gc.Pause && Input.GetKeyDown(KeyCode.Escape))
+        if (GameController.Instance.Pause && Input.GetKeyDown(KeyCode.Escape))
         {
-            gc.uc.pauseScreen.BackToMainMenu();
+            UIController.Instance.pauseScreen.BackToMainMenu();
             return;
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
-            gc.uc.pauseScreen.ActivatePause();
+            UIController.Instance.pauseScreen.ActivatePause();
 
-        if (gc.PlayerUnit == null || gc.PlayerUnit.IsFastTraveling)
+        if (GameController.Instance.PlayerUnit == null || GameController.Instance.PlayerUnit.IsFastTraveling)
             return;
 
         if (Input.GetMouseButton(0))
@@ -49,7 +47,7 @@ public class InputController : MonoBehaviour
 
         if (mousePos.x > halfWidth)
         {
-            gc.PlayerUnit.MoveTowards(cam.ScreenToWorldPoint(mousePos));
+            GameController.Instance.PlayerUnit.MoveTowards(cam.ScreenToWorldPoint(mousePos));
         }
     }
 

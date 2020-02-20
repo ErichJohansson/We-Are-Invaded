@@ -5,33 +5,27 @@ using UnityEngine;
 public class IncreasedDamage : Modifier
 {
     private int oldDmg;
-    private GameController gc;
-
-    private void Awake()
-    {
-        gc = FindObjectOfType<GameController>();
-    }
 
     public override void Activate()
     {
-        if (gc.PlayerUnit.SpeedBoost != null)
+        if (GameController.Instance.PlayerUnit.SpeedBoost != null)
             return;
         Activated = true;
         // do visuals
         DisableAppereance();
-        gc.uc.AddModifierIcon(icon);
+        UIController.Instance.AddModifierIcon(icon);
 
-        gc.PlayerUnit.IncreasedDamage = this;
+        GameController.Instance.PlayerUnit.IncreasedDamage = this;
         StartCoroutine("Lifetime");
-        oldDmg = gc.PlayerUnit.shooting.baseDamage;
-        gc.PlayerUnit.shooting.baseDamage = oldDmg * 4;
+        oldDmg = GameController.Instance.PlayerUnit.shooting.baseDamage;
+        GameController.Instance.PlayerUnit.shooting.baseDamage = oldDmg * 4;
     }
 
     public override void Deactivate()
     {
-        gc.PlayerUnit.IncreasedDamage = null;
-        gc.uc.RemoveModifierIcon(icon);
-        gc.PlayerUnit.shooting.baseDamage = oldDmg;
+        GameController.Instance.PlayerUnit.IncreasedDamage = null;
+        UIController.Instance.RemoveModifierIcon(icon);
+        GameController.Instance.PlayerUnit.shooting.baseDamage = oldDmg;
         Destroy(gameObject);
     }
 
@@ -40,12 +34,12 @@ public class IncreasedDamage : Modifier
         PlayerUnit pu = collision.GetComponentInParent<PlayerUnit>();
         if (pu != null)
         {
-            Debug.Log((gc.PlayerUnit.IncreasedDamage == null) + " damage");
-            if (gc.PlayerUnit.IncreasedDamage == null)
+            Debug.Log((GameController.Instance.PlayerUnit.IncreasedDamage == null) + " damage");
+            if (GameController.Instance.PlayerUnit.IncreasedDamage == null)
                 Activate();
             else if(!Activated)
             {
-                gc.PlayerUnit.IncreasedDamage.RenewTime();
+                GameController.Instance.PlayerUnit.IncreasedDamage.RenewTime();
                 Destroy(gameObject);
             }
         }

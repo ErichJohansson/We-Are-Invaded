@@ -11,6 +11,7 @@ public class Vehicle : ScriptableObject
     public int id;
     public int selectedColorScheme;
     public int currentLevel;
+    public string name;
 
     [Tooltip("10 per level")]
     public int health;

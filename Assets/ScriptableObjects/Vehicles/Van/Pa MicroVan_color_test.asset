@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 873cb2698ed97a34d9fee2f5cee4195f, type: 3}
+  m_Name: Pa MicroVan_color_test
+  m_EditorClassIdentifier: 
+  price: 500
+  purchased: 0
+  previewSprite: {fileID: -1846293986222277414, guid: a5c07644c8a0b294bb813ef0ad6cce96,
+    type: 3}
+  animatorController: {fileID: 9100000, guid: 7b0e7f66b88d5d346b4f43bf1ef40947, type: 2}

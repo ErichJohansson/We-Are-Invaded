@@ -6,13 +6,11 @@ public class GameOverScreen : MonoBehaviour
 {
     public Text info;
     public UIObject panel;
-    private GameController gc;
     private ObjectPooler pooler;
 
     private void Awake()
     {
         pooler = FindObjectOfType<ObjectPooler>();
-        gc = FindObjectOfType<GameController>();
     }
 
     private void SetEndGameInfo(string gameinfo)
@@ -22,26 +20,26 @@ public class GameOverScreen : MonoBehaviour
 
     public void ShowGameOverScreen()
     {
-        gc.SetPause(!panel.isShown);
-        SetEndGameInfo(LocalizationManager.Localize("GameOver.GameInfo", gc.ScoredPoints.ToString(), gc.DistanceTraveled.ToString()));
-        gc.uc.ShowPanel(panel);
+        GameController.Instance.SetPause(!panel.isShown);
+        SetEndGameInfo(LocalizationManager.Localize("GameOver.GameInfo", GameController.Instance.ScoredPoints.ToString(), GameController.Instance.DistanceTraveled.ToString()));
+        UIController.Instance.ShowPanel(panel);
 
-        gc.SaveGame();
+        GameController.Instance.SaveGame();
     }
 
     public void BackToMainMenu()
     {
-        gc.UpdateCash();
+        GameController.Instance.UpdateCash();
         panel.HidePanel();
-        gc.uc.startGameScreen.panel.ShowPanel();
+        UIController.Instance.startGameScreen.panel.ShowPanel();
     }
 
     public void RestartGame()
     {
         pooler.Restart();
-        gc.UpdateCash();
-        gc.SetPause(!panel.isShown);
-        gc.StartGame();
-        gc.uc.HidePanel(panel);
+        GameController.Instance.UpdateCash();
+        GameController.Instance.SetPause(!panel.isShown);
+        GameController.Instance.StartGame();
+        UIController.Instance.HidePanel(panel);
     }
 }

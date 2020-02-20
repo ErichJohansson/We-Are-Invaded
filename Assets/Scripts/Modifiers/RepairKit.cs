@@ -2,20 +2,13 @@
 
 public class RepairKit : Modifier
 {
-    private GameController gc;
-
-    private void Awake()
-    {
-        gc = FindObjectOfType<GameController>();
-    }
-
     public override void Activate()
     {
-        if (gc.PlayerUnit.SpeedBoost != null)
+        if (GameController.Instance.PlayerUnit.SpeedBoost != null)
             return;
         Activated = true;
         DisableAppereance();
-        gc.PlayerUnit.Repair(gc.PlayerUnit.maxHP / 2);
+        GameController.Instance.PlayerUnit.Repair(GameController.Instance.PlayerUnit.maxHP / 2);
         Destroy(gameObject);
     }
 

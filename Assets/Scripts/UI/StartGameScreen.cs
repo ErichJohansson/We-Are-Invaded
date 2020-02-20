@@ -5,19 +5,13 @@ public class StartGameScreen : MonoBehaviour
 {
     public UIObject panel;
     public GameObject exitQuestion;
-    private GameController gc;
-
-    private void Start()
-    {
-        gc = FindObjectOfType<GameController>();        
-    }
 
     public void StartGame()
     {
-        gc.StartGame();
-        gc.pc.GenerateWorld();
+        GameController.Instance.StartGame();
+        PlatformerController.Instance.GenerateWorld();
 
-        gc.SetPause(!panel.isShown);
+        GameController.Instance.SetPause(!panel.isShown);
         panel.HidePanel();
     }
 
@@ -54,7 +48,7 @@ public class StartGameScreen : MonoBehaviour
 
     public void ActivateMainMenu()
     {
-        gc.SetPause(!panel.isShown);
+        GameController.Instance.SetPause(!panel.isShown);
         panel.ShowPanel();
     }
 }

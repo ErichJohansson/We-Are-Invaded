@@ -5,28 +5,22 @@ using UnityEngine;
 public class PauseScreen : MonoBehaviour
 {
     public UIObject panel;
-    private GameController gc;
-
-    private void Start()
-    {
-        gc = FindObjectOfType<GameController>();
-    }
 
     private void ResumeGame() 
     {
-        gc.SetPause(false);
+        GameController.Instance.SetPause(false);
         panel.HidePanel();
     }
 
     private void PauseGame()
     {
         panel.ShowPanel();
-        gc.SetPause(true);
+        GameController.Instance.SetPause(true);
     }
 
     public void ActivatePause()
     {
-        if (gc.someScreenIsShown && !panel.isShown)
+        if (GameController.Instance.SomeScreenIsShown && !panel.isShown)
             return;
         if (Time.timeScale == 0)
             ResumeGame();
@@ -37,7 +31,7 @@ public class PauseScreen : MonoBehaviour
     public void BackToMainMenu()
     {
         panel.HidePanel();
-        gc.uc.startGameScreen.panel.ShowPanel();
-        gc.Pause = false;
+        UIController.Instance.startGameScreen.panel.ShowPanel();
+        GameController.Instance.Pause = false;
     }
 }

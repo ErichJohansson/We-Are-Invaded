@@ -19,6 +19,7 @@ MonoBehaviour:
   id: 1
   selectedColorScheme: 0
   currentLevel: 0
+  name: Gopmobile
   health: 40
   fireRate: 0.5
   reloadTime: 4
@@ -27,7 +28,7 @@ MonoBehaviour:
   speed: 4.8
   turning: 0.4
   price: 2000
-  purchased: 1
+  purchased: 0
   upgradeLevels:
   - upgradeCost: 750
     damageLevel: 2

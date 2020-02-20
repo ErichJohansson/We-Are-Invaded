@@ -8,42 +8,37 @@ public class GameController : MonoBehaviour
     public GameObject playerObject;
     public Cinemachine.CinemachineVirtualCamera camera;
 
-    public PlatformerController pc;
-    public UIController uc;
-    public VehicleSelectionController vehicleSelection;
-    public BossSpawner bossSpawner;
-    public Follower follower;
-
     public ParallaxController[] backgrounds;
 
-    private PlayerUnit pu;
-    public PlayerUnit PlayerUnit {
-        get { return pu; } 
-        set
-        {
-            pu = value;
-            if(follower != null)
-                follower.StartFollowing();
-        } 
-    }
-
-    public bool someScreenIsShown;
-
     public int cash;
+
+    private PlayerUnit pu;
+    private bool firstLaunch;
 
     [Header("New game values")]
     public int initialCash;
     public Vehicle initialVehicle;
 
+    public PlayerUnit PlayerUnit
+    {
+        get { return pu; }
+        set
+        {
+            pu = value;
+            Follower.Instance.StartFollowing();
+        }
+    }
     public int ScoredPoints { get; private set; }
     public float DistanceTraveled { get; private set; }
     public bool Pause { get; set; }
+    public bool SomeScreenIsShown { get; set; }
 
-    private bool firstLaunch;
+    public static GameController Instance { get; private set; }
 
     void Awake()
     {
-        someScreenIsShown = true;
+        Instance = this;
+        SomeScreenIsShown = true;
 
         LocalizationManager.Read();
         switch (Application.systemLanguage)
@@ -84,29 +79,27 @@ public class GameController : MonoBehaviour
     public void StartGame()
     {
         // restarts game, create new level
-        pc.RestartGame();
+        PlatformerController.Instance.RestartGame();
 
         // restarts player
         if (PlayerUnit != null)
             PlayerUnit.Restart();
-        if (bossSpawner != null)
-            bossSpawner.Restart();
-        if(follower != null)
-            follower.Restart();
+        BossSpawner.Instance.Restart();
+        Follower.Instance.Restart();
 
         DistanceTraveled = 0;
-        uc.UpdateTraveledDistance();
+        UIController.Instance.UpdateTraveledDistance();
         ScoredPoints = 0;
-        uc.UpdateScore();
+        UIController.Instance.UpdateScore();
     }
 
     public void UpdateCash()
     {
         cash += ScoredPoints;
-        foreach (VehicleShowcase vhcl in vehicleSelection.vehicles)
+        foreach (VehicleShowcase vhcl in VehicleSelectionController.Instance.vehicles)
             vhcl.ShowVehicle();
         ScoredPoints = 0;
-        uc.UpdateCash();
+        UIController.Instance.UpdateCash();
     }
 
     public void SetPause(bool pauseState)
@@ -139,14 +132,14 @@ public class GameController : MonoBehaviour
         GameData gd = new GameData();
         gd.cash = cash;
         gd.selectedTankID = PlayerUnit == null ? 0 : PlayerUnit.ID;
-        gd.tankData = new TankData[vehicleSelection.vehicles.Length];
-        for (int i = 0; i < vehicleSelection.vehicles.Length; i++)
+        gd.tankData = new TankData[VehicleSelectionController.Instance.vehicles.Length];
+        for (int i = 0; i < VehicleSelectionController.Instance.vehicles.Length; i++)
         {
             // save other vehicle properties here if needed
             gd.tankData[i] = new TankData();
-            gd.tankData[i].id = vehicleSelection.vehicles[i].vehicle.id;
-            gd.tankData[i].purchased = vehicleSelection.vehicles[i].vehicle.purchased;
-            gd.tankData[i].currentLevel = vehicleSelection.vehicles[i].vehicle.currentLevel;
+            gd.tankData[i].id = VehicleSelectionController.Instance.vehicles[i].vehicle.id;
+            gd.tankData[i].purchased = VehicleSelectionController.Instance.vehicles[i].vehicle.purchased;
+            gd.tankData[i].currentLevel = VehicleSelectionController.Instance.vehicles[i].vehicle.currentLevel;
         }
         SaveManager.SaveGame(gd);
     }
@@ -162,10 +155,10 @@ public class GameController : MonoBehaviour
             initialVehicle.purchased = true;
             initialVehicle.UpdateStats();
 
-            foreach (VehicleShowcase vhcl in vehicleSelection.vehicles)
+            foreach (VehicleShowcase vhcl in VehicleSelectionController.Instance.vehicles)
                 vhcl.ShowVehicle();
 
-            vehicleSelection.SelectVehicle(initialVehicle);
+            VehicleSelectionController.Instance.SelectVehicle(initialVehicle);
             UpdateCash();
             return;
         }
@@ -177,7 +170,7 @@ public class GameController : MonoBehaviour
             if (gd.tankData[i] == null)
                 continue;
 
-            foreach (VehicleShowcase vhcl in vehicleSelection.vehicles)
+            foreach (VehicleShowcase vhcl in VehicleSelectionController.Instance.vehicles)
             {
                 if(vhcl.vehicle.id == gd.tankData[i].id)
                 {
@@ -188,7 +181,7 @@ public class GameController : MonoBehaviour
             }
         }
 
-        vehicleSelection.SelectVehicle(gd.selectedTankID);
+        VehicleSelectionController.Instance.SelectVehicle(gd.selectedTankID);
         UpdateCash();
     }
     #endregion

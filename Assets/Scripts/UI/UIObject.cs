@@ -23,12 +23,9 @@ public class UIObject : MonoBehaviour
     public bool isShown;
     private bool isMoving;
 
-    private GameController gc;
-
     void Start()
     {
         rectTransform = GetComponent<RectTransform>();
-        gc = FindObjectOfType<GameController>();
     }
 
     public void ActivatePanel()
@@ -44,7 +41,7 @@ public class UIObject : MonoBehaviour
         if(instant)
         {
             rectTransform.anchoredPosition = turnOnPosition;
-            gc.someScreenIsShown = true;
+            GameController.Instance.SomeScreenIsShown = true;
             isShown = true;
             isMoving = false;
             return;
@@ -58,7 +55,7 @@ public class UIObject : MonoBehaviour
         if (instant)
         {
             rectTransform.anchoredPosition = turnOffPosition;
-            gc.someScreenIsShown = false;
+            GameController.Instance.SomeScreenIsShown = false;
             isShown = false;
             isMoving = false;
             return;
@@ -79,6 +76,6 @@ public class UIObject : MonoBehaviour
         }
         isShown = finalState;
         isMoving = false;
-        gc.someScreenIsShown = finalState;
+        GameController.Instance.SomeScreenIsShown = finalState;
     }
 }

@@ -7,14 +7,19 @@ public class BossSpawner : MonoBehaviour
     public float mtth;
     public float tickTime;
     public List<GameObject> allBosses;
-    private GameController gc;
     private bool bossSpawned;
 
     public GameObject currentBoss;
 
+    public static BossSpawner Instance { get; private set; }
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     private void Start()
     {
-        gc = FindObjectOfType<GameController>();
         StartCoroutine("SpawnBoss");
     }
 
@@ -28,8 +33,8 @@ public class BossSpawner : MonoBehaviour
             {
                 Enemy.SetActiveEnemies(false);
 
-                currentBoss = Instantiate(allBosses[Random.Range(0, allBosses.Count)], new Vector3(gc.PlayerUnit.transform.position.x + 15f, 0, 9),
-                    Quaternion.identity, gc.PlayerUnit.transform.parent);
+                currentBoss = Instantiate(allBosses[Random.Range(0, allBosses.Count)], new Vector3(GameController.Instance.PlayerUnit.transform.position.x + 15f, 0, 9),
+                    Quaternion.identity, GameController.Instance.PlayerUnit.transform.parent);
                 bossSpawned = true;
             }
             yield return new WaitForSeconds(tickTime);

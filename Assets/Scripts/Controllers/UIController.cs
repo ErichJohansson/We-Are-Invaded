@@ -13,8 +13,6 @@ public class UIController : MonoBehaviour
     public Slider reloadSlider;
     public Slider speedUpSlider;
 
-    private GameController gc;
-
     public GameOverScreen gameOverScreen;
     public StartGameScreen startGameScreen;
     public PauseScreen pauseScreen;
@@ -29,9 +27,15 @@ public class UIController : MonoBehaviour
     public Sprite empty;
     private int lastOccupiedImage;
 
+    public static UIController Instance { get; private set; }
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     void Start()
     {
-        gc = FindObjectOfType<GameController>();
         lastOccupiedImage = -1;
     }
 
@@ -65,13 +69,13 @@ public class UIController : MonoBehaviour
 
     public void AddScore(int score)
     {
-        gc.AddPoints(score);
+        GameController.Instance.AddPoints(score);
         UpdateScore();
     }
 
     public void UpdateScore()
     {
-        score.text = gc.ScoredPoints.ToString();
+        score.text = GameController.Instance.ScoredPoints.ToString();
     }
 
     public void UpdateAmmo(int currentAmmo)
@@ -81,7 +85,7 @@ public class UIController : MonoBehaviour
 
     public void UpdateTraveledDistance()
     {
-        distance.text = gc.DistanceTraveled.ToString("F3") + " m";
+        distance.text = GameController.Instance.DistanceTraveled.ToString("F3") + " m";
     }
 
     public void UpdateHitPoints(PlayerUnit player, bool damage)
@@ -97,7 +101,7 @@ public class UIController : MonoBehaviour
 
     public void UpdateCash()
     {
-        cash.text = gc.cash.ToString();
+        cash.text = GameController.Instance.cash.ToString();
     }
 
     public void ShowPanel(UIObject menuItem)
@@ -117,7 +121,7 @@ public class UIController : MonoBehaviour
 
     public void UpdateSpeedUpSlider()
     {
-        speedUpSlider.value = gc.PlayerUnit.currentSpeedBoostLength / gc.PlayerUnit.totalSpeedBoostLength;
+        speedUpSlider.value = GameController.Instance.PlayerUnit.currentSpeedBoostLength / GameController.Instance.PlayerUnit.totalSpeedBoostLength;
     }
 
     public void RestartDamageEffect() {

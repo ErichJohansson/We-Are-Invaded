@@ -10,14 +10,15 @@ public class VehicleSelectionController : MonoBehaviour
     public GameObject selectVehicleButton;
 
     private GameObject playerObject;
-    private GameController gc;
     private ScrollSnap scrollSnap;
 
     public Vehicle SelectedVehicle { get; private set; }
 
+    public static VehicleSelectionController Instance { get; private set; }
+
     void Awake()
     {
-        gc = FindObjectOfType<GameController>();
+        Instance = this;
         scrollSnap = FindObjectOfType<ScrollSnap>();
         scrollSnap.PropertyChanged += PropertyChangedHandler;
     }
@@ -27,8 +28,8 @@ public class VehicleSelectionController : MonoBehaviour
     /// </summary>
     public void SelectVehicle()
     {
-        if (gc.playerObject != null)
-            Destroy(gc.playerObject);
+        if (GameController.Instance.playerObject != null)
+            Destroy(GameController.Instance.playerObject);
         PickVehicle();
     }
 
@@ -37,34 +38,34 @@ public class VehicleSelectionController : MonoBehaviour
         Debug.Log("selected " + id);
         if (id >= vehicles.Length)
             return;
-        if (gc.playerObject != null)
-            Destroy(gc.playerObject);
+        if (GameController.Instance.playerObject != null)
+            Destroy(GameController.Instance.playerObject);
         PickVehicle(id);
     }
 
     public void SelectVehicle(Vehicle vehicle)
     {
-        if (gc.playerObject != null)
-            Destroy(gc.playerObject);
+        if (GameController.Instance.playerObject != null)
+            Destroy(GameController.Instance.playerObject);
         PickVehicle(vehicle.id);
     }
 
     public void PurchaseVehicle(Vehicle vehicle)
     {
-        if (vehicle == null || vehicle.upgradeLevels.Length == vehicle.currentLevel + 1 || gc.cash < vehicle.upgradeLevels[vehicle.currentLevel + 1].upgradeCost || gc.cash < vehicle.price)
+        if (vehicle == null || vehicle.upgradeLevels.Length == vehicle.currentLevel + 1 || GameController.Instance.cash < vehicle.upgradeLevels[vehicle.currentLevel + 1].upgradeCost || GameController.Instance.cash < vehicle.price)
             return;
 
         if (!vehicle.purchased)
         {
             // BUY
-            gc.cash -= vehicle.price;
+            GameController.Instance.cash -= vehicle.price;
             vehicle.purchased = true;
         }
         else if (vehicle.currentLevel + 1 < vehicle.upgradeLevels.Length)
         {
             // UPGRADE
             vehicle.currentLevel++;
-            gc.cash -= vehicle.upgradeLevels[vehicle.currentLevel].upgradeCost;
+            GameController.Instance.cash -= vehicle.upgradeLevels[vehicle.currentLevel].upgradeCost;
             vehicle.UpdateStats();
             if (SelectedVehicle.id == vehicle.id)
                 SetAndSpawnVehicle();
@@ -73,20 +74,33 @@ public class VehicleSelectionController : MonoBehaviour
         FinishSelection();
     }
 
+    public bool RaisePurchaseVehicleQuestion(Vehicle vehicle)
+    {
+        if (vehicle == null || vehicle.upgradeLevels.Length == vehicle.currentLevel + 1 || GameController.Instance.cash < vehicle.upgradeLevels[vehicle.currentLevel + 1].upgradeCost || GameController.Instance.cash < vehicle.price)
+            return false;
+        return true;
+    }
+    
+    public bool RaiseActivateColorShemeQuestion(Vehicle vehicle, int colorShemeID) {
+        if (vehicle == null || colorShemeID >= vehicle.colorSchemes.Length || GameController.Instance.cash < vehicle.colorSchemes[colorShemeID].price)
+            return false;
+        return true;
+    }
+
     public bool ActivateColorSheme(Vehicle vehicle, int colorShemeID)
     {
-        if (vehicle == null || colorShemeID >= vehicle.colorSchemes.Length || gc.cash < vehicle.colorSchemes[colorShemeID].price)
+        if (colorShemeID >= vehicle.colorSchemes.Length || !vehicle.colorSchemes[colorShemeID].purchased && (vehicle == null || GameController.Instance.cash < vehicle.colorSchemes[colorShemeID].price))
             return false;
 
         if (!vehicle.colorSchemes[colorShemeID].purchased)
         {
-            gc.cash -= vehicle.colorSchemes[colorShemeID].price;
-
+            GameController.Instance.cash -= vehicle.colorSchemes[colorShemeID].price;
+            vehicle.colorSchemes[colorShemeID].purchased = true;
         }
         if (SelectedVehicle.id == vehicle.id)
         {
-            SetAndSpawnVehicle();
             SelectedVehicle.selectedColorScheme = colorShemeID;
+            SetAndSpawnVehicle();
         }
 
         FinishSelection();
@@ -99,8 +113,8 @@ public class VehicleSelectionController : MonoBehaviour
         {
             vehicles[i].ShowVehicle();
         }
-        gc.uc.UpdateCash();
-        gc.SaveGame();
+        UIController.Instance.UpdateCash();
+        GameController.Instance.SaveGame();
     }
 
     private void PickVehicle()
@@ -135,7 +149,7 @@ public class VehicleSelectionController : MonoBehaviour
     private void SetAndSpawnVehicle()
     {
         playerObject = SelectedVehicle.playerObject;
-        gc.pc.SpawnPlayer(playerObject, SelectedVehicle);
+        PlatformerController.Instance.SpawnPlayer(playerObject, SelectedVehicle);
     }
 
     private void PropertyChangedHandler(object sender, PropertyChangedEventArgs e)

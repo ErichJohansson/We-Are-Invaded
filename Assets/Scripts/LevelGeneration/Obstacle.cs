@@ -34,12 +34,10 @@ public class Obstacle : MonoBehaviour
 
     private Quaternion effectRotation = new Quaternion(180, 0, 0, 1);
     private GameObject effect;
-    private GameController gc;
     private ObjectPooler pooler;
 
     private void Awake()
     {
-        gc = FindObjectOfType<GameController>();
         currentHardness = hardness;
         if (createEnemyRemains)
         {
@@ -109,7 +107,7 @@ public class Obstacle : MonoBehaviour
             return;
 
         if(addScoreOnDeath)
-            gc.uc.AddScore(scoreAmount);
+            UIController.Instance.AddScore(scoreAmount);
         if (createEnemyRemains && allowedRemainsTags.Length != 0)
         {
             GameObject obj = pooler.GetPooledObject(allowedRemainsTags[Random.Range(0, allowedRemainsTags.Length)]);

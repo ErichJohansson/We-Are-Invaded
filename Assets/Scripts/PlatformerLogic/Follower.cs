@@ -16,17 +16,18 @@ public class Follower : MonoBehaviour
     private float speedThreshold;
     private bool isFollowing;
     private Vector3 startPos = new Vector3(-200, 0, 0);
-    private GameController gc;
     private bool wokeUp;
+
+    public static Follower Instance { get; private set; }
 
     private void Awake()
     {
-        gc = FindObjectOfType<GameController>();
+        Instance = this;
     }
 
     public void StartFollowing()
     {
-        speedThreshold = gc.PlayerUnit.maxSpeed / 3f;
+        speedThreshold = GameController.Instance.PlayerUnit.maxSpeed / 3f;
         isFollowing = false;
         wokeUp = false;
         StartCoroutine("Delay");
@@ -34,20 +35,23 @@ public class Follower : MonoBehaviour
 
     public void Restart()
     {
+        StopCoroutine("DangerSign");
+        StopCoroutine("Delay");
         gameObject.transform.position = startPos;
         isFollowing = false;
         wokeUp = false;
+        dangerSign.SetActive(false);
         StartCoroutine("Delay");
     }
 
     private void Update()
     {
-        if (gc.PlayerUnit == null || gc.Pause || !wokeUp)
+        if (GameController.Instance.PlayerUnit == null || GameController.Instance.Pause || !wokeUp)
             return;
 
         if (isFollowing)
         {
-            distanceToPlayer = gc.PlayerUnit.gameObject.transform.position.x - gameObject.transform.position.x;
+            distanceToPlayer = GameController.Instance.PlayerUnit.gameObject.transform.position.x - gameObject.transform.position.x;
             if (distanceToPlayer > distanceToStopFollowing)
             {
                 StopCoroutine("DangerSign");
@@ -56,13 +60,13 @@ public class Follower : MonoBehaviour
                 return;
             }
 
-            gameObject.transform.position += new Vector3(speedModifier * Time.deltaTime * gc.PlayerUnit.maxSpeed, 0, 0);
+            gameObject.transform.position += new Vector3(speedModifier * Time.deltaTime * GameController.Instance.PlayerUnit.maxSpeed, 0, 0);
         }
-        else if(gc.PlayerUnit.currentSpeed < speedThreshold)
+        else if(GameController.Instance.PlayerUnit.currentSpeed < speedThreshold)
         {
             isFollowing = true;
             StartCoroutine("DangerSign");
-            gameObject.transform.position = new Vector3(gc.PlayerUnit.transform.position.x - initialDeltaX, 0, 0);
+            gameObject.transform.position = new Vector3(GameController.Instance.PlayerUnit.transform.position.x - initialDeltaX, 0, 0);
         }
     }
 

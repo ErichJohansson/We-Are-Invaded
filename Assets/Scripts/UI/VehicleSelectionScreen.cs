@@ -5,23 +5,17 @@ using UnityEngine;
 public class VehicleSelectionScreen : MonoBehaviour
 {
     public UIObject panel;
-    private GameController gc;
-
-    private void Start()
-    {
-        gc = FindObjectOfType<GameController>();
-    }
 
     public void ShowScreen()
     {
-        gc.someScreenIsShown = true;
-        gc.uc.startGameScreen.panel.HidePanel();
+        GameController.Instance.SomeScreenIsShown = true;
+        UIController.Instance.startGameScreen.panel.HidePanel();
         panel.ShowPanel();
     }
 
     public void BackToMainMenu()
     {
         panel.HidePanel();
-        gc.uc.startGameScreen.panel.ShowPanel();
+        UIController.Instance.startGameScreen.panel.ShowPanel();
     }
 }

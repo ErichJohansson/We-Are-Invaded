@@ -16,3 +16,4 @@ TankSelect.Armor,Armor:
 TankSelect.Apply,Select vehicle
 TankSelect.Speed,Speed:
 TankSelect.Damage,Damage:
+TankSelect.Question,Are you sure you want to buy it?

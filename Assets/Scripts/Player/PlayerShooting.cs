@@ -17,8 +17,6 @@ public class PlayerShooting : MonoBehaviour
     public float shootingDistance;
     public int magazineCapacity;
 
-    private GameController gc;
-
     public Animator mainAnimator;
     private ParticleSystem particleSystem;
 
@@ -32,7 +30,6 @@ public class PlayerShooting : MonoBehaviour
 
     private void Awake()
     {
-        gc = FindObjectOfType<GameController>();
         mainAnimator = GetComponent<Animator>();
         particleSystem = GetComponentInChildren<ParticleSystem>();
     }
@@ -40,8 +37,8 @@ public class PlayerShooting : MonoBehaviour
     private void Start()
     {
         if(!Reloading)
-        gc.uc.UpdateReloadSlider(1f);
-        gc.uc.UpdateAmmo(CurrentAmmo);
+        UIController.Instance.UpdateReloadSlider(1f);
+        UIController.Instance.UpdateAmmo(CurrentAmmo);
     }
 
     private void Update()
@@ -52,12 +49,12 @@ public class PlayerShooting : MonoBehaviour
 
     private void PlayerFire()
     {
-        if (Reloading || cooldown || !gameObject.activeSelf || gc.PlayerUnit.IsFastTraveling)
+        if (Reloading || cooldown || !gameObject.activeSelf || GameController.Instance.PlayerUnit.IsFastTraveling)
             return;
 
         if(!InfiniteAmmo)
             CurrentAmmo--;
-        gc.uc.UpdateAmmo(CurrentAmmo);
+        UIController.Instance.UpdateAmmo(CurrentAmmo);
 
         Fire();
 
@@ -120,8 +117,8 @@ public class PlayerShooting : MonoBehaviour
         StopAllCoroutines();
 
         CurrentAmmo = magazineCapacity;
-        gc.uc.UpdateAmmo(CurrentAmmo);
-        gc.uc.UpdateReloadSlider(1f);
+        UIController.Instance.UpdateAmmo(CurrentAmmo);
+        UIController.Instance.UpdateReloadSlider(1f);
         cooldown = false;
         Reloading = false;
         InfiniteAmmo = false;
@@ -135,12 +132,12 @@ public class PlayerShooting : MonoBehaviour
         while (t < reloadTime)
         {
             t += Time.deltaTime;
-            gc.uc.UpdateReloadSlider(t / reloadTime);
+            UIController.Instance.UpdateReloadSlider(t / reloadTime);
             yield return new WaitForEndOfFrame();
         }
         Reloading = false;
         CurrentAmmo = magazineCapacity;
-        gc.uc.UpdateAmmo(CurrentAmmo);
+        UIController.Instance.UpdateAmmo(CurrentAmmo);
     }
 
     private IEnumerator Cooldown()

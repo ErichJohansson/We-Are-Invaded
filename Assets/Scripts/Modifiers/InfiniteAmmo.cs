@@ -6,38 +6,31 @@ public class InfiniteAmmo : Modifier
 {
     private int oldCap;
 
-    private GameController gc;
-
-    private void Awake()
-    {
-        gc = FindObjectOfType<GameController>();
-    }
-
     public override void Activate()
     {
-        if (gc.PlayerUnit.SpeedBoost != null)
+        if (GameController.Instance.PlayerUnit.SpeedBoost != null)
             return;
         Activated = true;
         // do visuals
         DisableAppereance();
 
         //set icon
-        gc.uc.AddModifierIcon(icon);
+        UIController.Instance.AddModifierIcon(icon);
 
-        gc.PlayerUnit.InfiniteAmmo = this;
+        GameController.Instance.PlayerUnit.InfiniteAmmo = this;
         StartCoroutine("Lifetime");
-        oldCap = gc.PlayerUnit.shooting.magazineCapacity;
-        gc.PlayerUnit.shooting.magazineCapacity = 9999;
-        gc.PlayerUnit.shooting.Restart();
-        gc.PlayerUnit.shooting.InfiniteAmmo = true;
+        oldCap = GameController.Instance.PlayerUnit.shooting.magazineCapacity;
+        GameController.Instance.PlayerUnit.shooting.magazineCapacity = 9999;
+        GameController.Instance.PlayerUnit.shooting.Restart();
+        GameController.Instance.PlayerUnit.shooting.InfiniteAmmo = true;
     }
 
     public override void Deactivate()
     {
-        gc.PlayerUnit.InfiniteAmmo = null;
-        gc.uc.RemoveModifierIcon(icon);
-        gc.PlayerUnit.shooting.magazineCapacity = oldCap;
-        gc.PlayerUnit.shooting.Restart();
+        GameController.Instance.PlayerUnit.InfiniteAmmo = null;
+        UIController.Instance.RemoveModifierIcon(icon);
+        GameController.Instance.PlayerUnit.shooting.magazineCapacity = oldCap;
+        GameController.Instance.PlayerUnit.shooting.Restart();
         Destroy(gameObject);
     }
 
@@ -46,12 +39,12 @@ public class InfiniteAmmo : Modifier
         PlayerUnit pu = collision.GetComponentInParent<PlayerUnit>();
         if(pu != null)
         {
-            Debug.Log((gc.PlayerUnit.InfiniteAmmo == null) + " ammo");
-            if (gc.PlayerUnit.InfiniteAmmo == null)
+            Debug.Log((GameController.Instance.PlayerUnit.InfiniteAmmo == null) + " ammo");
+            if (GameController.Instance.PlayerUnit.InfiniteAmmo == null)
                 Activate();
             else if(!Activated)
             {
-                gc.PlayerUnit.InfiniteAmmo.RenewTime();
+                GameController.Instance.PlayerUnit.InfiniteAmmo.RenewTime();
                 Destroy(gameObject);
             }
         }
