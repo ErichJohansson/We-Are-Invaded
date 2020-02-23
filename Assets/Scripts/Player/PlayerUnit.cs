@@ -54,9 +54,14 @@ public class PlayerUnit : MonoBehaviour
     private float t;
     private float fastTravelingTime;
     private Transform playerTansform;
+    private Animator animator;
+    private bool turningRight;
+    private bool turningLeft;
+
 
     private void Awake()
     {
+        animator = GetComponent<Animator>();
         speedBoost = null;
         infiniteAmmo = null;
         increasedDamage = null;
@@ -135,7 +140,7 @@ public class PlayerUnit : MonoBehaviour
 
     public void ApplyStats(Vehicle vehicle)
     {
-        GetComponent<Animator>().runtimeAnimatorController = vehicle.colorSchemes[vehicle.selectedColorScheme].animatorController;
+        animator.runtimeAnimatorController = vehicle.colorSchemes[vehicle.selectedColorScheme].animatorController;
         maxSpeed = vehicle.speed;
         maxHP = vehicle.health;
         turnRate = vehicle.turning;
@@ -193,12 +198,38 @@ public class PlayerUnit : MonoBehaviour
     {
         movingTo = moveTo;
 
+        if(playerTansform.position.y > movingTo.y)
+        {
+            turningRight = true;
+            turningLeft = false;
+        }
+        else if (playerTansform.position.y < movingTo.y)
+        {
+            turningRight = false;
+            turningLeft = true;
+        }
+        else 
+        {
+            StopTurning();
+        }
+        animator.SetBool("turningRight", turningRight);
+        animator.SetBool("turningLeft", turningLeft);
+
         Vector3 newPos = Vector3.MoveTowards(new Vector3(0, playerTansform.position.y), new Vector3(0, movingTo.y), currentSpeed * Time.deltaTime * turnRate);
 
         if (newPos.y > 1.28f || (newPos.y < -4.5f && newPos.y - playerTansform.position.y < 0))
             return;
 
         playerTansform.position = new Vector3(playerTansform.position.x, newPos.y, 9 + newPos.y / 10.00f);
+    }
+
+    public void StopTurning()
+    {
+        turningRight = false;
+        turningLeft = false;
+        animator.SetBool("turningRight", turningRight);
+        animator.SetBool("turningLeft", turningLeft);
+        animator.SetTrigger("drivingStraight");
     }
 
     private void MoveForward()
@@ -223,8 +254,6 @@ public class PlayerUnit : MonoBehaviour
 
         Vector3 movement = new Vector3(currentSpeed * Time.deltaTime, 0);
         playerTansform.position += movement;
-        float animSpeed = currentSpeed / maxSpeed;
-        shooting.mainAnimator.speed = animSpeed < 1 ? 1 : animSpeed;
 
         if(Time.timeScale != 0)
         {

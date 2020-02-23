@@ -21,7 +21,7 @@ public class VehicleShowcase : MonoBehaviour
     public Button yesButton;
     public Button noButton;
 
-    public ColorShowcase[] colorShowcases;
+    private ColorShowcase[] colorShowcases;
 
     [SerializeField]
     private Sprite lockedVahicle;
@@ -30,6 +30,16 @@ public class VehicleShowcase : MonoBehaviour
     private Color notEnoughMoneyColor;
     [SerializeField]
     private Color enoughMoneyColor;
+
+    private void Awake()
+    {
+        colorShowcases = GetComponentsInChildren<ColorShowcase>();
+        vehicle = Instantiate(vehicle);
+        for (int i = 0; i < vehicle.colorSchemes.Length; i++)
+        {
+            vehicle.colorSchemes[i] = Instantiate(vehicle.colorSchemes[i]);
+        }
+    }
 
     public void ShowVehicle()
     {

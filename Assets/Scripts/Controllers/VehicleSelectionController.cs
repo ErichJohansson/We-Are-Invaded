@@ -60,6 +60,8 @@ public class VehicleSelectionController : MonoBehaviour
             // BUY
             GameController.Instance.cash -= vehicle.price;
             vehicle.purchased = true;
+            selectVehicleButton.SetActive(true);
+            selectVehicleButton.GetComponent<Button>().interactable = vehicle.purchased;
         }
         else if (vehicle.currentLevel + 1 < vehicle.upgradeLevels.Length)
         {

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6540878574901837848}
   - component: {fileID: 6540878574901837849}
   - component: {fileID: 6540878574901837847}
-  - component: {fileID: 6540878574901837846}
   - component: {fileID: 952047241}
   m_Layer: 0
   m_Name: car_wall_stacked_0
@@ -92,32 +91,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.281395, y: 1.7365637}
   m_EdgeRadius: 0
---- !u!61 &6540878574901837846
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6540878574901837851}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.78, y: 0.38056862}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 2.3321724, y: 0.79868054}
-  m_EdgeRadius: 0
 --- !u!68 &952047241
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -136,10 +109,11 @@ EdgeCollider2D:
   m_Points:
   - {x: -0.7960663, y: -1.6753759}
   - {x: 2.9549713, y: -1.7093873}
-  - {x: 0.97841644, y: 1.2671195}
-  - {x: -2.0332718, y: 1.3029692}
-  - {x: -2.1229935, y: 1.2422866}
-  - {x: -2.123848, y: 1.123338}
+  - {x: 1.3799362, y: 0.7679658}
+  - {x: -1.0672207, y: 0.793015}
+  - {x: -1.7691364, y: 0.677479}
+  - {x: -1.8949127, y: 0.58062816}
+  - {x: -1.939436, y: 0.37440848}
   - {x: -0.790184, y: -1.667624}
 --- !u!1 &6540878575207377421
 GameObject:

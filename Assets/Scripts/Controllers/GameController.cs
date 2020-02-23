@@ -135,11 +135,17 @@ public class GameController : MonoBehaviour
         gd.tankData = new TankData[VehicleSelectionController.Instance.vehicles.Length];
         for (int i = 0; i < VehicleSelectionController.Instance.vehicles.Length; i++)
         {
-            // save other vehicle properties here if needed
             gd.tankData[i] = new TankData();
+            gd.tankData[i].selectedColorScheme = VehicleSelectionController.Instance.vehicles[i].vehicle.selectedColorScheme;
             gd.tankData[i].id = VehicleSelectionController.Instance.vehicles[i].vehicle.id;
             gd.tankData[i].purchased = VehicleSelectionController.Instance.vehicles[i].vehicle.purchased;
             gd.tankData[i].currentLevel = VehicleSelectionController.Instance.vehicles[i].vehicle.currentLevel;
+            if (VehicleSelectionController.Instance.vehicles[i].vehicle.colorSchemes != null)
+                gd.tankData[i].colorShemesPurchaseState = new bool[VehicleSelectionController.Instance.vehicles[i].vehicle.colorSchemes.Length];
+            for (int j = 0; j < gd.tankData[i].colorShemesPurchaseState.Length; j++)
+            {
+                gd.tankData[i].colorShemesPurchaseState[j] = VehicleSelectionController.Instance.vehicles[i].vehicle.colorSchemes[j].purchased;
+            }
         }
         SaveManager.SaveGame(gd);
     }
@@ -156,7 +162,9 @@ public class GameController : MonoBehaviour
             initialVehicle.UpdateStats();
 
             foreach (VehicleShowcase vhcl in VehicleSelectionController.Instance.vehicles)
+            {
                 vhcl.ShowVehicle();
+            } 
 
             VehicleSelectionController.Instance.SelectVehicle(initialVehicle);
             UpdateCash();
@@ -175,7 +183,13 @@ public class GameController : MonoBehaviour
                 if(vhcl.vehicle.id == gd.tankData[i].id)
                 {
                     vhcl.vehicle.UpdateStats(gd.tankData[i].currentLevel, gd.tankData[i].purchased);
-                    vhcl.ShowVehicle();
+                    vhcl.vehicle.selectedColorScheme = gd.tankData[i].selectedColorScheme;
+                    if (gd.tankData[i].colorShemesPurchaseState != null)
+                    {
+                        for (int j = 0; j < vhcl.vehicle.colorSchemes.Length; j++)
+                            vhcl.vehicle.colorSchemes[j].purchased = gd.tankData[i].colorShemesPurchaseState[j];
+                    }
+                    vhcl.ShowVehicle();                    
                     break;
                 }
             }

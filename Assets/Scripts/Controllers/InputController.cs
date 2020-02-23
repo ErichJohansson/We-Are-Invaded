@@ -35,7 +35,7 @@ public class InputController : MonoBehaviour
             HandleMousePlatformer();
 
         if (Input.GetMouseButtonUp(0))
-            StopCoroutine("ChangingPosition");
+            StopTurning();
     }
 
     void HandleMousePlatformer()
@@ -49,6 +49,11 @@ public class InputController : MonoBehaviour
         {
             GameController.Instance.PlayerUnit.MoveTowards(cam.ScreenToWorldPoint(mousePos));
         }
+    }
+
+    void StopTurning()
+    {
+        GameController.Instance.PlayerUnit.StopTurning();
     }
 
     private Vector3 GetRightTouch()
