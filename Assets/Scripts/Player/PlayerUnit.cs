@@ -120,6 +120,7 @@ public class PlayerUnit : MonoBehaviour
             trail.emitting = false;
         }
         StopAllCoroutines();
+        GameController.Instance.camera.transform.position = gameObject.transform.position;
         ActivateParallax();
         UIController.Instance.RestartDamageEffect();
         CurrentHP = maxHP;

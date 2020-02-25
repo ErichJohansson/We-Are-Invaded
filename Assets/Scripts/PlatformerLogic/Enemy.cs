@@ -58,7 +58,9 @@ public class Enemy : MonoBehaviour
 
     public void Restart()
     {
-
+        BoxCollider2D col = GetComponent<BoxCollider2D>();
+        if (col != null)
+            col.enabled = true;
     }
 
     public static void SetActiveEnemies(bool state)

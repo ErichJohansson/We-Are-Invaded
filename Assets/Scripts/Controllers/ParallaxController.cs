@@ -1,16 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ParallaxController : MonoBehaviour
 {
-    private float len, startX;
-
     public GameObject player;
     public float parallaxEffect;
 
+    private float len, startX;
+    private Vector3 initialPosition;
+
     public void Activate()
     {
+        if (initialPosition == Vector3.zero)
+            initialPosition = gameObject.transform.position;
+        else
+            gameObject.transform.position = initialPosition;
         startX = transform.position.x;
         len = GetComponentInChildren<SpriteRenderer>().bounds.size.x;
     }

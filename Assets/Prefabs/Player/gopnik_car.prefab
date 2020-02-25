@@ -722,14 +722,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   splashArea: {fileID: 8381133734665020569}
   shootingPoint: {fileID: 8381133734665020568}
-  gunType: 0
+  gunType: 1
+  auto: 0
   baseDamage: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1
   reloadTime: 0
-  cooldownTime: 0.5
+  cooldownTime: 0.25
   shootingDistance: 0
   magazineCapacity: 10
   mainAnimator: {fileID: 0}
-  hitEffectAnimator: {fileID: 0}
 --- !u!1 &8381133733744391745
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,12 +7,14 @@ public class VehicleShowcase : MonoBehaviour
     public Vehicle vehicle;
     public Text vehicleName;
     public Image vehicleImage;
-    public Text damage;
-    public Text health;
-    public Text maxSpeed;
-    public Text turning;
-    public Text reloadTime;
     public Text price;
+
+    public Slider damage;
+    public Slider health;
+    public Slider maxSpeed;
+    public Slider turning;
+    public Slider reloadTime;
+
     public Button selectVehicleButton;
     public GameObject colorSchemeScrollView;
 
@@ -45,11 +47,12 @@ public class VehicleShowcase : MonoBehaviour
     {
         vehicleName.text = vehicle.name;
         vehicleImage.sprite = vehicle.purchased ? vehicle.colorSchemes[vehicle.selectedColorScheme].previewSprite : lockedVahicle;
-        damage.text = vehicle.damage.ToString();
-        health.text = vehicle.health.ToString();
-        maxSpeed.text = vehicle.speed.ToString();
-        turning.text = vehicle.turning.ToString();
-        reloadTime.text = vehicle.reloadTime.ToString();
+
+        damage.value = vehicle.damage / Vehicle.maxDamage;
+        health.value = vehicle.health / Vehicle.maxHealth;
+        maxSpeed.value = vehicle.speed / Vehicle.maxSpeed;
+        turning.value = vehicle.turning / Vehicle.maxTurning;
+        reloadTime.value = Vehicle.minReload / vehicle.reloadTime;
 
         price.text = vehicle.purchased ? vehicle.currentLevel + 1 < vehicle.upgradeLevels.Length ? vehicle.upgradeLevels[vehicle.currentLevel + 1].upgradeCost.ToString() : "" : vehicle.price.ToString();
         

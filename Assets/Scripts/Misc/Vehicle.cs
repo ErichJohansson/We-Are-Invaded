@@ -30,6 +30,12 @@ public class Vehicle : ScriptableObject
     public int price;
     public bool purchased;
 
+    public static int maxDamage = 100;
+    public static int maxHealth = 400;
+    public static float minReload = 0.1f;
+    public static float maxTurning = 1f;
+    public static float maxSpeed = 12f;
+
     public UpgradeLevel[] upgradeLevels;
 
     public void UpdateStats(int level, bool purchased)
