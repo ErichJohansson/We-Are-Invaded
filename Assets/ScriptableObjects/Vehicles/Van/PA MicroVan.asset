@@ -34,18 +34,18 @@ MonoBehaviour:
   - upgradeCost: 0
     damageLevel: 3
     healthLevel: 3
-    reloadLevel: 2
+    reloadLevel: 3
     speedLevel: 5
     turningLevel: 3
   - upgradeCost: 750
     damageLevel: 4
     healthLevel: 3
-    reloadLevel: 2
+    reloadLevel: 4
     speedLevel: 6
     turningLevel: 3
   - upgradeCost: 1250
     damageLevel: 4
     healthLevel: 5
-    reloadLevel: 3
+    reloadLevel: 4
     speedLevel: 6
     turningLevel: 4

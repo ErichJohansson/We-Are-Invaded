@@ -58,7 +58,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -154,8 +154,8 @@ MonoBehaviour:
   totalSpeedBoostLength: 6
   currentSpeedBoostLength: 0
   speedingUp: 0
-  bounds: {fileID: 0}
   frontCollider: {fileID: 7505592894409660771}
+  sideCollider: {fileID: 0}
   trails: []
   trailLifetime: 0
 --- !u!114 &6509482546633091435
@@ -173,13 +173,16 @@ MonoBehaviour:
   splashArea: {fileID: 7864434311887337768}
   shootingPoint: {fileID: 7505592894890095796}
   gunType: 0
+  auto: 0
   baseDamage: 25
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
   reloadTime: 1
   cooldownTime: 0
   shootingDistance: 15
   magazineCapacity: 1
   mainAnimator: {fileID: 0}
-  hitEffectAnimator: {fileID: 0}
 --- !u!1 &7505592894409660769
 GameObject:
   m_ObjectHideFlags: 0

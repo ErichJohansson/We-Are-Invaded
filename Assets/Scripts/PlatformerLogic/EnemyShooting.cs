@@ -23,6 +23,10 @@ public class EnemyShooting : MonoBehaviour
     public GameObject groundHitAnimator;
     public Animator unitAnimator;
 
+    [Header("Gun Light settings")]
+    public GameObject gunLightSource;
+    [Range(0f, 1f)] public float gunLightLength;
+
     private void OnEnable()
     {
         reloading = false;
@@ -48,6 +52,7 @@ public class EnemyShooting : MonoBehaviour
         StopAllCoroutines();
         reloading = true;
         groundHitAnimator.SetActive(false);
+        gunLightSource.SetActive(false);
     }
 
     #region Coroutines
@@ -73,14 +78,17 @@ public class EnemyShooting : MonoBehaviour
         fromP = noReturn ? from : to;
         toP = noReturn ? to : from;
         StartCoroutine("HitTick");
+        StartCoroutine("GunLight");
         unitAnimator.SetTrigger("shot");
         groundHitAnimator.SetActive(true);
-        while(t < moveTime && !reloading)
+        while (t < moveTime && !reloading)
         {
             t += Time.deltaTime;
             groundHitAnimator.transform.position = Vector3.Lerp(fromP.position, toP.position, t / moveTime);
             yield return new WaitForEndOfFrame();
         }
+        StopCoroutine("GunLight");
+        gunLightSource.SetActive(false);
         StopCoroutine("HitTick");
         StartCoroutine("Reload");
     }
@@ -93,10 +101,18 @@ public class EnemyShooting : MonoBehaviour
             Collider2D[] colliders = Physics2D.OverlapBoxAll(groundHitAnimator.transform.position, affectedArea.size, 0, 1 << 16);
             if (colliders.Length == 0)
             {
-                //Debug.Log("col = null");
                 continue;
             }
             new List<Collider2D>(colliders).ForEach(col => ApplyDamage(col, (int)Random.Range(damage - 0.25f * damage, damage + 0.15f * damage)));
+        }
+    }
+
+    private IEnumerator GunLight()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(gunLightLength);
+            gunLightSource.SetActive(!gunLightSource.activeSelf);
         }
     }
     #endregion

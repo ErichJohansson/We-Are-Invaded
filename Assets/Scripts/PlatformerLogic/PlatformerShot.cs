@@ -106,7 +106,7 @@ public class PlatformerShot : MonoBehaviour
 
         if (pe != null)
         {
-            pe.DealDamage(damage, lastPos, playerShot: playerControlled, isCritical: true);
+            pe.ReceiveDamage(damage, lastPos, playerShot: playerControlled, isCritical: true);
         }
     }
 
@@ -122,7 +122,7 @@ public class PlatformerShot : MonoBehaviour
             {
                 Enemy platformerEnemy = collider2Ds[i].GetComponent<Enemy>();
                 if (platformerEnemy != null)
-                    platformerEnemy.DealDamage(splashDamage, collider2Ds[i].transform.position, playerShot: playerControlled);
+                    platformerEnemy.ReceiveDamage(splashDamage, collider2Ds[i].transform.position, playerShot: playerControlled);
             }
         }
 

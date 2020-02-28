@@ -138,7 +138,7 @@ public class PlayerShootingPhysical : MonoBehaviour, IShotRecycler
     {
         Enemy pe;
         if (col.TryGetComponent(out pe))
-            pe.DealDamage(baseDamage, pe.transform.position);
+            pe.ReceiveDamage(baseDamage, pe.transform.position);
 
     }
 

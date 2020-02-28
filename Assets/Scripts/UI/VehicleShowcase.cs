@@ -15,6 +15,8 @@ public class VehicleShowcase : MonoBehaviour
     public Slider turning;
     public Slider reloadTime;
 
+    public GameObject vehicleLock;
+
     public Button selectVehicleButton;
     public GameObject colorSchemeScrollView;
 
@@ -25,8 +27,6 @@ public class VehicleShowcase : MonoBehaviour
 
     private ColorShowcase[] colorShowcases;
 
-    [SerializeField]
-    private Sprite lockedVahicle;
     [Header("Price tag colors")]
     [SerializeField]
     private Color notEnoughMoneyColor;
@@ -46,10 +46,10 @@ public class VehicleShowcase : MonoBehaviour
     public void ShowVehicle()
     {
         vehicleName.text = vehicle.name;
-        vehicleImage.sprite = vehicle.purchased ? vehicle.colorSchemes[vehicle.selectedColorScheme].previewSprite : lockedVahicle;
-
-        damage.value = vehicle.damage / Vehicle.maxDamage;
-        health.value = vehicle.health / Vehicle.maxHealth;
+        vehicleImage.sprite = vehicle.colorSchemes[vehicle.selectedColorScheme].previewSprite;
+        vehicleLock.SetActive(!vehicle.purchased);
+        damage.value = (float)vehicle.damage / (float)Vehicle.maxDamage;
+        health.value = (float)vehicle.health / (float)Vehicle.maxHealth;
         maxSpeed.value = vehicle.speed / Vehicle.maxSpeed;
         turning.value = vehicle.turning / Vehicle.maxTurning;
         reloadTime.value = Vehicle.minReload / vehicle.reloadTime;

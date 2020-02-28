@@ -19,7 +19,11 @@ public class PlayerShooting : MonoBehaviour
     public float shootingDistance;
     public int magazineCapacity;
 
-    public Animator mainAnimator;
+    [Header("Gun Light settings")]
+    public GameObject gunLightSource;
+    [Range(0f, 1f)] public float gunLightLength;
+
+    [HideInInspector] public Animator mainAnimator;
     private ParticleSystem particleSystem;
 
     public bool Firing { get; set; }
@@ -73,7 +77,7 @@ public class PlayerShooting : MonoBehaviour
         Enemy pe;
         if (col.TryGetComponent(out pe))
         {
-            pe.DealDamage(damage, pe.transform.position, playerShot: true, isCritical: damage > baseDamage);
+            pe.ReceiveDamage(damage, pe.transform.position, playerShot: true, isCritical: damage > baseDamage);
             SpawnEffect(col);
         }
     }
@@ -95,6 +99,7 @@ public class PlayerShooting : MonoBehaviour
         if (particleSystem != null)
             particleSystem.Play();
 
+        StartCoroutine("GunLight");
         List<Collider2D> colliders = new List<Collider2D>(Physics2D.OverlapBoxAll(shootingPoint.transform.position, splashArea.size, 0, layerMask));
         
         if (colliders.Count == 0)
@@ -169,6 +174,13 @@ public class PlayerShooting : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         cooldown = false;
+    }
+
+    private IEnumerator GunLight()
+    {
+        gunLightSource.SetActive(true);
+        yield return new WaitForSeconds(gunLightLength);
+        gunLightSource.SetActive(false);
     }
     #endregion
 }

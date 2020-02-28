@@ -90,7 +90,7 @@ public class Obstacle : MonoBehaviour
             {
                 pe.movementController.currentSpeed *= pe.hardness < hardness ? slowAmount * slowAmount : slowAmount;
                 if (hardness > pe.hardness)
-                    pe.DealDamage(hardness - pe.hardness, gameObject.transform.position);
+                    pe.ReceiveDamage(hardness - pe.hardness, gameObject.transform.position);
                 diePosZ = pe.gameObject.transform.position.z;
             }
         }

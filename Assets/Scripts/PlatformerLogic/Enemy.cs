@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour
         currentHP = maxHP;
     }
 
-    public void DealDamage(int damage, Vector3 pos, bool isCritical = false, bool playerShot = false)
+    public void ReceiveDamage(int damage, Vector3 pos, bool isCritical = false, bool playerShot = false)
     {
         if (!playerShot)
             return;
