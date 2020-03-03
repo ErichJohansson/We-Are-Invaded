@@ -1,19 +1,23 @@
-Key,English
+Key,English,Russian
 GameOver.GameInfo,"Game over :C 
  Scored {0} points!
- Traveled {1} m"
-GameOver.RestartButton,Restart
-GameStart.StartButton,Play!
-GameStart.ExitButton,Exit
-GameStart.SettingsButton,Settings
-GameStart.SelectVehicle,Vehicle
-GameStart.ExitQuestion,Are you sure you want to exit?
-Game.Pause,Pause
-TankSelect.Reload,Reload:
-TankSelect.Turning,Turning:
-TankSelect.Health,Health:
-TankSelect.Armor,Armor:
-TankSelect.Apply,Select vehicle
-TankSelect.Speed,Speed:
-TankSelect.Damage,Damage:
-TankSelect.Question,Are you sure you want to buy it?
+ Traveled {1} m","Игра окончена :C 
+ Набрано {0} очков!
+ Пройдено {1} метров"
+GameOver.RestartButton,Restart,Заново
+GameStart.StartButton,Play!,Играть!
+GameStart.ExitButton,Exit,Выйти
+GameStart.SettingsButton,Settings,Настройки
+GameStart.SelectVehicle,Vehicle,Техника
+GameStart.ExitQuestion,Leaving so quick?,Уже уходишь?
+Game.Pause,Pause,Пауза
+TankSelect.Reload,Reload:,Перезарядка:
+TankSelect.Turning,Turning:,Управляемость:
+TankSelect.Health,Health:,Здоровье:
+TankSelect.Armor,Armor:,Броня:
+TankSelect.Apply,Select vehicle,Выбрать технику
+TankSelect.Speed,Speed:,Скорость:
+TankSelect.Damage,Damage:,Урон:
+TankSelect.Question,Are you sure you want to buy it?,Хотите приобрести?
+Game.Positive,Yes,Да
+Game.Negative,No,Нет

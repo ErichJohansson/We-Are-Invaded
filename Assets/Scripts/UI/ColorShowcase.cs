@@ -42,6 +42,7 @@ public class ColorShowcase : MonoBehaviour
         if (!VehicleSelectionController.Instance.RaiseActivateColorShemeQuestion(showcase.vehicle, id))
             return;
         question.SetActive(true);
+        showcase.purchaseButton.gameObject.SetActive(false);
         yesButton.onClick.RemoveAllListeners();
         noButton.onClick.RemoveAllListeners();
         yesButton.onClick.AddListener(Yes);
@@ -50,6 +51,7 @@ public class ColorShowcase : MonoBehaviour
 
     public void No()
     {
+        showcase.purchaseButton.gameObject.SetActive(false);
         question.SetActive(false);
     }
 
@@ -57,9 +59,10 @@ public class ColorShowcase : MonoBehaviour
     {
         if (VehicleSelectionController.Instance.ActivateColorSheme(showcase.vehicle, id))
         {
-            priceTag.gameObject.SetActive(false);
-            question.SetActive(false);
+            priceTag.gameObject.SetActive(false);  
         }
+        showcase.purchaseButton.gameObject.SetActive(false);
+        question.SetActive(false);
     }
     #endregion
 }

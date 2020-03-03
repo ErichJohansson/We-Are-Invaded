@@ -15,8 +15,15 @@ public class VehicleShowcase : MonoBehaviour
     public Slider turning;
     public Slider reloadTime;
 
+    public Slider damageUpgraded;
+    public Slider healthUpgraded;
+    public Slider maxSpeedUpgraded;
+    public Slider turningUpgraded;
+    public Slider reloadTimeUpgraded;
+
     public GameObject vehicleLock;
 
+    public Button purchaseButton;
     public Button selectVehicleButton;
     public GameObject colorSchemeScrollView;
 
@@ -73,22 +80,48 @@ public class VehicleShowcase : MonoBehaviour
     {
         if (!VehicleSelectionController.Instance.RaisePurchaseVehicleQuestion(vehicle))
             return;
-        question.SetActive(true);
+
+        Vehicle upgradedVehicle = Vehicle.GetUpgradedVehicle(vehicle);
+        if (upgradedVehicle == null)
+            return;
+
+        purchaseButton.gameObject.SetActive(false);
+        damageUpgraded.value = (float)upgradedVehicle.damage / (float)Vehicle.maxDamage;
+        healthUpgraded.value = (float)upgradedVehicle.health / (float)Vehicle.maxHealth;
+        maxSpeedUpgraded.value = upgradedVehicle.speed / Vehicle.maxSpeed;
+        turningUpgraded.value = upgradedVehicle.turning / Vehicle.maxTurning;
+        reloadTimeUpgraded.value = Vehicle.minReload / upgradedVehicle.reloadTime;
+
         yesButton.onClick.RemoveAllListeners();
         noButton.onClick.RemoveAllListeners();
         yesButton.onClick.AddListener(Yes);
         noButton.onClick.AddListener(No);
+
+        question.SetActive(true);
     }
 
     public void No()
     {
+        SetUpgradedStatsToZero();
         question.SetActive(false);
+        purchaseButton.gameObject.SetActive(true);
     }
 
     public void Yes()
     {
+        SetUpgradedStatsToZero();
         question.SetActive(false);
+        purchaseButton.gameObject.SetActive(true);
         VehicleSelectionController.Instance.PurchaseVehicle(vehicle);
     }
     #endregion
+
+    private void SetUpgradedStatsToZero()
+    {
+        damageUpgraded.value = 0;
+        healthUpgraded.value = 0;
+        maxSpeedUpgraded.value = 0;
+        turningUpgraded.value = 0;
+        reloadTimeUpgraded.value = 0;
+    }
 }

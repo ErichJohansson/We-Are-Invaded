@@ -58,4 +58,18 @@ public class Vehicle : ScriptableObject
         turning = upgradeLevels[currentLevel].turningLevel * turningPerLevel;
         speed = upgradeLevels[currentLevel].speedLevel * speedPerLevel;
     }
+
+    public static Vehicle GetUpgradedVehicle(Vehicle v)
+    {
+        if (v.currentLevel + 1 >= v.upgradeLevels.Length)
+            return null;
+
+        Vehicle vehi = new Vehicle();
+        vehi.damage = v.upgradeLevels[v.currentLevel + 1].damageLevel * damagePerLevel;
+        vehi.health = v.upgradeLevels[v.currentLevel + 1].healthLevel * healthPerLevel;
+        vehi.reloadTime = 200f / (v.upgradeLevels[v.currentLevel + 1].reloadLevel * reloadPerLevel);
+        vehi.turning = v.upgradeLevels[v.currentLevel + 1].turningLevel * turningPerLevel;
+        vehi.speed = v.upgradeLevels[v.currentLevel + 1].speedLevel * speedPerLevel;
+        return vehi;
+    }
 }

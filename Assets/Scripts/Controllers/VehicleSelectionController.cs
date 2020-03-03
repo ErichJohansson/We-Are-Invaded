@@ -150,6 +150,7 @@ public class VehicleSelectionController : MonoBehaviour
 
     private void SetAndSpawnVehicle()
     {
+        if (GameController.Instance.PlayerUnit != null) GameController.Instance.PlayerUnit.Restart();
         playerObject = SelectedVehicle.playerObject;
         PlatformerController.Instance.SpawnPlayer(playerObject, SelectedVehicle);
     }

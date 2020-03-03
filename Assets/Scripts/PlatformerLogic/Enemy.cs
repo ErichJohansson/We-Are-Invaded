@@ -17,16 +17,19 @@ public class Enemy : MonoBehaviour
     public bool isBoss;
 
     private Obstacle obstacle;
+    BoxCollider2D collider;
 
     private void Awake()
     {
         enemyShooting = GetComponent<EnemyShooting>();
         obstacle = GetComponent<Obstacle>();
+        collider = GetComponent<BoxCollider2D>();
     }
 
     private void OnEnable()
     {
         currentHP = maxHP;
+        collider.enabled = true;
     }
 
     public void ReceiveDamage(int damage, Vector3 pos, bool isCritical = false, bool playerShot = false)
@@ -56,27 +59,20 @@ public class Enemy : MonoBehaviour
             Debug.Log(currentHP);
     }
 
-    public void Restart()
-    {
-        BoxCollider2D col = GetComponent<BoxCollider2D>();
-        if (col != null)
-            col.enabled = true;
-    }
-
-    public static void SetActiveEnemies(bool state)
-    {
-        StageStrip[] stageStrips = FindObjectsOfType<StageStrip>();
-        for (int i = 0; i < stageStrips.Length; i++)
-        {
-            for (int j = 0; j < stageStrips[i].spawnedUnits.Count; j++)
-            {
-                if (stageStrips[i].spawnedUnits[j] == null)
-                    continue;
-                stageStrips[i].spawnedUnits[j].gameObject.SetActive(state);
-                if (state) stageStrips[i].spawnedUnits[j].Restart();
-            }
-        }
-    }
+    //public static void SetActiveEnemies(bool state)
+    //{
+    //    StageStrip[] stageStrips = FindObjectsOfType<StageStrip>();
+    //    for (int i = 0; i < stageStrips.Length; i++)
+    //    {
+    //        for (int j = 0; j < stageStrips[i].spawnedUnits.Count; j++)
+    //        {
+    //            if (stageStrips[i].spawnedUnits[j] == null)
+    //                continue;
+    //            stageStrips[i].spawnedUnits[j].gameObject.SetActive(state);
+    //            if (state) stageStrips[i].spawnedUnits[j].Restart();
+    //        }
+    //    }
+    //}
 
     private IEnumerator AnimationDelay()
     {

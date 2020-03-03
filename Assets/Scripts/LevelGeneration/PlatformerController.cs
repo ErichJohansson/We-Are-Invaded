@@ -48,8 +48,8 @@ public class PlatformerController : MonoBehaviour
     {
         if (GameController.Instance.playerObject == null)
             return;
-        PlayerUnit unit = GameController.Instance.playerObject.GetComponent<PlayerUnit>();
         GameController.Instance.playerObject.transform.position = new Vector3(respawnAt.x, respawnAt.y, 9 + respawnAt.y / 10.00f);
+        GameController.Instance.camera.Follow = GameController.Instance.playerObject.transform;
         GameController.Instance.playerObject.SetActive(true);
     }
 

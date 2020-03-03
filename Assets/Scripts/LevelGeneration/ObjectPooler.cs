@@ -29,9 +29,6 @@ public class ObjectPooler : MonoBehaviour
                 continue;
             if (!obj.activeInHierarchy && obj.tag == tag)
             {
-                Enemy e = obj.GetComponent<Enemy>();
-                if (e != null)
-                    e.Restart();
                 return obj;
             }
         }
@@ -56,9 +53,6 @@ public class ObjectPooler : MonoBehaviour
         {
             if (pooledObjects[i] != null)
             {
-                Enemy e = pooledObjects[i].GetComponent<Enemy>();
-                if (e != null)
-                    e.Restart();
                 pooledObjects[i].SetActive(false);
             }
         }

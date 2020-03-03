@@ -92,6 +92,7 @@
     <Compile Include="Assets\Scripts\Misc\IShotRecycler.cs" />
     <Compile Include="Assets\Scripts\Misc\LevelUtils.cs" />
     <Compile Include="Assets\Scripts\Misc\ObjectToPool.cs" />
+    <Compile Include="Assets\Scripts\Misc\RemainsRecycler.cs" />
     <Compile Include="Assets\Scripts\Misc\SaveManager.cs" />
     <Compile Include="Assets\Scripts\Misc\TankData.cs" />
     <Compile Include="Assets\Scripts\Misc\UpgradeLevel.cs" />

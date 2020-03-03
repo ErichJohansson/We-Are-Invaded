@@ -120,7 +120,6 @@ public class PlayerUnit : MonoBehaviour
             trail.emitting = false;
         }
         StopAllCoroutines();
-        GameController.Instance.camera.transform.position = gameObject.transform.position;
         ActivateParallax();
         UIController.Instance.RestartDamageEffect();
         CurrentHP = maxHP;
@@ -155,11 +154,11 @@ public class PlayerUnit : MonoBehaviour
     #region Visuals
     private void ActivateParallax()
     {
-        //bounds.transform.position = gameObject.transform.position;
         for (int i = 0; i < GameController.Instance.backgrounds.Length; i++)
         {
+            GameController.Instance.backgrounds[i].Restart();
             GameController.Instance.backgrounds[i].player = gameObject;
-            GameController.Instance.backgrounds[i].Activate();
+            GameController.Instance.backgrounds[i].Setup();
         }
     }
 

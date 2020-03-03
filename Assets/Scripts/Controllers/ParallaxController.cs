@@ -8,7 +8,7 @@ public class ParallaxController : MonoBehaviour
     private float len, startX;
     private Vector3 initialPosition;
 
-    public void Activate()
+    public void Setup()
     {
         if (initialPosition == Vector3.zero)
             initialPosition = gameObject.transform.position;
@@ -16,6 +16,11 @@ public class ParallaxController : MonoBehaviour
             gameObject.transform.position = initialPosition;
         startX = transform.position.x;
         len = GetComponentInChildren<SpriteRenderer>().bounds.size.x;
+    }
+
+    public void Restart()
+    {
+        initialPosition = Vector3.zero;
     }
 
     void Update()

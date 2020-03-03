@@ -31,7 +31,7 @@ public class BossSpawner : MonoBehaviour
             t += tickTime;
             if (Random.Range(0, 1f) < t / mtth)
             {
-                Enemy.SetActiveEnemies(false);
+                //Enemy.SetActiveEnemies(false);
 
                 currentBoss = Instantiate(allBosses[Random.Range(0, allBosses.Count)], new Vector3(GameController.Instance.PlayerUnit.transform.position.x + 15f, 0, 9),
                     Quaternion.identity, GameController.Instance.PlayerUnit.transform.parent);
