@@ -23,6 +23,7 @@ public class Obstacle : MonoBehaviour
     public float forcedY;
 
     public bool isModifier;
+    public bool forbidRecycling;
 
     [Header("Visual Effects")]
     public bool createPopUp;
@@ -33,7 +34,6 @@ public class Obstacle : MonoBehaviour
     public Animator animator;
 
     private Quaternion effectRotation = new Quaternion(180, 0, 0, 1);
-    private GameObject effect;
     private ObjectPooler pooler;
 
     private void Awake()
@@ -51,7 +51,6 @@ public class Obstacle : MonoBehaviour
         gameObject.transform.position = new Vector3(pos.x, pos.y, 9 + (pos.y / 10.00f));
         SetAdditionalCollidersActive(false);
     }
-
 
     private void OnDisable()
     {

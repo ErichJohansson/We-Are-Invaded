@@ -146,6 +146,7 @@ public class PlayerShooting : MonoBehaviour
         cooldown = false;
         Reloading = false;
         InfiniteAmmo = false;
+        gunLightSource.SetActive(false);
     }
 
     #region coroutines

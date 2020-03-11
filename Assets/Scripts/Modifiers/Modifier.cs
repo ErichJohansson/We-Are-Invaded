@@ -23,12 +23,14 @@ public class Modifier : MonoBehaviour
 
     private void MakeIndependent()
     {
-        StageStrip ss = GetComponentInParent<StageStrip>();
+        StageStripe ss = GetComponentInParent<StageStripe>();
         if (ss != null)
         {
             isIndependent = ss.spawnedObjects.Remove(gameObject);
             transform.parent = transform.parent.parent;
         }
+
+        GetComponent<Obstacle>().forbidRecycling = true;
     }
 
     protected IEnumerator Lifetime()
@@ -40,10 +42,8 @@ public class Modifier : MonoBehaviour
         while (TimeRemains > 0)
         {
             TimeRemains -= Time.deltaTime;
-            //Debug.Log(TimeRemains);
             yield return new WaitForEndOfFrame();
         }
-        //Debug.Log("over");
         Deactivate();
     }
 

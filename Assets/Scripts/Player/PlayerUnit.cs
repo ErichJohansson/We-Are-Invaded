@@ -58,7 +58,6 @@ public class PlayerUnit : MonoBehaviour
     private bool turningRight;
     private bool turningLeft;
 
-
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -273,7 +272,7 @@ public class PlayerUnit : MonoBehaviour
         UIController.Instance.UpdateSpeedUpSlider();
     }
 
-    private IEnumerator FastTraveling(float distanceX, float fastTravelingTime)
+    private IEnumerator FastTraveling(float fastTravelingTime)
     {
         float t = 0;
 

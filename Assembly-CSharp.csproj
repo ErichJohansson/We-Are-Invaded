@@ -85,9 +85,11 @@
     <Compile Include="Assets\Scripts\LevelGeneration\Obstacle.cs" />
     <Compile Include="Assets\Scripts\LevelGeneration\PlatformerController.cs" />
     <Compile Include="Assets\Scripts\LevelGeneration\Regenerator.cs" />
-    <Compile Include="Assets\Scripts\LevelGeneration\StageStrip.cs" />
+    <Compile Include="Assets\Scripts\LevelGeneration\SingleEnemySpot.cs" />
+    <Compile Include="Assets\Scripts\LevelGeneration\StageStripe.cs" />
     <Compile Include="Assets\Scripts\LevelGeneration\StripTrigger.cs" />
     <Compile Include="Assets\Scripts\Misc\ColorScheme.cs" />
+    <Compile Include="Assets\Scripts\Misc\EnemyArea.cs" />
     <Compile Include="Assets\Scripts\Misc\GameData.cs" />
     <Compile Include="Assets\Scripts\Misc\IShotRecycler.cs" />
     <Compile Include="Assets\Scripts\Misc\LevelUtils.cs" />

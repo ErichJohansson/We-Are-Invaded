@@ -9,17 +9,11 @@ TagManager:
   - blood_splatter_0
   - blood_splatter_1
   - blood_splatter_2
-  - car_pile_0
-  - car_pile_1
-  - car_pile_2
-  - car_pile_3
-  - car_pile_4
-  - car_pile_5
-  - car_pile_wall
   - mod_repair
   - mod_jetpack
   - mod_inf_ammo
   - mod_quadro_damage
+  - m_stripe_mixed
   layers:
   - Default
   - TransparentFX

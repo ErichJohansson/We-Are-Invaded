@@ -43,8 +43,6 @@ public class Enemy : MonoBehaviour
         {
             if (obstacle != null)
                 obstacle.Die(gameObject.transform.position.y);
-            else
-                Destroy(gameObject);
 
             if (enemyShooting != null)
             {

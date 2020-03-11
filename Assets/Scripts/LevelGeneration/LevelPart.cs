@@ -7,7 +7,7 @@ public class LevelPart : MonoBehaviour
 {
     [Header("Spawned objects settings")]
     public Transform spawnPoint;
-    public List<GameObject> allowedStrips;
+    public List<GameObject> allowedStripes;
 
     public int maxStrips;
     public int triesPerStrip;
@@ -25,7 +25,8 @@ public class LevelPart : MonoBehaviour
     private float xOffset;
     private float levelOffest;
 
-    private List<GameObject> spawnedStrips;
+    private List<GameObject> spawnedStripes;
+    private ObjectPooler pooler;
 
     public float Length
     {
@@ -37,17 +38,31 @@ public class LevelPart : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        pooler = FindObjectOfType<ObjectPooler>();
+        spawnedStripes = new List<GameObject>();
+    }
+
     void Start()
     {
-        spawnedStrips = new List<GameObject>();
         xOffset = chunkArea.size.x / 2;
         yOffset = 0;
         levelOffest = Length * 3f;
 
-        SpawnStrips();
+        SpawnStripes();
     }
 
-    public void SpawnStrips()
+    private void OnDisable()
+    {
+        foreach (GameObject stripe in spawnedStripes)
+        {
+            stripe.GetComponent<StageStripe>().ClearChildrenObjects();
+            stripe.SetActive(false);
+        }
+    }
+
+    public void SpawnStripes()
     {
         background.sprite = allowedBackgrounds[Random.Range(0, allowedBackgrounds.Count)];
         Vector2 pos = gameObject.transform.position;
@@ -56,18 +71,19 @@ public class LevelPart : MonoBehaviour
         {
             for (int j = 0; j < triesPerStrip; j++)
             {
-                float curX = Random.Range(pos.x - xOffset, pos.x + xOffset);
-                float curY = Random.Range(pos.y - yOffset, pos.y + yOffset);
+                float curX = Random.Range(chunkArea.offset.x + pos.x - xOffset, chunkArea.offset.x + pos.x + xOffset);
+                float curY = Random.Range(chunkArea.offset.y + pos.y - yOffset, chunkArea.offset.y + pos.y + yOffset);
 
-                GameObject go = allowedStrips[Random.Range(0, allowedStrips.Count)];
-                StageStrip ss = go.GetComponent<StageStrip>();
+                GameObject go = allowedStripes[Random.Range(0, allowedStripes.Count)];
+                StageStripe ss = go.GetComponent<StageStripe>();
 
-                Vector2 stripPos = new Vector2(curX, curY);
+                Vector2 stripePos = new Vector2(curX, curY);
 
-                if (LevelUtils.IsOverlapping(stripPos, ss.personalSpace, spawnedStrips) || !LevelUtils.IsReaching(stripPos, ss.reachingSpace, spawnedStrips, 1))
+                if (LevelUtils.IsOverlapping(stripePos, ss.personalSpace, spawnedStripes) || !LevelUtils.IsReaching(stripePos, ss.reachingSpace, spawnedStripes, 1))
                     continue;
 
-                spawnedStrips.Add(Instantiate(go, new Vector3(stripPos.x, stripPos.y, 0f), Quaternion.identity, this.gameObject.transform));
+                UseObject(go.tag, stripePos.x, stripePos.y);
+
                 break;
             }
         }
@@ -75,15 +91,15 @@ public class LevelPart : MonoBehaviour
 
     public void Regenerate(bool restart = false)
     {
-        if (spawnedStrips == null)
+        if (spawnedStripes == null)
             return;
 
-        foreach(GameObject strip in spawnedStrips)
+        foreach(GameObject stripe in spawnedStripes)
         {
-            strip.GetComponent<StageStrip>().ClearChildrenObjects();
-            Destroy(strip);
+            stripe.GetComponent<StageStripe>().ClearChildrenObjects();
+            stripe.SetActive(false);
         }
-        spawnedStrips.Clear();
+        spawnedStripes.Clear();
 
         gameObject.transform.position += new Vector3(restart ? 0 : levelOffest, 0, 0);
 
@@ -91,6 +107,20 @@ public class LevelPart : MonoBehaviour
         if (lp.transform.position.x - gameObject.transform.position.x < -384)
             lp.Regenerate();
 
-        SpawnStrips();
+        SpawnStripes();
+    }
+
+    private void UseObject(string tag, float x, float y)
+    {
+        GameObject obj = pooler.GetPooledObject(tag);
+        if (obj == null)
+        {
+            Debug.Log(tag + " is null");
+            return;
+        }
+        obj.transform.parent = transform;
+        obj.transform.position = new Vector3(x, y, 0f);
+        obj.SetActive(true);
+        spawnedStripes.Add(obj);
     }
 }
