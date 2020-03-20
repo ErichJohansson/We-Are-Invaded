@@ -78,9 +78,12 @@ public class GameController : MonoBehaviour
 
     public void StartGame()
     {
-        // restarts game, create new level
-        PlatformerController.Instance.RestartGame();
+        UIController.Instance.ActivateLoadEffect();
 
+        if (!PlatformerController.Instance.generated)
+            PlatformerController.Instance.GenerateWorld();
+        else
+            PlatformerController.Instance.RegenerateLevel();
         // restarts player
         if (PlayerUnit != null)
             PlayerUnit.Restart();

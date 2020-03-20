@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObjectPooler : MonoBehaviour
 {
     public List<ObjectToPool> objectsToPool;
-    private List<GameObject> pooledObjects;
+    [SerializeField] private List<GameObject> pooledObjects;
 
     private void Start()
     {
@@ -54,6 +54,11 @@ public class ObjectPooler : MonoBehaviour
             if (pooledObjects[i] != null)
             {
                 pooledObjects[i].SetActive(false);
+            }
+            else
+            {
+                pooledObjects.RemoveAt(i);
+                i--;
             }
         }
     }

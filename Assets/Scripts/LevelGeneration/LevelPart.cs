@@ -1,5 +1,5 @@
 ﻿using Misc;
-using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +9,8 @@ public class LevelPart : MonoBehaviour
     public Transform spawnPoint;
     public List<GameObject> allowedStripes;
 
-    public int maxStrips;
+    public int maxStripes;
+    public int minStripes;
     public int triesPerStrip;
 
     public BoxCollider2D chunkArea;
@@ -25,8 +26,9 @@ public class LevelPart : MonoBehaviour
     private float xOffset;
     private float levelOffest;
 
-    private List<GameObject> spawnedStripes;
+    [SerializeField ]private List<GameObject> spawnedStripes;
     private ObjectPooler pooler;
+    Transform trnsfrm;
 
     public float Length
     {
@@ -40,6 +42,7 @@ public class LevelPart : MonoBehaviour
 
     private void Awake()
     {
+        trnsfrm = gameObject.transform;
         pooler = FindObjectOfType<ObjectPooler>();
         spawnedStripes = new List<GameObject>();
     }
@@ -50,7 +53,7 @@ public class LevelPart : MonoBehaviour
         yOffset = 0;
         levelOffest = Length * 3f;
 
-        SpawnStripes();
+        StartCoroutine(SpawnStripes());
     }
 
     private void OnDisable()
@@ -62,38 +65,35 @@ public class LevelPart : MonoBehaviour
         }
     }
 
-    public void SpawnStripes()
+    private IEnumerator SpawnStripes()
     {
         background.sprite = allowedBackgrounds[Random.Range(0, allowedBackgrounds.Count)];
-        Vector2 pos = gameObject.transform.position;
+        Vector2 pos = trnsfrm.position;
 
-        for (int i = 0; i < maxStrips; i++)
+        float prevX = spawnPoint.position.x + 10f;
+        float endX = trnsfrm.position.x + chunkArea.size.x / 2;
+
+        while (prevX + 5 <= endX)
         {
-            for (int j = 0; j < triesPerStrip; j++)
-            {
-                float curX = Random.Range(chunkArea.offset.x + pos.x - xOffset, chunkArea.offset.x + pos.x + xOffset);
-                float curY = Random.Range(chunkArea.offset.y + pos.y - yOffset, chunkArea.offset.y + pos.y + yOffset);
+            yield return new WaitForEndOfFrame();
+            GameObject go = allowedStripes[Random.Range(0, allowedStripes.Count)];
+            StageStripe ss = go.GetComponent<StageStripe>();
 
-                GameObject go = allowedStripes[Random.Range(0, allowedStripes.Count)];
-                StageStripe ss = go.GetComponent<StageStripe>();
+            float curX = prevX + ss.personalSpace.size.x + 1f;
+            float curY = Random.Range(chunkArea.offset.y + pos.y - yOffset, chunkArea.offset.y + pos.y + yOffset);
+            Vector2 stripePos = new Vector2(curX, curY);
 
-                Vector2 stripePos = new Vector2(curX, curY);
-
-                if (LevelUtils.IsOverlapping(stripePos, ss.personalSpace, spawnedStripes) || !LevelUtils.IsReaching(stripePos, ss.reachingSpace, spawnedStripes, 1))
-                    continue;
-
-                UseObject(go.tag, stripePos.x, stripePos.y);
-
-                break;
-            }
+            UseObject(go.tag, stripePos.x, stripePos.y);
+            prevX = curX;
         }
     }
+
 
     public void Regenerate(bool restart = false)
     {
         if (spawnedStripes == null)
             return;
-
+        Debug.Log("regenerated lp");
         foreach(GameObject stripe in spawnedStripes)
         {
             stripe.GetComponent<StageStripe>().ClearChildrenObjects();
@@ -107,7 +107,7 @@ public class LevelPart : MonoBehaviour
         if (lp.transform.position.x - gameObject.transform.position.x < -384)
             lp.Regenerate();
 
-        SpawnStripes();
+        StartCoroutine(SpawnStripes());
     }
 
     private void UseObject(string tag, float x, float y)
@@ -118,9 +118,9 @@ public class LevelPart : MonoBehaviour
             Debug.Log(tag + " is null");
             return;
         }
+        spawnedStripes.Add(obj);
         obj.transform.parent = transform;
         obj.transform.position = new Vector3(x, y, 0f);
         obj.SetActive(true);
-        spawnedStripes.Add(obj);
     }
 }

@@ -108,7 +108,7 @@ public class PlayerUnit : MonoBehaviour
         if (increasedDamage != null)
             increasedDamage.Deactivate();
         if (speedBoost != null)
-            speedBoost.Deactivate(true);
+            speedBoost.ForceDeactivation();
 
         currentSpeed = 0;
         currentSpeedBoostLength = 0;
@@ -182,7 +182,7 @@ public class PlayerUnit : MonoBehaviour
         IsFastTraveling = false;
         float t = 0;
         float waitTime = 0.25f;
-        while(t < 4f)
+        while(t < 2f)
         {
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, (t / waitTime) % 2);
             t += waitTime;

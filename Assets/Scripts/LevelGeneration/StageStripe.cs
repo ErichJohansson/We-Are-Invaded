@@ -1,4 +1,5 @@
 ﻿using Misc;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ public class StageStripe : MonoBehaviour
 
     public BoxCollider2D personalSpace;
     public BoxCollider2D reachingSpace;
+
+    public List<GameObject> reactivateObjects;
 
     [Header("Enemies")]
     public EnemyArea[] enemyAreas;
@@ -26,14 +29,22 @@ public class StageStripe : MonoBehaviour
     {
         spawnedObjects = new List<GameObject>();
         spawnedUnits = new List<Enemy>();
-
-        SpawnObjects();
     }
 
-    public void SpawnObjects()
+    private void OnDisable()
     {
-        GameObject go;
-        Obstacle obs = null;
+        gameObject.transform.position = new Vector3(-100, 0, 0);
+    }
+
+    private void OnEnable()
+    {
+        SpawnEnemies();
+    }
+
+    public void SpawnEnemies()
+    {
+        if (spawnedObjects.Count != 0)
+            ClearChildrenObjects();
 
         for (int k = 0; k < enemyAreas.Length; k++)
         {
@@ -44,6 +55,9 @@ public class StageStripe : MonoBehaviour
             {
                 for (int j = 0; j < enemyAreas[k].triesPerObject; j++)
                 {
+                    GameObject go;
+                    Obstacle obs = null;
+
                     float curX = Random.Range(pos.x - xOffset, pos.x + xOffset);
                     float curY = Random.Range(pos.y - yOffset, pos.y + yOffset);
 
@@ -53,7 +67,7 @@ public class StageStripe : MonoBehaviour
                     curY = obs.forceY ? obs.forcedY : curY;
 
                     Vector2 position = new Vector2(curX, curY);
-                    if (LevelUtils.IsOverlapping(position, obs.personalSpace, spawnedObjects) || !personalSpace.bounds.Contains(position))
+                    if (LevelUtils.IsOverlapping(position, obs.personalSpace, spawnedObjects) || !enemyAreas[k].spawnArea.bounds.Contains(position))
                         continue;
 
                     UseObject(go.tag, curX, curY);
@@ -63,6 +77,10 @@ public class StageStripe : MonoBehaviour
             }
         }
 
+        for (int i = 0; i < reactivateObjects.Count; i++)
+        {
+            reactivateObjects[i].SetActive(true);
+        }
         SpawnBoosters();
     }
 
@@ -84,12 +102,17 @@ public class StageStripe : MonoBehaviour
             curY = obs.forceY ? obs.forcedY : curY;
 
             Vector2 position = new Vector2(curX, curY);
-            if (LevelUtils.IsOverlapping(position, obs.personalSpace, spawnedObjects) || !personalSpace.bounds.Contains(position))
+            if (LevelUtils.IsOverlapping(position, obs.personalSpace) || !personalSpace.bounds.Contains(position))
                 continue;
 
             UseObject(go.tag, curX, curY);
 
             break;
+        }
+
+        foreach (Obstacle obs in GetComponentsInChildren<Obstacle>())
+        {
+            obs.SetAdditionalCollidersActive(false);
         }
     }
 

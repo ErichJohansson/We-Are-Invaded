@@ -30,7 +30,7 @@ public class Modifier : MonoBehaviour
             transform.parent = transform.parent.parent;
         }
 
-        GetComponent<Obstacle>().forbidRecycling = true;
+        //GetComponent<Obstacle>().forbidRecycling = true;
     }
 
     protected IEnumerator Lifetime()

@@ -10,6 +10,7 @@ public class PlatformerController : MonoBehaviour
 
     private List<GameObject> spawnedLevelParts;
 
+    public bool generated;
     public static PlatformerController Instance { get; private set; }
 
     private void Awake()
@@ -64,9 +65,10 @@ public class PlatformerController : MonoBehaviour
             spawnedLevelParts.Add(Instantiate(go, new Vector3(prevPos.x + lp.Length, prevPos.y, prevPos.z), Quaternion.identity, world));
             prevPos = spawnedLevelParts[spawnedLevelParts.Count - 1].transform.position;
         }
+        generated = true;
     }
 
-    public void RestartGame()
+    public void RegenerateLevel()
     {
         if (spawnedLevelParts == null)
             return;
@@ -80,6 +82,7 @@ public class PlatformerController : MonoBehaviour
             prevPos = spawnedLevelParts[i].transform.position;
         }
         RespawnPlayer(spawnedLevelParts[0].GetComponent<LevelPart>().spawnPoint.position);
+        Debug.Log(FindObjectsOfType<StageStripe>().Length + " stripes in total after restarting");
     }
 
     public GameObject GetSpawnedPart(int id)

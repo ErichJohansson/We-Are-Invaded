@@ -5,6 +5,12 @@ using UnityEngine;
 public class PauseScreen : MonoBehaviour
 {
     public UIObject panel;
+    private ObjectPooler pooler;
+
+    private void Awake()
+    {
+        pooler = FindObjectOfType<ObjectPooler>();
+    }
 
     private void ResumeGame() 
     {
@@ -30,6 +36,7 @@ public class PauseScreen : MonoBehaviour
 
     public void BackToMainMenu()
     {
+        pooler.Restart();
         panel.HidePanel();
         UIController.Instance.startGameScreen.panel.ShowPanel();
         GameController.Instance.Pause = false;

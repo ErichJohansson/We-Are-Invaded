@@ -7,6 +7,7 @@ public class Follower : MonoBehaviour
     public float initialDeltaX;
     public float distanceToStopFollowing;
     public float speedModifier;
+    [Range(0, 1f)] public float maxSpeedPercentage;
 
     [Header("Warning Settings")]
     public GameObject dangerSign;
@@ -27,7 +28,7 @@ public class Follower : MonoBehaviour
 
     public void StartFollowing()
     {
-        speedThreshold = GameController.Instance.PlayerUnit.maxSpeed / 3f;
+        speedThreshold = GameController.Instance.PlayerUnit.maxSpeed * maxSpeedPercentage;
         isFollowing = false;
         wokeUp = false;
         StartCoroutine("Delay");

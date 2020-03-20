@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 177998493}
   m_Layer: 0
   m_Name: ork_car
-  m_TagString: Untagged
+  m_TagString: ork_car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

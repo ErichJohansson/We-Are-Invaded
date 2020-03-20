@@ -22,6 +22,11 @@ public class UIController : MonoBehaviour
     public float damageEffectLength;
     public float currentDamageEffectLength;
 
+    [Header("Load Effect")]
+    public Image loadEffect;
+    public float loadEffectLength;
+    public float currentLoadEffectLength;
+
     [Header("Modifier Icons")]
     public List<Image> modifierIcons;
     public Sprite empty;
@@ -44,7 +49,7 @@ public class UIController : MonoBehaviour
         if (lastOccupiedImage >= 4)
             return modifierIcons.Count - 1;
         lastOccupiedImage++;
-        //Debug.Log(lastOccupiedImage);
+
         modifierIcons[lastOccupiedImage].sprite = icon;
         return lastOccupiedImage;
     }
@@ -99,6 +104,11 @@ public class UIController : MonoBehaviour
         Debug.Log(player.CurrentHP);
     }
 
+    public void ActivateLoadEffect()
+    {
+        StartCoroutine("LoadEffect");
+    }
+
     public void UpdateCash()
     {
         cash.text = GameController.Instance.cash.ToString();
@@ -140,5 +150,21 @@ public class UIController : MonoBehaviour
         }
         currentDamageEffectLength = 0;
         damageEffect.gameObject.SetActive(false);
+    }
+
+    private IEnumerator LoadEffect()
+    {
+        loadEffect.gameObject.SetActive(true);
+        currentLoadEffectLength = loadEffectLength;
+        Time.timeScale = 0;
+        while (currentLoadEffectLength > 0)
+        {
+            currentLoadEffectLength -= 0.01f;
+            loadEffect.color = new Color(loadEffect.color.r, loadEffect.color.g, loadEffect.color.b, currentLoadEffectLength / loadEffectLength);
+            yield return new WaitForSecondsRealtime(0.005f);
+        }
+        currentLoadEffectLength = 0;
+        loadEffect.gameObject.SetActive(false);
+        Time.timeScale = 1;
     }
 }

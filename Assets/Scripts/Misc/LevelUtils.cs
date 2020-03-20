@@ -27,6 +27,21 @@ namespace Misc
             return false;
         }
 
+        public static bool IsOverlapping(Vector2 colliderPosition, BoxCollider2D colliderToCheck)
+        {
+            Collider2D[] overlapping = Physics2D.OverlapBoxAll(colliderPosition, colliderToCheck.size, 0);
+
+            for (int k = 0; k < overlapping.Length; k++)
+            {
+                Obstacle obs = null;
+                obs = overlapping[k].GetComponentInParent<Obstacle>();
+                if (obs != null)
+                    return true;
+            }
+
+            return false;
+        }
+
         public static bool IsReaching(Vector2 colliderPosition, BoxCollider2D colliderToCheck, List<GameObject> listToCheck, int ignoreFirstItems)
         {
             Collider2D[] overlapping = Physics2D.OverlapBoxAll(colliderPosition, colliderToCheck.size, 0);

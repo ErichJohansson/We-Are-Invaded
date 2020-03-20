@@ -6,13 +6,20 @@ public class StartGameScreen : MonoBehaviour
     public UIObject panel;
     public GameObject exitQuestion;
 
+    private ObjectPooler pooler;
+
+    private void Awake()
+    {
+        pooler = FindObjectOfType<ObjectPooler>();
+    }
+
     public void StartGame()
     {
-        GameController.Instance.StartGame();
-        PlatformerController.Instance.GenerateWorld();
-
+        pooler.Restart();
+        GameController.Instance.UpdateCash();
         GameController.Instance.SetPause(!panel.isShown);
-        panel.HidePanel();
+        GameController.Instance.StartGame();
+        UIController.Instance.HidePanel(panel);
     }
 
     private void Update()

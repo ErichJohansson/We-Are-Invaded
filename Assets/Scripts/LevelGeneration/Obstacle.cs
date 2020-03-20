@@ -23,7 +23,7 @@ public class Obstacle : MonoBehaviour
     public float forcedY;
 
     public bool isModifier;
-    public bool forbidRecycling;
+    //public bool forbidRecycling;
 
     [Header("Visual Effects")]
     public bool createPopUp;
@@ -49,7 +49,6 @@ public class Obstacle : MonoBehaviour
     {
         Vector2 pos = gameObject.transform.position;
         gameObject.transform.position = new Vector3(pos.x, pos.y, 9 + (pos.y / 10.00f));
-        SetAdditionalCollidersActive(false);
     }
 
     private void OnDisable()

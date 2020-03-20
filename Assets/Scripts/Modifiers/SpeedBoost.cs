@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class SpeedBoost : Modifier
 {
-    private float oldSpeed;
-    private float oldSpeedUpRate;
-
     public override void Activate()
     {
         if (GameController.Instance.PlayerUnit.SpeedBoost != null)
@@ -36,7 +33,7 @@ public class SpeedBoost : Modifier
         Destroy(gameObject);
     }
 
-    public void Deactivate(bool forceDeactivate)
+    public void ForceDeactivation()
     {
         GameController.Instance.PlayerUnit.MakeVulnerable(true);
         GameController.Instance.PlayerUnit.SpeedBoost = null;
