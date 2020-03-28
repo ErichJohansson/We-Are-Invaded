@@ -44,7 +44,10 @@ public class StageStripe : MonoBehaviour
     public void SpawnEnemies()
     {
         if (spawnedObjects.Count != 0)
+        {
+            //Debug.LogError("More than 0 enemies spawned already");
             ClearChildrenObjects();
+        }
 
         for (int k = 0; k < enemyAreas.Length; k++)
         {
@@ -145,6 +148,13 @@ public class StageStripe : MonoBehaviour
 
     public void ClearChildrenObjects()
     {
+        foreach (GameObject obj in spawnedObjects)
+        {
+            if (obj == null)
+                continue;
+            obj.transform.parent = transform.parent;
+        }
+
         foreach (GameObject obj in spawnedObjects)
         {
             if (obj == null)

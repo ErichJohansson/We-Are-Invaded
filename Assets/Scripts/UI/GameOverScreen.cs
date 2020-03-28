@@ -6,6 +6,10 @@ public class GameOverScreen : MonoBehaviour
 {
     public Text info;
     public UIObject panel;
+
+    public AnimatedNumericText traveled;
+    public AnimatedNumericText earned;
+
     private ObjectPooler pooler;
 
     private void Awake()
@@ -13,15 +17,17 @@ public class GameOverScreen : MonoBehaviour
         pooler = FindObjectOfType<ObjectPooler>();
     }
 
-    private void SetEndGameInfo(string gameinfo)
+    private void SetEndGameInfo()
     {
-        info.text = gameinfo;
+        traveled.SetValue(GameController.Instance.DistanceTraveled);
+        earned.SetValue(GameController.Instance.ScoredPoints);
     }
 
     public void ShowGameOverScreen()
     {
         GameController.Instance.SetPause(!panel.isShown);
-        SetEndGameInfo(LocalizationManager.Localize("GameOver.GameInfo", GameController.Instance.ScoredPoints.ToString(), GameController.Instance.DistanceTraveled.ToString()));
+        //SetEndGameInfo(LocalizationManager.Localize("GameOver.GameInfo", GameController.Instance.ScoredPoints.ToString(), GameController.Instance.DistanceTraveled.ToString()));
+        SetEndGameInfo();
         UIController.Instance.ShowPanel(panel);
 
         GameController.Instance.SaveGame();

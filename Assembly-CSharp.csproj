@@ -113,6 +113,7 @@
     <Compile Include="Assets\Scripts\Player\PlayerShooting.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerShootingPhysical.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerUnit.cs" />
+    <Compile Include="Assets\Scripts\UI\AnimatedNumericText.cs" />
     <Compile Include="Assets\Scripts\UI\ColorShowcase.cs" />
     <Compile Include="Assets\Scripts\UI\GameOverScreen.cs" />
     <Compile Include="Assets\Scripts\UI\PauseScreen.cs" />
