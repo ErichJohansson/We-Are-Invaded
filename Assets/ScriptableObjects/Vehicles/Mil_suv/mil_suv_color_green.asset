@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 873cb2698ed97a34d9fee2f5cee4195f, type: 3}
+  m_Name: mil_suv_color_green
+  m_EditorClassIdentifier: 
+  price: 0
+  purchased: 1
+  previewSprite: {fileID: 169941606247634668, guid: 319296b9402d6da469f6b8abf25743ef,
+    type: 3}
+  animatorController: {fileID: 9100000, guid: 4265928f54f9c044785fdee0d83a8cae, type: 2}

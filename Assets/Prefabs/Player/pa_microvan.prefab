@@ -966,16 +966,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   splashArea: {fileID: 1867924340795521586}
   shootingPoint: {fileID: 5647190733155717138}
-  gunType: 0
+  gunType: 1
   auto: 0
-  baseDamage: 20
+  baseDamage: 10
   layerMask:
     serializedVersion: 2
     m_Bits: 1
-  reloadTime: 2
+  reloadTime: 5
   cooldownTime: 0.5
   shootingDistance: 15
-  magazineCapacity: 2
+  magazineCapacity: 6
   gunLightSource: {fileID: 5318358884263041182}
   gunLightLength: 0.059
   mainAnimator: {fileID: 0}
