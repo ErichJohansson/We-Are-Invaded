@@ -21,10 +21,10 @@ MonoBehaviour:
   selectedColorScheme: 0
   currentLevel: 0
   name: Gopmobile
-  health: 40
+  health: 35
   fireRate: 0.5
   reloadTime: 4
-  damage: 10
+  damage: 9
   magazineCapacity: 15
   speed: 4.8
   turning: 0.4
@@ -32,20 +32,20 @@ MonoBehaviour:
   purchased: 0
   upgradeLevels:
   - upgradeCost: 750
-    damageLevel: 2
-    healthLevel: 4
-    reloadLevel: 5
-    speedLevel: 4
-    turningLevel: 4
+    damage: 11
+    health: 40
+    reload: 3.8
+    speed: 4.9
+    turning: 0.4
   - upgradeCost: 1250
-    damageLevel: 4
-    healthLevel: 4
-    reloadLevel: 5
-    speedLevel: 5
-    turningLevel: 4
+    damage: 13
+    health: 45
+    reload: 3.6
+    speed: 5
+    turning: 0.41
   - upgradeCost: 1500
-    damageLevel: 3
-    healthLevel: 5
-    reloadLevel: 5
-    speedLevel: 5
-    turningLevel: 5
+    damage: 15
+    health: 50
+    reload: 3.4
+    speed: 5.1
+    turning: 0.42

@@ -7,7 +7,7 @@ public class GameController : MonoBehaviour
 {
     public GameObject playerObject;
     public Cinemachine.CinemachineVirtualCamera camera;
-
+    public Transform coinTarget;
     public ParallaxController[] backgrounds;
 
     public int cash;

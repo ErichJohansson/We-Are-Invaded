@@ -6,12 +6,12 @@ public class Obstacle : MonoBehaviour
 {
     public BoxCollider2D personalSpace;
     public BoxCollider2D reachingSpace;
+    public BoxCollider2D mainCollider;
 
     public int hardness;
     private int currentHardness;
 
     public float slowAmount;
-    public string effectName;
 
     [Header("Score & Dying")]
     public bool useAnimationToDie;
@@ -23,32 +23,50 @@ public class Obstacle : MonoBehaviour
     public float forcedY;
 
     public bool isModifier;
-    //public bool forbidRecycling;
 
     [Header("Visual Effects")]
     public bool createPopUp;
-    public bool createEnemyRemains;
+    public bool createRemains;
+    public bool disableSpriteRendererOnDeath;
     public string[] allowedRemainsTags;
     public Transform bloodSplatterPos;
     public float bloodTrailLength;
     public Animator animator;
 
+    private ParticleSystem ps;
+    private SpriteParticleEmitter spriteEmitter;
+    private SpriteRenderer sr;
     private Quaternion effectRotation = new Quaternion(180, 0, 0, 1);
     private ObjectPooler pooler;
 
     private void Awake()
     {
         currentHardness = hardness;
-        if (createEnemyRemains)
+        if (createRemains)
         {
             pooler = FindObjectOfType<ObjectPooler>();
+        }
+
+        ps = GetComponentInChildren<ParticleSystem>();
+        spriteEmitter = GetComponent<SpriteParticleEmitter>();
+        sr = GetComponent<SpriteRenderer>();
+
+        if (ps != null)
+        {
+            ParticleSystem.Burst burst = ps.emission.GetBurst(0);
+            burst.minCount = (short)(2 * scoreAmount);
+            burst.maxCount = (short)(5 * scoreAmount);
         }
     }
 
     private void OnEnable()
     {
+        if (sr != null)
+            sr.enabled = true;
         Vector2 pos = gameObject.transform.position;
         gameObject.transform.position = new Vector3(pos.x, pos.y, 9 + (pos.y / 10.00f));
+        if (mainCollider != null)
+            mainCollider.enabled = true;
     }
 
     private void OnDisable()
@@ -65,7 +83,7 @@ public class Obstacle : MonoBehaviour
         if (hierarchyObject)
             return;
 
-        float diePosZ = -14.881337f; // !!! КОСТЫЛЬ !!!     
+        //float diePosZ = -14.881337f; // !!! КОСТЫЛЬ !!!     
         
         Enemy pe = null;
         PlatformerShot ps = null;
@@ -77,36 +95,42 @@ public class Obstacle : MonoBehaviour
             if(createPopUp)
                 DamagePopup.CreatePopup(ps.damage, ps.gameObject.transform.position);
             currentHardness -= ps.damage;
-            if (currentHardness <= 0)
-                diePosZ = ps.gameObject.transform.position.z;
+            //if (currentHardness <= 0)
+            //    diePosZ = ps.gameObject.transform.position.z;
         }
         else if (col.gameObject.TryGetComponent(out pe))
         {
             if (col.GetComponent<Enemy>() == null)
                 return;
-            if (pe.movementController != null)
-            {
-                pe.movementController.currentSpeed *= pe.hardness < hardness ? slowAmount * slowAmount : slowAmount;
-                if (hardness > pe.hardness)
-                    pe.ReceiveDamage(hardness - pe.hardness, gameObject.transform.position);
-                diePosZ = pe.gameObject.transform.position.z;
-            }
         }
 
-        if (diePosZ == -14.881337f) // !!! КОСТЫЛЬ !!!
-            return;
+        //if (diePosZ == -14.881337f) // !!! КОСТЫЛЬ !!!
+        //    return;
 
-        Die(diePosZ);
+        Die();
     }
 
-    public void Die(float diePosZ)
+    public void Die()
     {
+        if (mainCollider != null)
+            mainCollider.enabled = false;
+
         if (isModifier)
             return;
 
-        if(addScoreOnDeath)
+        if (spriteEmitter != null)
+            spriteEmitter.Emit(GameController.Instance.PlayerUnit.currentSpeed);
+
+        if (disableSpriteRendererOnDeath && sr != null)
+            sr.enabled = false;
+
+        if (addScoreOnDeath)
+        {
             UIController.Instance.AddScore(scoreAmount);
-        if (createEnemyRemains && allowedRemainsTags.Length != 0)
+            ps.Play();
+        }
+
+        if (createRemains && allowedRemainsTags.Length != 0)
         {
             GameObject obj = pooler.GetPooledObject(allowedRemainsTags[Random.Range(0, allowedRemainsTags.Length)]);
             obj.transform.position = new Vector3(bloodSplatterPos.position.x, bloodSplatterPos.position.y, 9 + bloodSplatterPos.position.y / 10f);
@@ -114,36 +138,31 @@ public class Obstacle : MonoBehaviour
             StartCoroutine(DeactivateAfterDelay(15f, obj));
         }
 
-        // use animation of dying instead of particle effect
         if (useAnimationToDie)
         {
             foreach (BoxCollider2D col in GetComponents<BoxCollider2D>())
                 col.enabled = false;
             if(animator != null)
-            {
-                StartCoroutine("AnimationDelay");            
-            }
-            return;
+                StartCoroutine(DeathDelay());
         }
-
-        // use particle effect
-        if (effectName != "")
+        else
         {
-            if (diePosZ > gameObject.transform.position.z)
-                ExplosionEffect.CreateEffect(gameObject.transform.position, effectName, gameObject.transform.parent.parent.parent, effectRotation);
-            else
-                ExplosionEffect.CreateEffect(gameObject.transform.position, effectName, gameObject.transform.parent.parent.parent);
+            StartCoroutine(DeathDelay(false));
         }
 
-        gameObject.SetActive(false);
     }
 
-    private IEnumerator AnimationDelay()
+    private IEnumerator DeathDelay(bool basedOnamination = true)
     {
         yield return new WaitForSeconds(Random.Range(0, 0.1f));
-        animator.SetTrigger("die");
-        animator.speed = Random.Range(1f, 1.5f);
-        DeactivateAfterDelay(animator.GetCurrentAnimatorStateInfo(0).length * 7, gameObject);
+        if (basedOnamination)
+        {
+            animator.SetTrigger("die");
+            animator.speed = Random.Range(1f, 1.5f);
+            DeactivateAfterDelay(animator.GetCurrentAnimatorStateInfo(0).length * 7, gameObject);
+        }
+        else
+            DeactivateAfterDelay(6f, gameObject);
     }
 
     public void SetAdditionalCollidersActive(bool state)

@@ -229,7 +229,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.647872, y: 0.19246292}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -240,7 +240,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 12.242069, y: 0.98517036}
+  m_Size: {x: 13.537813, y: 1.3700962}
   m_EdgeRadius: 0
 --- !u!1 &717620892241931698
 GameObject:
@@ -797,7 +797,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 4
   m_Sprite: {fileID: 169941606247634668, guid: 319296b9402d6da469f6b8abf25743ef, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -819,7 +819,7 @@ Animator:
   m_GameObject: {fileID: 717620893276676288}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4265928f54f9c044785fdee0d83a8cae, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4bc2e54f96590d640a38a7b64c0c34e0, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -865,10 +865,10 @@ MonoBehaviour:
   ID: 2
   maxHP: 55
   hardness: 10
-  maxSpeed: 0
+  maxSpeed: 12
   currentSpeed: 0
   speedUpRate: 6
-  turnRate: 0
+  turnRate: 0.6
   totalSpeedBoostLength: 15
   currentSpeedBoostLength: 0
   speedingUp: 0
@@ -904,7 +904,7 @@ MonoBehaviour:
   cooldownTime: 0.2
   shootingDistance: 0
   magazineCapacity: 30
-  gunLightSource: {fileID: 0}
+  gunLightSource: {fileID: 717620892621256719}
   gunLightLength: 0.063
   mainAnimator: {fileID: 0}
 --- !u!1 &717620893331881058

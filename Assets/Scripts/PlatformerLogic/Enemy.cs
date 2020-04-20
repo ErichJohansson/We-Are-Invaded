@@ -9,7 +9,6 @@ public class Enemy : MonoBehaviour
 
     public int hardness;
 
-    public EnemyMovement movementController;
     public EnemyShooting enemyShooting;
 
     public Animator hitAnimator;
@@ -42,7 +41,7 @@ public class Enemy : MonoBehaviour
         if (currentHP <= 0)
         {
             if (obstacle != null)
-                obstacle.Die(gameObject.transform.position.y);
+                obstacle.Die();
 
             if (enemyShooting != null)
             {
@@ -56,21 +55,6 @@ public class Enemy : MonoBehaviour
         if(isBoss)
             Debug.Log(currentHP);
     }
-
-    //public static void SetActiveEnemies(bool state)
-    //{
-    //    StageStrip[] stageStrips = FindObjectsOfType<StageStrip>();
-    //    for (int i = 0; i < stageStrips.Length; i++)
-    //    {
-    //        for (int j = 0; j < stageStrips[i].spawnedUnits.Count; j++)
-    //        {
-    //            if (stageStrips[i].spawnedUnits[j] == null)
-    //                continue;
-    //            stageStrips[i].spawnedUnits[j].gameObject.SetActive(state);
-    //            if (state) stageStrips[i].spawnedUnits[j].Restart();
-    //        }
-    //    }
-    //}
 
     private IEnumerator AnimationDelay()
     {

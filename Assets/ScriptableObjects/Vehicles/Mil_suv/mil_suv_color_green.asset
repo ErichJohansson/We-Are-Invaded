@@ -16,4 +16,4 @@ MonoBehaviour:
   purchased: 1
   previewSprite: {fileID: 169941606247634668, guid: 319296b9402d6da469f6b8abf25743ef,
     type: 3}
-  animatorController: {fileID: 9100000, guid: 4265928f54f9c044785fdee0d83a8cae, type: 2}
+  animatorController: {fileID: 9100000, guid: 4bc2e54f96590d640a38a7b64c0c34e0, type: 2}

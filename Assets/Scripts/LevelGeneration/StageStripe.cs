@@ -137,15 +137,6 @@ public class StageStripe : MonoBehaviour
             spawnedUnits.Add(pe);
     }
 
-    public void ActivateUnits()
-    {
-        foreach (Enemy pe in spawnedUnits)
-        {
-            if(pe.movementController != null)
-                pe.movementController.StartMoving();
-        }
-    }
-
     public void ClearChildrenObjects()
     {
         foreach (GameObject obj in spawnedObjects)

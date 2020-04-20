@@ -299,7 +299,7 @@ public class PlayerUnit : MonoBehaviour
             float diePosZ = gameObject.transform.position.z;
             if(obs.hardness <= hardness)
             {
-                obs.Die(diePosZ);
+                obs.Die();
                 trailLifetime += obs.bloodTrailLength;
                 EnemyShooting es = obs.GetComponent<EnemyShooting>();
                 if (es != null)

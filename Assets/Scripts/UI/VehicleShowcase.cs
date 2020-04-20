@@ -88,8 +88,8 @@ public class VehicleShowcase : MonoBehaviour
         purchaseButton.gameObject.SetActive(false);
         if (upgradedVehicle.purchased == true)
         {
-            damageUpgraded.value = (float)upgradedVehicle.damage / (float)Vehicle.maxDamage;
-            healthUpgraded.value = (float)upgradedVehicle.health / (float)Vehicle.maxHealth;
+            damageUpgraded.value = upgradedVehicle.damage / Vehicle.maxDamage;
+            healthUpgraded.value = upgradedVehicle.health / Vehicle.maxHealth;
             maxSpeedUpgraded.value = upgradedVehicle.speed / Vehicle.maxSpeed;
             turningUpgraded.value = upgradedVehicle.turning / Vehicle.maxTurning;
             reloadTimeUpgraded.value = Vehicle.minReload / upgradedVehicle.reloadTime;

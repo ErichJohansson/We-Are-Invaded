@@ -105,8 +105,9 @@
     <Compile Include="Assets\Scripts\Modifiers\RepairKit.cs" />
     <Compile Include="Assets\Scripts\Modifiers\SpeedBoost.cs" />
     <Compile Include="Assets\Scripts\PlatformerLogic\Enemy.cs" />
-    <Compile Include="Assets\Scripts\PlatformerLogic\EnemyMovement.cs" />
     <Compile Include="Assets\Scripts\PlatformerLogic\EnemyShooting.cs" />
+    <Compile Include="Assets\Scripts\PlatformerLogic\EnemyTypes\ChaserScenario.cs" />
+    <Compile Include="Assets\Scripts\PlatformerLogic\EnemyTypes\IEnemyBehaviour.cs" />
     <Compile Include="Assets\Scripts\PlatformerLogic\Follower.cs" />
     <Compile Include="Assets\Scripts\PlatformerLogic\PlatformerShooting.cs" />
     <Compile Include="Assets\Scripts\PlatformerLogic\PlatformerShot.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="Assets\Scripts\VisualEffects\DamagePopup.cs" />
     <Compile Include="Assets\Scripts\VisualEffects\ExplosionEffect.cs" />
     <Compile Include="Assets\Scripts\VisualEffects\HitEffectSpawner.cs" />
+    <Compile Include="Assets\Scripts\VisualEffects\SpriteParticleEmitter.cs" />
     <Compile Include="Assets\SimpleLocalization\Downloader.cs" />
     <Compile Include="Assets\SimpleLocalization\Example.cs" />
     <Compile Include="Assets\SimpleLocalization\LocalizationManager.cs" />

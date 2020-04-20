@@ -184,7 +184,7 @@ public class ScrollSnap : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDr
             Vector2 childPosition;
             if (_horizontal)
             {
-                childPosition = new Vector2(i * 850/*width - containerWidth / 2 + offsetX*/, 0f);
+                childPosition = new Vector2(-width/2 + i * 850/*width - containerWidth / 2 + offsetX*/, 0f);
             }
             else
             {

@@ -24,28 +24,28 @@ MonoBehaviour:
   health: 30
   fireRate: 0.5
   reloadTime: 10
-  damage: 15
-  magazineCapacity: 2
+  damage: 8
+  magazineCapacity: 6
   speed: 6
   turning: 0.3
   price: 100
   purchased: 1
   upgradeLevels:
-  - upgradeCost: 0
-    damageLevel: 3
-    healthLevel: 3
-    reloadLevel: 3
-    speedLevel: 5
-    turningLevel: 3
   - upgradeCost: 750
-    damageLevel: 4
-    healthLevel: 3
-    reloadLevel: 4
-    speedLevel: 6
-    turningLevel: 3
+    damage: 9
+    health: 32
+    reload: 8
+    speed: 6.4
+    turning: 0.33
+  - upgradeCost: 1000
+    damage: 11
+    health: 35
+    reload: 7
+    speed: 6.8
+    turning: 0.35
   - upgradeCost: 1250
-    damageLevel: 4
-    healthLevel: 5
-    reloadLevel: 4
-    speedLevel: 6
-    turningLevel: 4
+    damage: 14
+    health: 40
+    reload: 6
+    speed: 7.2
+    turning: 0.38
