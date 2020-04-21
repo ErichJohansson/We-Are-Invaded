@@ -296,15 +296,18 @@ public class PlayerUnit : MonoBehaviour
             currentSpeed -= speedingUp ? 0 : currentSpeed - obs.slowAmount >= 0 ? obs.slowAmount : currentSpeed;
             if (obs.hardness > hardness)
                 DealDamage(obs.hardness - hardness, gameObject.transform.position, false);
-            float diePosZ = gameObject.transform.position.z;
-            if(obs.hardness <= hardness)
+
+            if(obs.hardness < 9999)
             {
                 obs.Die();
                 trailLifetime += obs.bloodTrailLength;
                 EnemyShooting es = obs.GetComponent<EnemyShooting>();
                 if (es != null)
                     es.Stop();
-                if(trailRoutine == null)
+                EnemyBehaviour eb = obs.GetComponent<EnemyBehaviour>();
+                if (eb != null)
+                    eb.StopAllCoroutines();
+                if (trailRoutine == null)
                     trailRoutine = StartCoroutine("TrailLifetime");
             }
             return;

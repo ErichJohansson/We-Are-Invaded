@@ -732,7 +732,7 @@ GameObject:
   - component: {fileID: 717620893276676302}
   - component: {fileID: 717620893276676303}
   - component: {fileID: 717620893276676300}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: mil_suv
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -864,7 +864,7 @@ MonoBehaviour:
   shooting: {fileID: 0}
   ID: 2
   maxHP: 55
-  hardness: 10
+  hardness: 8
   maxSpeed: 12
   currentSpeed: 0
   speedUpRate: 6
@@ -899,7 +899,7 @@ MonoBehaviour:
   baseDamage: 12
   layerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 524288
   reloadTime: 0
   cooldownTime: 0.2
   shootingDistance: 0

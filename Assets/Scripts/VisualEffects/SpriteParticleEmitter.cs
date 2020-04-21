@@ -25,11 +25,6 @@ public class SpriteParticleEmitter : MonoBehaviour
         if (ps == null)
             return;
         Debug.Log("emitted");
-        ParticleSystem.MinMaxCurve speedCurve = new ParticleSystem.MinMaxCurve();
-        speedCurve.constantMax = speed;
-        speedCurve.constantMin = 0.5f * speed;
-        ParticleSystem.MainModule main = ps.main;
-        main.startSpeed = speedCurve;
         ps.Play();
     }
 }

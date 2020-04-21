@@ -76,6 +76,8 @@
     <Compile Include="Assets\Scripts\Controllers\ParallaxController.cs" />
     <Compile Include="Assets\Scripts\Controllers\UIController.cs" />
     <Compile Include="Assets\Scripts\Controllers\VehicleSelectionController.cs" />
+    <Compile Include="Assets\Scripts\CustomEventArgs\EnemyStateEventArgs.cs" />
+    <Compile Include="Assets\Scripts\CustomEventArgs\RestartEventArgs.cs" />
     <Compile Include="Assets\Scripts\Enums\BossToPlayerInteraction.cs" />
     <Compile Include="Assets\Scripts\Enums\Formula.cs" />
     <Compile Include="Assets\Scripts\Enums\GunType.cs" />
@@ -107,7 +109,8 @@
     <Compile Include="Assets\Scripts\PlatformerLogic\Enemy.cs" />
     <Compile Include="Assets\Scripts\PlatformerLogic\EnemyShooting.cs" />
     <Compile Include="Assets\Scripts\PlatformerLogic\EnemyTypes\ChaserScenario.cs" />
-    <Compile Include="Assets\Scripts\PlatformerLogic\EnemyTypes\IEnemyBehaviour.cs" />
+    <Compile Include="Assets\Scripts\PlatformerLogic\EnemyTypes\EnemyBehaviour.cs" />
+    <Compile Include="Assets\Scripts\PlatformerLogic\EnemyTypes\VisibilityTrigger.cs" />
     <Compile Include="Assets\Scripts\PlatformerLogic\Follower.cs" />
     <Compile Include="Assets\Scripts\PlatformerLogic\PlatformerShooting.cs" />
     <Compile Include="Assets\Scripts\PlatformerLogic\PlatformerShot.cs" />

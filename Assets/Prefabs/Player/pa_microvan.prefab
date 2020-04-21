@@ -936,7 +936,7 @@ MonoBehaviour:
   shooting: {fileID: 0}
   ID: 0
   maxHP: 40
-  hardness: 5
+  hardness: 3
   maxSpeed: 9.6
   currentSpeed: 0
   speedUpRate: 6
@@ -971,7 +971,7 @@ MonoBehaviour:
   baseDamage: 10
   layerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 524288
   reloadTime: 5
   cooldownTime: 0.5
   shootingDistance: 15

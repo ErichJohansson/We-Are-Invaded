@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
+using Assets.Scripts.CustomEventArgs;
 using System.Collections.Generic;
 using Assets.SimpleLocalization;
+using System;
 
 public class GameController : MonoBehaviour
 {
@@ -34,6 +35,13 @@ public class GameController : MonoBehaviour
     public bool SomeScreenIsShown { get; set; }
 
     public static GameController Instance { get; private set; }
+
+    public event EventHandler<RestartEventArgs> RestartEvent;
+
+    protected virtual void OnRestart(RestartEventArgs e)
+    {
+        RestartEvent?.Invoke(this, e);
+    }
 
     void Awake()
     {
@@ -79,6 +87,7 @@ public class GameController : MonoBehaviour
     public void StartGame()
     {
         UIController.Instance.ActivateLoadEffect();
+        OnRestart(new RestartEventArgs());
 
         if (!PlatformerController.Instance.generated)
             PlatformerController.Instance.GenerateWorld();

@@ -74,7 +74,6 @@ public class StageStripe : MonoBehaviour
                         continue;
 
                     UseObject(go.tag, curX, curY);
-
                     break;
                 }
             }
@@ -109,13 +108,7 @@ public class StageStripe : MonoBehaviour
                 continue;
 
             UseObject(go.tag, curX, curY);
-
             break;
-        }
-
-        foreach (Obstacle obs in GetComponentsInChildren<Obstacle>())
-        {
-            obs.SetAdditionalCollidersActive(false);
         }
     }
 
@@ -127,24 +120,31 @@ public class StageStripe : MonoBehaviour
             Debug.Log(tag + " is null");
             return;
         }
-        obj.transform.parent = transform;
+
         obj.transform.position = new Vector3(x, y, 0f);
         obj.SetActive(true);
-        spawnedObjects.Add(obj);
 
         Enemy pe;
         if (obj.TryGetComponent(out pe))
+        {
             spawnedUnits.Add(pe);
+            return;
+        }
+
+        obj.transform.parent = transform;
+        spawnedObjects.Add(obj);
     }
 
     public void ClearChildrenObjects()
     {
-        foreach (GameObject obj in spawnedObjects)
+        foreach (Enemy e in spawnedUnits)
         {
-            if (obj == null)
+            if (e == null || e.IsInActiveState)
                 continue;
-            obj.transform.parent = transform.parent;
+            e.gameObject.SetActive(false);
         }
+
+        spawnedUnits.Clear();
 
         foreach (GameObject obj in spawnedObjects)
         {
@@ -154,6 +154,5 @@ public class StageStripe : MonoBehaviour
         }
 
         spawnedObjects.Clear();
-        spawnedUnits.Clear();
     }
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6035239647897191052}
   - component: {fileID: 6035239647897191050}
   - component: {fileID: 6035239647897191053}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: broken_car_back_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 6035239647956923538}
   - component: {fileID: 6035239647956923541}
   - component: {fileID: 6035239647956923540}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: br_van_v_b_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,9 +153,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   personalSpace: {fileID: 5448717740333682639}
   reachingSpace: {fileID: 0}
+  mainCollider: {fileID: 0}
   hardness: 99999
   slowAmount: 0
-  effectName: 
   useAnimationToDie: 0
   addScoreOnDeath: 0
   scoreAmount: 0
@@ -163,8 +163,8 @@ MonoBehaviour:
   forceY: 0
   forcedY: 0
   isModifier: 0
-  createPopUp: 0
-  createEnemyRemains: 0
+  createRemains: 0
+  disableSpriteRendererOnDeath: 0
   allowedRemainsTags: []
   bloodSplatterPos: {fileID: 0}
   bloodTrailLength: 0
@@ -182,7 +182,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1.07, y: -0.27}
+  m_Offset: {x: -0.011864185, y: -0.27}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -193,7 +193,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.78, y: 0.3912052}
+  m_Size: {x: 2.8962717, y: 0.3912052}
   m_EdgeRadius: 0
 --- !u!1 &9209015161871566617
 GameObject:
@@ -205,7 +205,7 @@ GameObject:
   m_Component:
   - component: {fileID: 315774395806816500}
   - component: {fileID: 5448717740333682639}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: personal_space
   m_TagString: Untagged
   m_Icon: {fileID: 0}

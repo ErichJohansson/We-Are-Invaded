@@ -34,8 +34,8 @@ TagManager:
   - ignore_everything
   - player
   - trigger
-  - 
-  - 
+  - obstacles
+  - enemies
   - 
   - 
   - 

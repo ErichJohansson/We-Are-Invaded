@@ -9,7 +9,6 @@ public class Obstacle : MonoBehaviour
     public BoxCollider2D mainCollider;
 
     public int hardness;
-    private int currentHardness;
 
     public float slowAmount;
 
@@ -25,7 +24,6 @@ public class Obstacle : MonoBehaviour
     public bool isModifier;
 
     [Header("Visual Effects")]
-    public bool createPopUp;
     public bool createRemains;
     public bool disableSpriteRendererOnDeath;
     public string[] allowedRemainsTags;
@@ -36,12 +34,10 @@ public class Obstacle : MonoBehaviour
     private ParticleSystem ps;
     private SpriteParticleEmitter spriteEmitter;
     private SpriteRenderer sr;
-    private Quaternion effectRotation = new Quaternion(180, 0, 0, 1);
     private ObjectPooler pooler;
 
     private void Awake()
     {
-        currentHardness = hardness;
         if (createRemains)
         {
             pooler = FindObjectOfType<ObjectPooler>();
@@ -61,6 +57,7 @@ public class Obstacle : MonoBehaviour
 
     private void OnEnable()
     {
+        SetAdditionalCollidersState(false);
         if (sr != null)
             sr.enabled = true;
         Vector2 pos = gameObject.transform.position;
@@ -71,43 +68,7 @@ public class Obstacle : MonoBehaviour
 
     private void OnDisable()
     {
-        SetAdditionalCollidersActive(true);
-    }
-
-    /// <summary>
-    /// Collision of OBSTACLE and OTHER OBSTACLE or PLAYER 
-    /// </summary>
-    /// <param name="collision"></param>
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        if (hierarchyObject)
-            return;
-
-        //float diePosZ = -14.881337f; // !!! КОСТЫЛЬ !!!     
-        
-        Enemy pe = null;
-        PlatformerShot ps = null;
-
-        if (col.gameObject.TryGetComponent(out ps))
-        {
-            if (!ps.playerControlled)
-                return;
-            if(createPopUp)
-                DamagePopup.CreatePopup(ps.damage, ps.gameObject.transform.position);
-            currentHardness -= ps.damage;
-            //if (currentHardness <= 0)
-            //    diePosZ = ps.gameObject.transform.position.z;
-        }
-        else if (col.gameObject.TryGetComponent(out pe))
-        {
-            if (col.GetComponent<Enemy>() == null)
-                return;
-        }
-
-        //if (diePosZ == -14.881337f) // !!! КОСТЫЛЬ !!!
-        //    return;
-
-        Die();
+        SetAdditionalCollidersState(true);
     }
 
     public void Die()
@@ -127,7 +88,7 @@ public class Obstacle : MonoBehaviour
         if (addScoreOnDeath)
         {
             UIController.Instance.AddScore(scoreAmount);
-            ps.Play();
+            if (ps != null) ps.Play();
         }
 
         if (createRemains && allowedRemainsTags.Length != 0)
@@ -152,10 +113,10 @@ public class Obstacle : MonoBehaviour
 
     }
 
-    private IEnumerator DeathDelay(bool basedOnamination = true)
+    private IEnumerator DeathDelay(bool basedOnAmination = true)
     {
         yield return new WaitForSeconds(Random.Range(0, 0.1f));
-        if (basedOnamination)
+        if (basedOnAmination)
         {
             animator.SetTrigger("die");
             animator.speed = Random.Range(1f, 1.5f);
@@ -165,7 +126,7 @@ public class Obstacle : MonoBehaviour
             DeactivateAfterDelay(6f, gameObject);
     }
 
-    public void SetAdditionalCollidersActive(bool state)
+    public void SetAdditionalCollidersState(bool state)
     {
         if (personalSpace != null)
             personalSpace.enabled = state;

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 606032595205203724}
   - component: {fileID: 4360486273244836322}
   - component: {fileID: 7236088802009853995}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: concrete_block
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,9 +99,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   personalSpace: {fileID: 0}
   reachingSpace: {fileID: 0}
+  mainCollider: {fileID: 0}
   hardness: 9999
   slowAmount: 0
-  effectName: 
   useAnimationToDie: 0
   addScoreOnDeath: 0
   scoreAmount: 0
@@ -109,9 +109,8 @@ MonoBehaviour:
   forceY: 0
   forcedY: 0
   isModifier: 0
-  forbidRecycling: 1
-  createPopUp: 0
-  createEnemyRemains: 0
+  createRemains: 0
+  disableSpriteRendererOnDeath: 0
   allowedRemainsTags: []
   bloodSplatterPos: {fileID: 0}
   bloodTrailLength: 0
