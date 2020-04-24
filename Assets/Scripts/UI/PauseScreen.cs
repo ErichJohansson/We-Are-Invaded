@@ -1,44 +1,45 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PauseScreen : MonoBehaviour
+namespace UI
 {
-    public UIObject panel;
-    private ObjectPooler pooler;
-
-    private void Awake()
+    public class PauseScreen : MonoBehaviour
     {
-        pooler = FindObjectOfType<ObjectPooler>();
-    }
+        public UIObject panel;
+        private ObjectPooler pooler;
 
-    private void ResumeGame() 
-    {
-        GameController.Instance.SetPause(false);
-        panel.HidePanel();
-    }
+        private void Awake()
+        {
+            pooler = FindObjectOfType<ObjectPooler>();
+        }
 
-    private void PauseGame()
-    {
-        panel.ShowPanel();
-        GameController.Instance.SetPause(true);
-    }
+        private void ResumeGame()
+        {
+            GameController.Instance.SetPause(false);
+            panel.HidePanel();
+        }
 
-    public void ActivatePause()
-    {
-        if (GameController.Instance.SomeScreenIsShown && !panel.isShown)
-            return;
-        if (Time.timeScale == 0)
-            ResumeGame();
-        else
-            PauseGame();
-    }
+        private void PauseGame()
+        {
+            panel.ShowPanel();
+            GameController.Instance.SetPause(true);
+        }
 
-    public void BackToMainMenu()
-    {
-        pooler.Restart();
-        panel.HidePanel();
-        UIController.Instance.startGameScreen.panel.ShowPanel();
-        GameController.Instance.Pause = false;
+        public void ActivatePause()
+        {
+            if (GameController.Instance.SomeScreenIsShown && !panel.isShown)
+                return;
+            if (Time.timeScale == 0)
+                ResumeGame();
+            else
+                PauseGame();
+        }
+
+        public void BackToMainMenu()
+        {
+            pooler.Restart();
+            panel.HidePanel();
+            UIController.Instance.startGameScreen.panel.ShowPanel();
+            GameController.Instance.Pause = false;
+        }
     }
 }

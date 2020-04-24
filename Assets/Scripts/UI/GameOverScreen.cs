@@ -2,50 +2,56 @@
 using UnityEngine.UI;
 using Assets.SimpleLocalization;
 
-public class GameOverScreen : MonoBehaviour
+namespace UI
 {
-    public Text info;
-    public UIObject panel;
-
-    public AnimatedNumericText traveled;
-    public AnimatedNumericText earned;
-
-    private ObjectPooler pooler;
-
-    private void Awake()
+    public class GameOverScreen : MonoBehaviour
     {
-        pooler = FindObjectOfType<ObjectPooler>();
-    }
+        public Text info;
+        public UIObject panel;
 
-    private void SetEndGameInfo()
-    {
-        traveled.SetValue(GameController.Instance.DistanceTraveled);
-        earned.SetValue(GameController.Instance.ScoredPoints);
-    }
+        public AnimatedNumericText traveled;
+        public AnimatedNumericText earned;
 
-    public void ShowGameOverScreen()
-    {
-        GameController.Instance.SetPause(!panel.isShown);
-        //SetEndGameInfo(LocalizationManager.Localize("GameOver.GameInfo", GameController.Instance.ScoredPoints.ToString(), GameController.Instance.DistanceTraveled.ToString()));
-        SetEndGameInfo();
-        UIController.Instance.ShowPanel(panel);
+        private ObjectPooler pooler;
+        private Color screenColor;
 
-        GameController.Instance.SaveGame();
-    }
+        private void Awake()
+        {
+            pooler = FindObjectOfType<ObjectPooler>();
+            screenColor = panel.GetComponent<Image>().color;
+            screenColor.a = 1;
+        }
 
-    public void BackToMainMenu()
-    {
-        GameController.Instance.UpdateCash();
-        panel.HidePanel();
-        UIController.Instance.startGameScreen.panel.ShowPanel();
-    }
+        private void SetEndGameInfo()
+        {
+            traveled.SetValue(GameController.Instance.DistanceTraveled);
+            earned.SetValue(GameController.Instance.ScoredPoints);
+        }
 
-    public void RestartGame()
-    {
-        pooler.Restart();
-        GameController.Instance.UpdateCash();
-        GameController.Instance.SetPause(!panel.isShown);
-        GameController.Instance.StartGame();
-        UIController.Instance.HidePanel(panel);
+        public void ShowGameOverScreen()
+        {
+            GameController.Instance.SetPause(!panel.isShown);
+            SetEndGameInfo();
+            UIController.Instance.ShowPanel(panel);
+            UIController.Instance.ChangeLoadEffectColor(screenColor);
+            UIController.Instance.ActivateLoadEffect(true);
+            GameController.Instance.SaveGame();
+        }
+
+        public void BackToMainMenu()
+        {
+            GameController.Instance.UpdateCash();
+            panel.HidePanel();
+            UIController.Instance.startGameScreen.panel.ShowPanel();
+        }
+
+        public void RestartGame()
+        {
+            pooler.Restart();
+            GameController.Instance.UpdateCash();
+            GameController.Instance.SetPause(!panel.isShown);
+            GameController.Instance.StartGame();
+            UIController.Instance.HidePanel(panel);
+        }
     }
 }

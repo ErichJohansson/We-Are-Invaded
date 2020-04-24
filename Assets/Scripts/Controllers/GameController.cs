@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using Assets.Scripts.CustomEventArgs;
-using System.Collections.Generic;
+using UI;
 using Assets.SimpleLocalization;
 using System;
 
@@ -86,6 +86,7 @@ public class GameController : MonoBehaviour
 
     public void StartGame()
     {
+        UIController.Instance.ChangeLoadEffectColor(new Color(0, 0, 0, 1f));
         UIController.Instance.ActivateLoadEffect();
         OnRestart(new RestartEventArgs());
 

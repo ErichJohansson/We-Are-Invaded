@@ -2,129 +2,132 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class VehicleShowcase : MonoBehaviour
+namespace UI
 {
-    public Vehicle vehicle;
-    public Text vehicleName;
-    public Image vehicleImage;
-    public Text price;
-
-    public Slider damage;
-    public Slider health;
-    public Slider maxSpeed;
-    public Slider turning;
-    public Slider reloadTime;
-
-    public Slider damageUpgraded;
-    public Slider healthUpgraded;
-    public Slider maxSpeedUpgraded;
-    public Slider turningUpgraded;
-    public Slider reloadTimeUpgraded;
-
-    public GameObject vehicleLock;
-
-    public Button purchaseButton;
-    public Button selectVehicleButton;
-    public GameObject colorSchemeScrollView;
-
-    [Header("Question settings")]
-    public GameObject question;
-    public Button yesButton;
-    public Button noButton;
-
-    private ColorShowcase[] colorShowcases;
-
-    [Header("Price tag colors")]
-    [SerializeField]
-    private Color notEnoughMoneyColor;
-    [SerializeField]
-    private Color enoughMoneyColor;
-
-    private void Awake()
+    public class VehicleShowcase : MonoBehaviour
     {
-        colorShowcases = GetComponentsInChildren<ColorShowcase>();
-        vehicle = Instantiate(vehicle);
-        for (int i = 0; i < vehicle.colorSchemes.Length; i++)
+        public Vehicle vehicle;
+        public Text vehicleName;
+        public Image vehicleImage;
+        public Text price;
+
+        public Slider damage;
+        public Slider health;
+        public Slider maxSpeed;
+        public Slider turning;
+        public Slider reloadTime;
+
+        public Slider damageUpgraded;
+        public Slider healthUpgraded;
+        public Slider maxSpeedUpgraded;
+        public Slider turningUpgraded;
+        public Slider reloadTimeUpgraded;
+
+        public GameObject vehicleLock;
+
+        public Button purchaseButton;
+        public Button selectVehicleButton;
+        public GameObject colorSchemeScrollView;
+
+        [Header("Question settings")]
+        public GameObject question;
+        public Button yesButton;
+        public Button noButton;
+
+        private ColorShowcase[] colorShowcases;
+
+        [Header("Price tag colors")]
+        [SerializeField]
+        private Color notEnoughMoneyColor;
+        [SerializeField]
+        private Color enoughMoneyColor;
+
+        private void Awake()
         {
-            vehicle.colorSchemes[i] = Instantiate(vehicle.colorSchemes[i]);
-        }
-    }
-
-    public void ShowVehicle()
-    {
-        vehicleName.text = vehicle.name;
-        vehicleImage.sprite = vehicle.colorSchemes[vehicle.selectedColorScheme].previewSprite;
-        vehicleLock.SetActive(!vehicle.purchased);
-        damage.value = (float)vehicle.damage / (float)Vehicle.maxDamage;
-        health.value = (float)vehicle.health / (float)Vehicle.maxHealth;
-        maxSpeed.value = vehicle.speed / Vehicle.maxSpeed;
-        turning.value = vehicle.turning / Vehicle.maxTurning;
-        reloadTime.value = Vehicle.minReload / vehicle.reloadTime;
-
-        price.text = vehicle.purchased ? vehicle.currentLevel + 1 < vehicle.upgradeLevels.Length ? vehicle.upgradeLevels[vehicle.currentLevel + 1].upgradeCost.ToString() : "" : vehicle.price.ToString();
-        
-        if (!vehicle.purchased)
-            price.color = vehicle.price <= GameController.Instance.cash ? enoughMoneyColor : notEnoughMoneyColor;
-        else if (vehicle.currentLevel + 1 < vehicle.upgradeLevels.Length)
-            price.color = vehicle.upgradeLevels[vehicle.currentLevel + 1].upgradeCost <= GameController.Instance.cash ? enoughMoneyColor : notEnoughMoneyColor;
-        
-        selectVehicleButton.interactable = vehicle.purchased;
-        foreach (ColorShowcase cs in colorShowcases)
-            cs.ShowScheme();
-        if(VehicleSelectionController.Instance.SelectedVehicle != null)
-            colorSchemeScrollView.SetActive(VehicleSelectionController.Instance.SelectedVehicle.id == vehicle.id);
-    }
-
-    #region Question
-    public void AskQuestion()
-    {
-        if (!VehicleSelectionController.Instance.RaisePurchaseVehicleQuestion(vehicle))
-            return;
-
-        Vehicle upgradedVehicle = Vehicle.GetUpgradedVehicle(vehicle);
-        if (upgradedVehicle == null)
-            return;
-
-        purchaseButton.gameObject.SetActive(false);
-        if (upgradedVehicle.purchased == true)
-        {
-            damageUpgraded.value = upgradedVehicle.damage / Vehicle.maxDamage;
-            healthUpgraded.value = upgradedVehicle.health / Vehicle.maxHealth;
-            maxSpeedUpgraded.value = upgradedVehicle.speed / Vehicle.maxSpeed;
-            turningUpgraded.value = upgradedVehicle.turning / Vehicle.maxTurning;
-            reloadTimeUpgraded.value = Vehicle.minReload / upgradedVehicle.reloadTime;
+            colorShowcases = GetComponentsInChildren<ColorShowcase>();
+            vehicle = Instantiate(vehicle);
+            for (int i = 0; i < vehicle.colorSchemes.Length; i++)
+            {
+                vehicle.colorSchemes[i] = Instantiate(vehicle.colorSchemes[i]);
+            }
         }
 
-        yesButton.onClick.RemoveAllListeners();
-        noButton.onClick.RemoveAllListeners();
-        yesButton.onClick.AddListener(Yes);
-        noButton.onClick.AddListener(No);
+        public void ShowVehicle()
+        {
+            vehicleName.text = vehicle.name;
+            vehicleImage.sprite = vehicle.colorSchemes[vehicle.selectedColorScheme].previewSprite;
+            vehicleLock.SetActive(!vehicle.purchased);
+            damage.value = (float)vehicle.damage / (float)Vehicle.maxDamage;
+            health.value = (float)vehicle.health / (float)Vehicle.maxHealth;
+            maxSpeed.value = vehicle.speed / Vehicle.maxSpeed;
+            turning.value = vehicle.turning / Vehicle.maxTurning;
+            reloadTime.value = Vehicle.minReload / vehicle.reloadTime;
 
-        question.SetActive(true);
-    }
+            price.text = vehicle.purchased ? vehicle.currentLevel + 1 < vehicle.upgradeLevels.Length ? vehicle.upgradeLevels[vehicle.currentLevel + 1].upgradeCost.ToString() : "" : vehicle.price.ToString();
 
-    public void No()
-    {
-        SetUpgradedStatsToZero();
-        question.SetActive(false);
-        purchaseButton.gameObject.SetActive(true);
-    }
+            if (!vehicle.purchased)
+                price.color = vehicle.price <= GameController.Instance.cash ? enoughMoneyColor : notEnoughMoneyColor;
+            else if (vehicle.currentLevel + 1 < vehicle.upgradeLevels.Length)
+                price.color = vehicle.upgradeLevels[vehicle.currentLevel + 1].upgradeCost <= GameController.Instance.cash ? enoughMoneyColor : notEnoughMoneyColor;
 
-    public void Yes()
-    {
-        SetUpgradedStatsToZero();
-        question.SetActive(false);
-        purchaseButton.gameObject.SetActive(true);
-        VehicleSelectionController.Instance.PurchaseVehicle(vehicle);
-    }
-    #endregion
+            selectVehicleButton.interactable = vehicle.purchased;
+            foreach (ColorShowcase cs in colorShowcases)
+                cs.ShowScheme();
+            if (VehicleSelectionController.Instance.SelectedVehicle != null)
+                colorSchemeScrollView.SetActive(VehicleSelectionController.Instance.SelectedVehicle.id == vehicle.id);
+        }
 
-    private void SetUpgradedStatsToZero()
-    {
-        damageUpgraded.value = 0;
-        healthUpgraded.value = 0;
-        maxSpeedUpgraded.value = 0;
-        turningUpgraded.value = 0;
-        reloadTimeUpgraded.value = 0;
+        #region Question
+        public void AskQuestion()
+        {
+            if (!VehicleSelectionController.Instance.RaisePurchaseVehicleQuestion(vehicle))
+                return;
+
+            Vehicle upgradedVehicle = Vehicle.GetUpgradedVehicle(vehicle);
+            if (upgradedVehicle == null)
+                return;
+
+            purchaseButton.gameObject.SetActive(false);
+            if (upgradedVehicle.purchased == true)
+            {
+                damageUpgraded.value = upgradedVehicle.damage / Vehicle.maxDamage;
+                healthUpgraded.value = upgradedVehicle.health / Vehicle.maxHealth;
+                maxSpeedUpgraded.value = upgradedVehicle.speed / Vehicle.maxSpeed;
+                turningUpgraded.value = upgradedVehicle.turning / Vehicle.maxTurning;
+                reloadTimeUpgraded.value = Vehicle.minReload / upgradedVehicle.reloadTime;
+            }
+
+            yesButton.onClick.RemoveAllListeners();
+            noButton.onClick.RemoveAllListeners();
+            yesButton.onClick.AddListener(Yes);
+            noButton.onClick.AddListener(No);
+
+            question.SetActive(true);
+        }
+
+        public void No()
+        {
+            SetUpgradedStatsToZero();
+            question.SetActive(false);
+            purchaseButton.gameObject.SetActive(true);
+        }
+
+        public void Yes()
+        {
+            SetUpgradedStatsToZero();
+            question.SetActive(false);
+            purchaseButton.gameObject.SetActive(true);
+            VehicleSelectionController.Instance.PurchaseVehicle(vehicle);
+        }
+        #endregion
+
+        private void SetUpgradedStatsToZero()
+        {
+            damageUpgraded.value = 0;
+            healthUpgraded.value = 0;
+            maxSpeedUpgraded.value = 0;
+            turningUpgraded.value = 0;
+            reloadTimeUpgraded.value = 0;
+        }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using UI;
 using UnityEngine;
 
 [System.Serializable]
@@ -53,13 +53,18 @@ public class PlayerUnit : MonoBehaviour
     private Vector3 finish;
     private float t;
     private float fastTravelingTime;
-    private Transform playerTansform;
     private Animator animator;
     private bool turningRight;
     private bool turningLeft;
 
+    private GameObject thisGameObject;
+    private Transform thisTransform;
+
     private void Awake()
     {
+        thisGameObject = gameObject;
+        thisTransform = transform;
+
         animator = GetComponent<Animator>();
         speedBoost = null;
         infiniteAmmo = null;
@@ -70,7 +75,6 @@ public class PlayerUnit : MonoBehaviour
 
         sr = GetComponent<SpriteRenderer>();
         shooting = GetComponent<PlayerShooting>();
-        playerTansform = transform;
     }
 
     void Start()
@@ -88,8 +92,8 @@ public class PlayerUnit : MonoBehaviour
         if (IsFastTraveling)
         {
             t += Time.deltaTime / fastTravelingTime;
-            playerTansform.position = Vector3.Lerp(start, finish, t);
-            if (Mathf.Abs(playerTansform.position.x - finish.x) < 1)
+            thisTransform.position = Vector3.Lerp(start, finish, t);
+            if (Mathf.Abs(thisTransform.position.x - finish.x) < 1)
             {
                 GameController.Instance.AddDistance(finish.x - start.x);
                 IsFastTraveling = false;
@@ -127,7 +131,7 @@ public class PlayerUnit : MonoBehaviour
 
     private void GameOver()
     {
-        gameObject.SetActive(false);
+        //thisGameObject.SetActive(false);
         UIController.Instance.RestartDamageEffect();
         UIController.Instance.gameOverScreen.ShowGameOverScreen();
         foreach (TrailRenderer trail in trails)
@@ -156,7 +160,7 @@ public class PlayerUnit : MonoBehaviour
         for (int i = 0; i < GameController.Instance.backgrounds.Length; i++)
         {
             GameController.Instance.backgrounds[i].Restart();
-            GameController.Instance.backgrounds[i].player = gameObject;
+            GameController.Instance.backgrounds[i].player = thisGameObject;
             GameController.Instance.backgrounds[i].Setup();
         }
     }
@@ -197,12 +201,12 @@ public class PlayerUnit : MonoBehaviour
     {
         movingTo = moveTo;
 
-        if(playerTansform.position.y > movingTo.y)
+        if(thisTransform.position.y > movingTo.y)
         {
             turningRight = true;
             turningLeft = false;
         }
-        else if (playerTansform.position.y < movingTo.y)
+        else if (thisTransform.position.y < movingTo.y)
         {
             turningRight = false;
             turningLeft = true;
@@ -214,12 +218,12 @@ public class PlayerUnit : MonoBehaviour
         animator.SetBool("turningRight", turningRight);
         animator.SetBool("turningLeft", turningLeft);
 
-        Vector3 newPos = Vector3.MoveTowards(new Vector3(0, playerTansform.position.y), new Vector3(0, movingTo.y), currentSpeed * Time.deltaTime * turnRate);
+        Vector3 newPos = Vector3.MoveTowards(new Vector3(0, thisTransform.position.y), new Vector3(0, movingTo.y), currentSpeed * Time.deltaTime * turnRate);
 
-        if (newPos.y > 1.28f || (newPos.y < -4.5f && newPos.y - playerTansform.position.y < 0))
+        if (newPos.y > 1.28f || (newPos.y < -4.5f && newPos.y - thisTransform.position.y < 0))
             return;
 
-        playerTansform.position = new Vector3(playerTansform.position.x, newPos.y, 9 + newPos.y / 10.00f);
+        thisTransform.position = new Vector3(thisTransform.position.x, newPos.y, 9 + newPos.y / 10.00f);
     }
 
     public void StopTurning()
@@ -252,11 +256,11 @@ public class PlayerUnit : MonoBehaviour
         }
 
         Vector3 movement = new Vector3(currentSpeed * Time.deltaTime, 0);
-        playerTansform.position += movement;
+        thisTransform.position += movement;
 
         if(Time.timeScale != 0)
         {
-            GameController.Instance.AddDistance(Time.deltaTime * GameController.Instance.PlayerUnit.currentSpeed);
+            GameController.Instance.AddDistance(Time.deltaTime * currentSpeed);
             UIController.Instance.UpdateTraveledDistance();
         }
     }
@@ -279,7 +283,7 @@ public class PlayerUnit : MonoBehaviour
         while(t < fastTravelingTime)
         {
             t += Time.deltaTime / fastTravelingTime;
-            gameObject.transform.position = Vector3.Lerp(start, finish, t);
+            thisTransform.position = Vector3.Lerp(start, finish, t);
             yield return new WaitForEndOfFrame();
         }
     }
@@ -287,15 +291,15 @@ public class PlayerUnit : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        Obstacle obs = null;
-        if (col.gameObject.transform.gameObject.TryGetComponent(out obs))
+        Obstacle obs = col.gameObject.GetComponent<Obstacle>();
+        if (obs != null)
         {
             if (obs.hierarchyObject)
                 return;
 
             currentSpeed -= speedingUp ? 0 : currentSpeed - obs.slowAmount >= 0 ? obs.slowAmount : currentSpeed;
             if (obs.hardness > hardness)
-                DealDamage(obs.hardness - hardness, gameObject.transform.position, false);
+                DealDamage(obs.hardness - hardness, thisTransform.position, false);
 
             if(obs.hardness < 9999)
             {
@@ -360,7 +364,7 @@ public class PlayerUnit : MonoBehaviour
         t = 0f;
 
         IsFastTraveling = true;
-        start = gameObject.transform.position;
+        start = thisTransform.position;
         finish = new Vector3(start.x + 150, start.y, start.z);
     }
 }

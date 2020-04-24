@@ -1,21 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class VehicleSelectionScreen : MonoBehaviour
+namespace UI
 {
-    public UIObject panel;
-
-    public void ShowScreen()
+    public class VehicleSelectionScreen : MonoBehaviour
     {
-        GameController.Instance.SomeScreenIsShown = true;
-        UIController.Instance.startGameScreen.panel.HidePanel();
-        panel.ShowPanel();
-    }
+        public UIObject panel;
 
-    public void BackToMainMenu()
-    {
-        panel.HidePanel();
-        UIController.Instance.startGameScreen.panel.ShowPanel();
+        public void ShowScreen()
+        {
+            GameController.Instance.SomeScreenIsShown = true;
+            UIController.Instance.startGameScreen.panel.HidePanel();
+            panel.ShowPanel();
+        }
+
+        public void BackToMainMenu()
+        {
+            panel.HidePanel();
+            UIController.Instance.startGameScreen.panel.ShowPanel();
+        }
     }
 }

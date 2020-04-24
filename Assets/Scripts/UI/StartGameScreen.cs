@@ -1,61 +1,63 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class StartGameScreen : MonoBehaviour
+namespace UI
 {
-    public UIObject panel;
-    public GameObject exitQuestion;
-
-    private ObjectPooler pooler;
-
-    private void Awake()
+    public class StartGameScreen : MonoBehaviour
     {
-        pooler = FindObjectOfType<ObjectPooler>();
-    }
+        public UIObject panel;
+        public GameObject exitQuestion;
 
-    public void StartGame()
-    {
-        pooler.Restart();
-        GameController.Instance.UpdateCash();
-        GameController.Instance.SetPause(!panel.isShown);
-        GameController.Instance.StartGame();
-        UIController.Instance.HidePanel(panel);
-    }
+        private ObjectPooler pooler;
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        private void Awake()
         {
-            if (exitQuestion.activeSelf)
+            pooler = FindObjectOfType<ObjectPooler>();
+        }
+
+        public void StartGame()
+        {
+            pooler.Restart();
+            GameController.Instance.UpdateCash();
+            GameController.Instance.SetPause(!panel.isShown);
+            GameController.Instance.StartGame();
+            UIController.Instance.HidePanel(panel);
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                CancelExit();
-                return;
+                if (exitQuestion.activeSelf)
+                {
+                    CancelExit();
+                    return;
+                }
+                if (panel.isShown)
+                {
+                    ActivateExitQuestion(true);
+                }
             }
-            if (panel.isShown)
-            {
-                ActivateExitQuestion(true);
-            }
-        }       
-    }
+        }
 
-    public void ActivateExitQuestion(bool state)
-    {
-        exitQuestion.SetActive(state);
-    }
+        public void ActivateExitQuestion(bool state)
+        {
+            exitQuestion.SetActive(state);
+        }
 
-    public void ExitGame()
-    {
-        Application.Quit();
-    }
+        public void ExitGame()
+        {
+            Application.Quit();
+        }
 
-    public void CancelExit()
-    {
-        ActivateExitQuestion(false);
-    }
+        public void CancelExit()
+        {
+            ActivateExitQuestion(false);
+        }
 
-    public void ActivateMainMenu()
-    {
-        GameController.Instance.SetPause(!panel.isShown);
-        panel.ShowPanel();
+        public void ActivateMainMenu()
+        {
+            GameController.Instance.SetPause(!panel.isShown);
+            panel.ShowPanel();
+        }
     }
 }
