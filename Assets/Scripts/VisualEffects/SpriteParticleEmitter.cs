@@ -1,7 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Used for emmiting such things as road cone
+/// </summary>
 [RequireComponent(typeof(ParticleSystem))]
 public class SpriteParticleEmitter : MonoBehaviour
 {
@@ -13,6 +15,11 @@ public class SpriteParticleEmitter : MonoBehaviour
     void Awake()
     {
         ps = GetComponent<ParticleSystem>();
+        Enemy e = GetComponent<Enemy>();
+        if (e != null) e.DieEvent += OnDeath;
+        Obstacle o = GetComponent<Obstacle>();
+        if (o != null) o.DieEvent += OnDeath;
+
         if (ps == null || emittedSprites == null)
             return;
         emittedSprites.ForEach(x => ps.textureSheetAnimation.AddSprite(x));
@@ -20,7 +27,14 @@ public class SpriteParticleEmitter : MonoBehaviour
         burst.count = maxParticles;
     }
 
-    public void Emit(float speed)
+
+    public void OnDeath(object sender, System.EventArgs eventArgs)
+    {
+        Debug.Log("emit");
+        Emit();
+    }
+
+    public void Emit()
     {
         if (ps == null)
             return;

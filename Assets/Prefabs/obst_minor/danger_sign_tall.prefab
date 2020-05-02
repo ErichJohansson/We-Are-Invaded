@@ -12,8 +12,10 @@ GameObject:
   - component: {fileID: 7051775793334998055}
   - component: {fileID: 1554000495114378174}
   - component: {fileID: 165967656018317750}
+  - component: {fileID: -6939103079543594848}
+  - component: {fileID: 4621072362384555055}
   m_Layer: 0
-  m_Name: minor_decorations_0
+  m_Name: danger_sign_tall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,22 +101,7 @@ MonoBehaviour:
   personalSpace: {fileID: 0}
   reachingSpace: {fileID: 0}
   hardness: 0
-  slowAmount: 0
-  effectName: 
-  useAnimationToDie: 0
-  addScoreOnDeath: 0
-  scoreAmount: 0
-  hierarchyObject: 0
-  forceY: 0
-  forcedY: 0
-  isModifier: 0
-  forbidRecycling: 1
-  createPopUp: 0
-  createEnemyRemains: 0
-  allowedRemainsTags: []
-  bloodSplatterPos: {fileID: 0}
-  bloodTrailLength: 0
-  animator: {fileID: 0}
+  slowAmount: 0.1
 --- !u!61 &165967656018317750
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -141,3 +128,31 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.17523193, y: 0.08050382}
   m_EdgeRadius: 0
+--- !u!114 &-6939103079543594848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4974587123655681682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa4248424e0b3d847993550684edcde9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disableSpriteRendererOnDeath: 1
+  bloodTrailLength: 0
+  animator: {fileID: 0}
+  useAnimationToDie: 0
+--- !u!114 &4621072362384555055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4974587123655681682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca81228a98a8194449b29882183eb188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

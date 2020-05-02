@@ -109,6 +109,8 @@ GameObject:
   - component: {fileID: -1489950074623139185}
   - component: {fileID: 7024683927074934145}
   - component: {fileID: -5909614109565246962}
+  - component: {fileID: -6974525565386533385}
+  - component: {fileID: 9003595714778161685}
   m_Layer: 0
   m_Name: traffic_cone_1
   m_TagString: Untagged
@@ -222,23 +224,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   personalSpace: {fileID: 0}
   reachingSpace: {fileID: 0}
-  mainCollider: {fileID: 5955923745990366457}
   hardness: 0
   slowAmount: 0.3
-  useAnimationToDie: 0
-  addScoreOnDeath: 0
-  scoreAmount: 0
-  hierarchyObject: 0
-  forceY: 0
-  forcedY: 0
-  isModifier: 0
-  createPopUp: 0
-  createRemains: 0
-  disableSpriteRendererOnDeath: 1
-  allowedRemainsTags: []
-  bloodSplatterPos: {fileID: 0}
-  bloodTrailLength: 0
-  animator: {fileID: 0}
 --- !u!198 &-1489950074623139185
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -5037,3 +5024,31 @@ MonoBehaviour:
   maxParticles: 1
   emittedSprites:
   - {fileID: 1130842665982366099, guid: cd489506997c9e349b1fee8bfceca795, type: 3}
+--- !u!114 &-6974525565386533385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3825498012067282046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa4248424e0b3d847993550684edcde9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disableSpriteRendererOnDeath: 1
+  bloodTrailLength: 0
+  animator: {fileID: 0}
+  useAnimationToDie: 0
+--- !u!114 &9003595714778161685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3825498012067282046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca81228a98a8194449b29882183eb188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

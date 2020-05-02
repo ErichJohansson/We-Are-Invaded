@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 8856925096858341466}
   - component: {fileID: 6811496460763728349}
   - component: {fileID: 2203545258454379060}
+  - component: {fileID: 6872596852042361256}
+  - component: {fileID: -5568932191769672848}
   m_Layer: 0
   m_Name: sign_left
   m_TagString: Untagged
@@ -125,19 +127,32 @@ MonoBehaviour:
   personalSpace: {fileID: 0}
   reachingSpace: {fileID: 0}
   hardness: 0
-  slowAmount: 0
-  effectName: 
-  useAnimationToDie: 0
-  addScoreOnDeath: 0
-  scoreAmount: 0
-  hierarchyObject: 0
-  forceY: 0
-  forcedY: 0
-  isModifier: 0
-  forbidRecycling: 1
-  createPopUp: 0
-  createEnemyRemains: 0
-  allowedRemainsTags: []
-  bloodSplatterPos: {fileID: 0}
+  slowAmount: 0.1
+--- !u!114 &6872596852042361256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9144599739984052806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa4248424e0b3d847993550684edcde9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disableSpriteRendererOnDeath: 1
   bloodTrailLength: 0
   animator: {fileID: 0}
+  useAnimationToDie: 0
+--- !u!114 &-5568932191769672848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9144599739984052806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca81228a98a8194449b29882183eb188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

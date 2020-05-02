@@ -13,6 +13,9 @@ GameObject:
   - component: {fileID: 3851277973938510322}
   - component: {fileID: 3851277973938510323}
   - component: {fileID: 177998493}
+  - component: {fileID: -1771088397799990758}
+  - component: {fileID: -5145974454876852086}
+  - component: {fileID: 5437365975344314934}
   m_Layer: 0
   m_Name: ork_car
   m_TagString: ork_car
@@ -53,9 +56,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 25
-  hardness: 15
-  movementController: {fileID: 0}
-  enemyShooting: {fileID: 0}
+  enemyShooting: {fileID: 3851277973938510322}
   hitAnimator: {fileID: 3851277974615193014}
   isBoss: 0
 --- !u!114 &3851277973938510322
@@ -99,23 +100,6 @@ MonoBehaviour:
   reachingSpace: {fileID: 0}
   hardness: 5
   slowAmount: 9
-  effectName: 
-  useAnimationToDie: 1
-  addScoreOnDeath: 1
-  scoreAmount: 10
-  hierarchyObject: 0
-  forceY: 0
-  forcedY: 0
-  isModifier: 0
-  createPopUp: 1
-  createEnemyRemains: 1
-  allowedRemainsTags:
-  - blood_splatter_0
-  - blood_splatter_1
-  - blood_splatter_2
-  bloodSplatterPos: {fileID: 3851277975349657514}
-  bloodTrailLength: 0
-  animator: {fileID: 3851277974544937164}
 --- !u!61 &177998493
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -142,6 +126,47 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.6938248, y: 1.3091297}
   m_EdgeRadius: 0
+--- !u!114 &-1771088397799990758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3851277973938510333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bb7828ee25b5b749bf402511b63d291, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreAmount: 5
+--- !u!114 &-5145974454876852086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3851277973938510333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa4248424e0b3d847993550684edcde9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disableSpriteRendererOnDeath: 0
+  bloodTrailLength: 1
+  animator: {fileID: 3851277974544937164}
+  useAnimationToDie: 1
+--- !u!114 &5437365975344314934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3851277973938510333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca81228a98a8194449b29882183eb188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3851277974544937165
 GameObject:
   m_ObjectHideFlags: 0

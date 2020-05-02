@@ -24510,5 +24510,16 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: -2.43
       objectReference: {fileID: 0}
+    - target: {fileID: 2931380156848099902, guid: d618db3f9f1da914183739289064c524,
+        type: 3}
+      propertyPath: allowedBackgrounds.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2931380156848099902, guid: d618db3f9f1da914183739289064c524,
+        type: 3}
+      propertyPath: allowedBackgrounds.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 4723f4343ace49a49aec9119948069e7,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d618db3f9f1da914183739289064c524, type: 3}

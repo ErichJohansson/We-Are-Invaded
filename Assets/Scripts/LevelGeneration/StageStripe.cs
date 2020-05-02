@@ -67,8 +67,6 @@ public class StageStripe : MonoBehaviour
                     go = enemyAreas[k].allowedEnemies[Random.Range(0, enemyAreas[k].allowedEnemies.Count)];
                     obs = go.GetComponentInChildren<Obstacle>();
 
-                    curY = obs.forceY ? obs.forcedY : curY;
-
                     Vector2 position = new Vector2(curX, curY);
                     if (LevelUtils.IsOverlapping(position, obs.personalSpace, spawnedObjects) || !enemyAreas[k].spawnArea.bounds.Contains(position))
                         continue;
@@ -100,8 +98,6 @@ public class StageStripe : MonoBehaviour
 
             GameObject go = allowedBoosters[Random.Range(0, allowedBoosters.Count)];
             Obstacle obs = go.GetComponentInChildren<Obstacle>();
-
-            curY = obs.forceY ? obs.forcedY : curY;
 
             Vector2 position = new Vector2(curX, curY);
             if (LevelUtils.IsOverlapping(position, obs.personalSpace) || !personalSpace.bounds.Contains(position))

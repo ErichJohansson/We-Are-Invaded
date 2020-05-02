@@ -3,75 +3,70 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : DamageReciever
 {
-    public int maxHP;
-    private int currentHP;
-
-    public int hardness;
     public EnemyShooting enemyShooting;
     public Animator hitAnimator;
     public bool isBoss;
 
-    private Obstacle obstacle;
     private BoxCollider2D collider;
     private EnemyBehaviour eb;
+    private int currentHP;
+    private Animator animator;
+
     public bool IsInActiveState { get; private set; }
+
+    public event System.EventHandler<System.EventArgs> DieEvent;
 
     private void Awake()
     {
         enemyShooting = GetComponent<EnemyShooting>();
-        obstacle = GetComponent<Obstacle>();
         collider = GetComponent<BoxCollider2D>();
+        animator = GetComponentInChildren<Animator>();
+        eb = GetComponent<EnemyBehaviour>();
     }
 
     private void OnEnable()
     {
-        currentHP = maxHP;
         collider.enabled = true;
         IsInActiveState = false;
-        eb = GetComponent<EnemyBehaviour>();
         if(eb != null) eb.EnemyStateChanged += OnEnemyActivatedHanlder;
         GameController.Instance.RestartEvent += Restart;
+    }
+
+    public virtual void OnDeath(System.EventArgs e)
+    {
+        DieEvent?.Invoke(this, e);
+        if (eb != null)
+            eb.StopAllCoroutines();
+        if (enemyShooting != null)
+            enemyShooting.Stop();
     }
 
     public void OnEnemyActivatedHanlder(object sender, EnemyStateEventArgs eventArgs)
     {
         IsInActiveState = eventArgs.state;
-        if (obstacle.animator == null)
+        if (animator == null)
             return;
 
-        if (eventArgs.state) obstacle.animator.SetTrigger("move");
+        if (eventArgs.state) animator.SetTrigger("move");
         else if (!eventArgs.state)
         {
-            obstacle.animator.ResetTrigger("idle");
-            Debug.Log("set to idle");
+            animator.ResetTrigger("idle");
         }
     }
 
-    public void ReceiveDamage(int damage, Vector3 pos, bool isCritical = false, bool playerShot = false)
+    public override void ReceiveDamage(int damage, Vector3 pos, bool isCritical = false)
     {
-        if (!playerShot)
-            return;
-
         DamagePopup.CreatePopup(damage, pos, isCritical);
         currentHP -= damage;
         if (currentHP <= 0)
         {
-            if (obstacle != null)
-                obstacle.Die();
-
-            if (enemyShooting != null)
-            {
-                enemyShooting.Stop();
-            }
+            OnDeath(new System.EventArgs());
+            if (enemyShooting != null) enemyShooting.Stop();
         }
         else if (hitAnimator != null)
-        {
             StartCoroutine("AnimationDelay");
-        }
-        if(isBoss)
-            Debug.Log(currentHP);
     }
 
     private IEnumerator AnimationDelay()
@@ -91,10 +86,8 @@ public class Enemy : MonoBehaviour
         Obstacle obs = collision.GetComponent<Obstacle>();
 
         if (obs == null)
-            return;
-        else if (eb != null)
-            eb.StopAllCoroutines();
+            return; 
 
-        obstacle.Die();
+        OnDeath(new System.EventArgs());
     }
 }

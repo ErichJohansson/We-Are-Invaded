@@ -3,12 +3,11 @@ using UI;
 using UnityEngine;
 
 [System.Serializable]
-public class PlayerUnit : MonoBehaviour
+public class PlayerUnit : DamageReciever
 {
     public PlayerShooting shooting;
     public int ID;
 
-    public int maxHP;
     public int hardness;
     public float maxSpeed;
     public float currentSpeed;
@@ -46,7 +45,6 @@ public class PlayerUnit : MonoBehaviour
             return movingTo.y > gameObject.transform.position.y ? 1 : -1; 
         } 
     }
-    public int CurrentHP { get; private set; }
     public bool IsFastTraveling { get; private set; }
 
     private Vector3 start;
@@ -131,7 +129,6 @@ public class PlayerUnit : MonoBehaviour
 
     private void GameOver()
     {
-        //thisGameObject.SetActive(false);
         UIController.Instance.RestartDamageEffect();
         UIController.Instance.gameOverScreen.ShowGameOverScreen();
         foreach (TrailRenderer trail in trails)
@@ -294,32 +291,25 @@ public class PlayerUnit : MonoBehaviour
         Obstacle obs = col.gameObject.GetComponent<Obstacle>();
         if (obs != null)
         {
-            if (obs.hierarchyObject)
-                return;
-
             currentSpeed -= speedingUp ? 0 : currentSpeed - obs.slowAmount >= 0 ? obs.slowAmount : currentSpeed;
             if (obs.hardness > hardness)
-                DealDamage(obs.hardness - hardness, thisTransform.position, false);
+                ReceiveDamage(obs.hardness - hardness, thisTransform.position, false);
 
             if(obs.hardness < 9999)
             {
-                obs.Die();
-                trailLifetime += obs.bloodTrailLength;
-                EnemyShooting es = obs.GetComponent<EnemyShooting>();
-                if (es != null)
-                    es.Stop();
-                EnemyBehaviour eb = obs.GetComponent<EnemyBehaviour>();
-                if (eb != null)
-                    eb.StopAllCoroutines();
                 if (trailRoutine == null)
                     trailRoutine = StartCoroutine("TrailLifetime");
+                obs.OnDeath(new System.EventArgs());
             }
-            return;
+
+            Enemy e = col.gameObject.GetComponent<Enemy>();
+            if (e != null) e.OnDeath(new System.EventArgs());
         }
     }
 
-    public void DealDamage(int damage, Vector2 hitPosition, bool critical)
+    public void ReceiveDamage(int damage, Vector2 pos, bool critical = false)
     {
+        DamagePopup.CreatePopup(damage, pos, critical);
         CurrentHP -= damage;
         if (CurrentHP <= 0)
         {
@@ -328,7 +318,6 @@ public class PlayerUnit : MonoBehaviour
         else
         {
             UIController.Instance.currentDamageEffectLength = UIController.Instance.damageEffectLength;
-            DamagePopup.CreatePopup(damage, hitPosition, critical);
         }
         UIController.Instance.UpdateHitPoints(this, true);
     }

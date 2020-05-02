@@ -76,7 +76,7 @@ public class Follower : MonoBehaviour
         PlayerUnit pu = collision.GetComponentInParent<PlayerUnit>();
         if (pu != null)
         {
-            pu.DealDamage(99999, startPos, false);
+            pu.ReceiveDamage(99999, startPos, false);
         }
     }
 

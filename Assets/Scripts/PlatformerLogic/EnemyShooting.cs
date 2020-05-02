@@ -43,7 +43,7 @@ public class EnemyShooting : MonoBehaviour
         PlayerUnit pu;
         if (col.transform.parent.TryGetComponent(out pu))
         {
-            pu.DealDamage(damage, pu.transform.position, damage > this.damage);
+            pu.ReceiveDamage(damage, pu.transform.position, damage > this.damage);
         }
     }
 

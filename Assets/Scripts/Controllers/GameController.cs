@@ -3,6 +3,7 @@ using Assets.Scripts.CustomEventArgs;
 using UI;
 using Assets.SimpleLocalization;
 using System;
+using System.Collections;
 
 public class GameController : MonoBehaviour
 {
@@ -64,7 +65,6 @@ public class GameController : MonoBehaviour
 
         Time.timeScale = 0;
         DamagePopup.CreatePopup(0, new Vector3(-100, 0, 0));
-        ExplosionEffect.CreateEffect(new Vector3(-100, 0, 0), "explosion", gameObject.transform);
     }
 
     void Start()
@@ -97,7 +97,7 @@ public class GameController : MonoBehaviour
         // restarts player
         if (PlayerUnit != null)
             PlayerUnit.Restart();
-        BossSpawner.Instance.Restart();
+        //BossSpawner.Instance.Restart();
         Follower.Instance.Restart();
 
         DistanceTraveled = 0;
