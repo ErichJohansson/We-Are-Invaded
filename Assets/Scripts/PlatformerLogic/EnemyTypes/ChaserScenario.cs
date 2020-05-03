@@ -26,7 +26,7 @@ public class ChaserScenario : EnemyBehaviour
 
         nextPoint.y = UnityEngine.Random.Range(0, 1f) >= 0.3f ? nextPoint.y : (thisTransform.position.y - nextPoint.y) * UnityEngine.Random.Range(0, 1f);
 
-        if (Vector2.Distance(nextPoint, thisTransform.position) <= distanceThreshold)
+        if (Vector2.Distance(nextPoint, thisTransform.position) <= distanceThreshold || stop)
             return;
 
         if (nextPoint.x > thisTransform.position.x)

@@ -9,6 +9,7 @@ public abstract class EnemyBehaviour : MonoBehaviour
     public float distanceThreshold;
 
     protected float speed;
+    protected bool stop;
 
     protected GameObject thisGameObject;
     protected Transform thisTransform;
@@ -34,6 +35,7 @@ public abstract class EnemyBehaviour : MonoBehaviour
             playerTransform = GameController.Instance.playerObject.transform;
             speed = GameController.Instance.PlayerUnit.maxSpeed * 1.04f;
         }
+        stop = false;
     }
 
     protected virtual void OnEnemyStateChanged(EnemyStateEventArgs e)
@@ -45,5 +47,10 @@ public abstract class EnemyBehaviour : MonoBehaviour
     private IEnumerator Lifetime()
     {
         yield return new WaitForSeconds(30f);
+    }
+
+    public void ForceStop()
+    {
+        stop = true;
     }
 }

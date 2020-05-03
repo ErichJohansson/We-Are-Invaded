@@ -24,6 +24,7 @@ public class Enemy : DamageReciever
         collider = GetComponent<BoxCollider2D>();
         animator = GetComponentInChildren<Animator>();
         eb = GetComponent<EnemyBehaviour>();
+        currentHP = maxHP;
     }
 
     private void OnEnable()
@@ -38,7 +39,10 @@ public class Enemy : DamageReciever
     {
         DieEvent?.Invoke(this, e);
         if (eb != null)
+        {
             eb.StopAllCoroutines();
+            eb.ForceStop();
+        }
         if (enemyShooting != null)
             enemyShooting.Stop();
     }
@@ -63,7 +67,6 @@ public class Enemy : DamageReciever
         if (currentHP <= 0)
         {
             OnDeath(new System.EventArgs());
-            if (enemyShooting != null) enemyShooting.Stop();
         }
         else if (hitAnimator != null)
             StartCoroutine("AnimationDelay");

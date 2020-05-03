@@ -1,4 +1,4 @@
-﻿using Misc;
+﻿using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,8 +18,9 @@ public class LevelPart : MonoBehaviour
     public int ID;
 
     [Header("Background sprites")]
-    public List<Sprite> allowedBackgrounds;
+    public List<LevelAppeareance> backgrounds;
     public SpriteRenderer background;
+    public SpriteRenderer foreground;
 
     private float length;
     private float yOffset;
@@ -35,7 +36,7 @@ public class LevelPart : MonoBehaviour
         get
         {
             if (length == 0)
-                length = GetComponentInChildren<SpriteRenderer>().bounds.size.x;
+                length = GetComponentsInChildren<SpriteRenderer>().Where(x => x.sprite != null).ToArray()[0].bounds.size.x;
             return length;
         }
     }
@@ -67,7 +68,15 @@ public class LevelPart : MonoBehaviour
 
     private IEnumerator SpawnStripes()
     {
-        background.sprite = allowedBackgrounds[Random.Range(0, allowedBackgrounds.Count)];
+        LevelAppeareance la = backgrounds[Random.Range(0, backgrounds.Count)];
+        background.sprite = la.background;
+        background.sortingOrder = la.bgrLayer;
+        background.transform.position += la.bgrOffset;
+
+        foreground.sprite = la.foreground;
+        foreground.sortingOrder = la.fgrLayer;
+        foreground.transform.position += la.fgrOffset;
+
         Vector2 pos = trnsfrm.position;
 
         float prevX = spawnPoint.position.x + 10f;

@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\Controllers\GameController.cs" />
     <Compile Include="Assets\Scripts\Controllers\InputController.cs" />
     <Compile Include="Assets\Scripts\Controllers\ParallaxController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\PlatformerController.cs" />
     <Compile Include="Assets\Scripts\Controllers\UIController.cs" />
     <Compile Include="Assets\Scripts\Controllers\VehicleSelectionController.cs" />
     <Compile Include="Assets\Scripts\CustomEventArgs\EnemyStateEventArgs.cs" />
@@ -73,11 +74,9 @@
     <Compile Include="Assets\Scripts\Enums\BossToPlayerInteraction.cs" />
     <Compile Include="Assets\Scripts\Enums\Formula.cs" />
     <Compile Include="Assets\Scripts\Enums\GunType.cs" />
-    <Compile Include="Assets\Scripts\LevelGeneration\GroundDecor.cs" />
     <Compile Include="Assets\Scripts\LevelGeneration\LevelPart.cs" />
     <Compile Include="Assets\Scripts\LevelGeneration\ObjectPooler.cs" />
     <Compile Include="Assets\Scripts\LevelGeneration\Obstacle.cs" />
-    <Compile Include="Assets\Scripts\LevelGeneration\PlatformerController.cs" />
     <Compile Include="Assets\Scripts\LevelGeneration\Regenerator.cs" />
     <Compile Include="Assets\Scripts\LevelGeneration\SingleEnemySpot.cs" />
     <Compile Include="Assets\Scripts\LevelGeneration\StageStripe.cs" />
@@ -85,6 +84,7 @@
     <Compile Include="Assets\Scripts\Misc\ColorScheme.cs" />
     <Compile Include="Assets\Scripts\Misc\EnemyArea.cs" />
     <Compile Include="Assets\Scripts\Misc\GameData.cs" />
+    <Compile Include="Assets\Scripts\Misc\LevelAppeareance.cs" />
     <Compile Include="Assets\Scripts\Misc\LevelUtils.cs" />
     <Compile Include="Assets\Scripts\Misc\ObjectToPool.cs" />
     <Compile Include="Assets\Scripts\Misc\RemainsRecycler.cs" />

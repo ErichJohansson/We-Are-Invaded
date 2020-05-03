@@ -20798,7 +20798,6 @@ GameObject:
   - component: {fileID: 1754656012}
   - component: {fileID: 1754656014}
   - component: {fileID: 1754656011}
-  - component: {fileID: 1754656013}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -20877,23 +20876,6 @@ MonoBehaviour:
   cash: 0
   initialCash: 2000
   initialVehicle: {fileID: 11400000, guid: e738bb75151818c42aea4f67837efad8, type: 2}
---- !u!114 &1754656013
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1754656009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ad130049bcb3ef46a17eeac3f164894, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mtth: 1000000
-  tickTime: 1
-  allBosses:
-  - {fileID: 3427345946565347059, guid: 2b04adce3f7a7e849aab28290aae9f4a, type: 3}
-  currentBoss: {fileID: 0}
 --- !u!114 &1754656014
 MonoBehaviour:
   m_ObjectHideFlags: 0
