@@ -105,7 +105,6 @@
     <Compile Include="Assets\Scripts\PlatformerLogic\Follower.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerShooting.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerUnit.cs" />
-    <Compile Include="Assets\Scripts\PreloadPhysics.cs" />
     <Compile Include="Assets\Scripts\UI\AnimatedNumericText.cs" />
     <Compile Include="Assets\Scripts\UI\ColorShowcase.cs" />
     <Compile Include="Assets\Scripts\UI\GameOverScreen.cs" />

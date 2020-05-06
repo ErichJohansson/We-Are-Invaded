@@ -295,18 +295,21 @@ MonoBehaviour:
     foreground: {fileID: 21300000, guid: deab0aba48581004993bd646678ecdff, type: 3}
     bgrLayer: 2
     fgrLayer: 5
+    fgrOpacity: 0.605
     bgrOffset: {x: 0, y: 0, z: 0}
     fgrOffset: {x: 5.78, y: 0, z: 0}
   - background: {fileID: 21300000, guid: 79213aae272fa0640bfe2f93909a5414, type: 3}
     foreground: {fileID: 21300000, guid: 1746043eb67471049be5b6b36f1b10f0, type: 3}
     bgrLayer: 2
     fgrLayer: 5
+    fgrOpacity: 1
     bgrOffset: {x: 0, y: 0, z: 0}
     fgrOffset: {x: 4.81, y: 0, z: 0}
   - background: {fileID: 21300000, guid: 4723f4343ace49a49aec9119948069e7, type: 3}
     foreground: {fileID: 0}
     bgrLayer: 3
     fgrLayer: 3
+    fgrOpacity: 1
     bgrOffset: {x: 0, y: 0, z: 0}
     fgrOffset: {x: 0, y: 0, z: 0}
   background: {fileID: 7119685559256547691}

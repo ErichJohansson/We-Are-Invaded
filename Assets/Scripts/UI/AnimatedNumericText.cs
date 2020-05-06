@@ -17,6 +17,7 @@ namespace UI
         private void Awake()
         {
             text = GetComponent<Text>();
+            StartCoroutine("Prewarm");
         }
 
         public void SetValue(dynamic value)
@@ -46,6 +47,12 @@ namespace UI
                 yield return new WaitForSecondsRealtime(deltaTime);
             }
             text.text = prefix + value.ToString() + postfix;
+        }
+
+        private IEnumerator Prewarm()
+        {
+            yield return new WaitForSecondsRealtime(0.05f);
+            SetValue(0);
         }
     }
 }

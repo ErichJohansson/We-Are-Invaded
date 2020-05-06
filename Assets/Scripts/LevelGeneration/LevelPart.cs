@@ -74,6 +74,7 @@ public class LevelPart : MonoBehaviour
         background.transform.position += la.bgrOffset;
 
         foreground.sprite = la.foreground;
+        foreground.color = new Color(foreground.color.r, foreground.color.g, foreground.color.b, la.fgrOpacity);
         foreground.sortingOrder = la.fgrLayer;
         foreground.transform.position += la.fgrOffset;
 
