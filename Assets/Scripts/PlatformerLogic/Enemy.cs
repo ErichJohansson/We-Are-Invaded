@@ -8,6 +8,7 @@ public class Enemy : DamageReciever
     public EnemyShooting enemyShooting;
     public Animator hitAnimator;
     public bool isBoss;
+    [HideInInspector] public Transform thisTransform;
 
     private BoxCollider2D collider;
     private EnemyBehaviour eb;
@@ -16,7 +17,7 @@ public class Enemy : DamageReciever
 
     public bool IsInActiveState { get; private set; }
 
-    public event System.EventHandler<System.EventArgs> DieEvent;
+    public event System.EventHandler<DieEventArgs> DieEvent;
 
     private void Awake()
     {
@@ -25,17 +26,18 @@ public class Enemy : DamageReciever
         animator = GetComponentInChildren<Animator>();
         eb = GetComponent<EnemyBehaviour>();
         currentHP = maxHP;
+        thisTransform = transform;
     }
 
     private void OnEnable()
     {
         collider.enabled = true;
         IsInActiveState = false;
-        if(eb != null) eb.EnemyStateChanged += OnEnemyActivatedHanlder;
+        if (eb != null) eb.EnemyStateChanged += OnEnemyActivatedHanlder;
         GameController.Instance.RestartEvent += Restart;
     }
 
-    public virtual void OnDeath(System.EventArgs e)
+    public virtual void OnDeath(DieEventArgs e)
     {
         DieEvent?.Invoke(this, e);
         if (eb != null)
@@ -60,13 +62,13 @@ public class Enemy : DamageReciever
         }
     }
 
-    public override void ReceiveDamage(int damage, Vector3 pos, bool isCritical = false)
+    public override void ReceiveDamage(int damage, Vector3 pos, bool hitByPlayer, bool isCritical = false)
     {
         DamagePopup.CreatePopup(damage, pos, isCritical);
         currentHP -= damage;
         if (currentHP <= 0)
         {
-            OnDeath(new System.EventArgs());
+            OnDeath(new DieEventArgs(hitByPlayer));
         }
         else if (hitAnimator != null)
             StartCoroutine("AnimationDelay");
@@ -79,7 +81,7 @@ public class Enemy : DamageReciever
         hitAnimator.speed = Random.Range(1f, 1.5f);
     }
 
-    private void Restart(object sender, RestartEventArgs e)
+    private void Restart(object sender, System.EventArgs e)
     {
         gameObject.SetActive(false);
     }
@@ -91,6 +93,6 @@ public class Enemy : DamageReciever
         if (obs == null)
             return; 
 
-        OnDeath(new System.EventArgs());
+        OnDeath(new DieEventArgs(false));
     }
 }

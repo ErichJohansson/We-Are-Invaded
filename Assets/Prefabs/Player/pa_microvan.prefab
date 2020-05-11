@@ -719,7 +719,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.23584843, y: -0.15858746}
+  m_Offset: {x: -0.28491306, y: -0.22373128}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -730,7 +730,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.41444588, y: 0.6828251}
+  m_Size: {x: 0.3163166, y: 0.37424994}
   m_EdgeRadius: 0
 --- !u!1 &5647190732250120731
 GameObject:
@@ -742,6 +742,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5647190732250120804}
   - component: {fileID: 5647190732250120805}
+  - component: {fileID: 2700898867715714510}
   m_Layer: 16
   m_Name: physical_collider
   m_TagString: Untagged
@@ -772,11 +773,11 @@ BoxCollider2D:
   m_GameObject: {fileID: 5647190732250120731}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: feae24ade78cc594e8d6654822f4ba50, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.012748718, y: -0.20821738}
+  m_Offset: {x: 0.055823326, y: -0.20821738}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -787,8 +788,20 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.8442116, y: 0.85552263}
+  m_Size: {x: 2.9813557, y: 0.85552263}
   m_EdgeRadius: 0
+--- !u!114 &2700898867715714510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5647190732250120731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98e08d8ded6fa214d961f735d315754c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5647190733084383577
 GameObject:
   m_ObjectHideFlags: 0
@@ -908,7 +921,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5647190733084383577}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
@@ -933,9 +946,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 673f1dacfff7f214ca593f7d537302f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHP: 40
   shooting: {fileID: 0}
   ID: 0
-  maxHP: 40
   hardness: 3
   maxSpeed: 9.6
   currentSpeed: 0

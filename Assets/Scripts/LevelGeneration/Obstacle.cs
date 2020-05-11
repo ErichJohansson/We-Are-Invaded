@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using UI;
+using Assets.Scripts.CustomEventArgs;
 using UnityEngine;
 
 public class Obstacle : MonoBehaviour
@@ -10,7 +10,7 @@ public class Obstacle : MonoBehaviour
     public int hardness;
     public float slowAmount;
 
-    public event System.EventHandler<System.EventArgs> DieEvent;
+    public event System.EventHandler<DieEventArgs> DieEvent;
     private SpriteRenderer sr;
 
     private void Awake()
@@ -40,7 +40,7 @@ public class Obstacle : MonoBehaviour
             reachingSpace.enabled = state;
     }
 
-    public virtual void OnDeath(System.EventArgs e)
+    public virtual void OnDeath(DieEventArgs e)
     {
         DieEvent?.Invoke(this, e);
     }

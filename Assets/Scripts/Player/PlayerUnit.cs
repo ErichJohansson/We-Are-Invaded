@@ -92,20 +92,26 @@ public class PlayerUnit : DamageReciever
             t += Time.deltaTime / fastTravelingTime;
             thisTransform.position = Vector3.Lerp(start, finish, t);
             if (Mathf.Abs(thisTransform.position.x - finish.x) < 1)
-            {
+            {  
                 GameController.Instance.AddDistance(finish.x - start.x);
                 IsFastTraveling = false;
                 SpeedBoost.Deactivate();
             }
             return;
         }
+    }
+
+    private void FixedUpdate()
+    {
+        if (GameController.Instance.Pause)
+            return;
         MoveForward();
     }
 
     #region Utility
     public void Restart()
     {
-        if(infiniteAmmo != null)
+        if (infiniteAmmo != null)
             infiniteAmmo.Deactivate();
         if (increasedDamage != null)
             increasedDamage.Deactivate();
@@ -125,6 +131,7 @@ public class PlayerUnit : DamageReciever
         UIController.Instance.RestartDamageEffect();
         CurrentHP = maxHP;
         UIController.Instance.UpdateHitPoints(this, false);
+        StopTurning();
     }
 
     private void GameOver()
@@ -252,8 +259,7 @@ public class PlayerUnit : DamageReciever
             UIController.Instance.UpdateSpeedUpSlider();
         }
 
-        Vector3 movement = new Vector3(currentSpeed * Time.deltaTime, 0);
-        thisTransform.position += movement;
+        thisTransform.position += new Vector3(currentSpeed * Time.deltaTime, 0);
 
         if(Time.timeScale != 0)
         {
@@ -266,9 +272,9 @@ public class PlayerUnit : DamageReciever
     {
         if (currentSpeed < 2 * maxSpeed)
         {
-            currentSpeed += Time.deltaTime * speedUpRate;
+            currentSpeed += Time.fixedDeltaTime * speedUpRate;
         }
-        currentSpeedBoostLength -= 2 * Time.deltaTime;
+        currentSpeedBoostLength -= 2 * Time.fixedDeltaTime;
 
         UIController.Instance.UpdateSpeedUpSlider();
     }
@@ -288,6 +294,9 @@ public class PlayerUnit : DamageReciever
 
     private void OnTriggerEnter2D(Collider2D col)
     {
+        if (!col.isTrigger)
+            return;
+
         Obstacle obs = col.gameObject.GetComponent<Obstacle>();
         if (obs != null)
         {
@@ -299,20 +308,23 @@ public class PlayerUnit : DamageReciever
             {
                 if (trailRoutine == null)
                     trailRoutine = StartCoroutine("TrailLifetime");
-                obs.OnDeath(new System.EventArgs());
+                obs.OnDeath(new Assets.Scripts.CustomEventArgs.DieEventArgs(true));
             }
 
             Enemy e = col.gameObject.GetComponent<Enemy>();
-            if (e != null) e.OnDeath(new System.EventArgs());
+            if (e != null) e.OnDeath(new Assets.Scripts.CustomEventArgs.DieEventArgs(true));
         }
     }
 
     public void ReceiveDamage(int damage, Vector2 pos, bool critical = false)
     {
+        if (CurrentHP <= 0 || UIController.Instance.ShowingEffect)
+            return;
         DamagePopup.CreatePopup(damage, pos, critical);
         CurrentHP -= damage;
         if (CurrentHP <= 0)
         {
+            animator.SetTrigger("die");
             GameOver();
         }
         else

@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using Assets.Scripts.CustomEventArgs;
 using UnityEngine;
 
 [RequireComponent(typeof(DeactivateComponent))]
@@ -30,15 +30,14 @@ public class DeathComponent : MonoBehaviour
         if(animator == null) animator = GetComponent<Animator>();
     }
 
-    public void OnDeath(object sender, System.EventArgs eventArgs)
+    public void OnDeath(object sender, DieEventArgs e)
     {
-        Debug.Log("die comp");
-        Die();
+        Die(e.KilledByPlayer);
     }
 
-    private void Die()
+    private void Die(bool hitByPlayer)
     {
-        GameController.Instance.PlayerUnit.trailLifetime += bloodTrailLength;
+        if(hitByPlayer) GameController.Instance.PlayerUnit.trailLifetime += bloodTrailLength;
         if (disableSpriteRendererOnDeath && sr != null)
             sr.enabled = false;
         if (useAnimationToDie)
@@ -60,7 +59,6 @@ public class DeathComponent : MonoBehaviour
             if (basedOnAmination)
             {
                 animator.SetTrigger("die");
-                animator.speed = Random.Range(1f, 1.5f);
                 deactivateComponent.DeactivateAfterDelay(animator.GetCurrentAnimatorStateInfo(0).length * 7, gameObject);
             }
             else

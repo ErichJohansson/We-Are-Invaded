@@ -71,12 +71,12 @@ public class LevelPart : MonoBehaviour
         LevelAppeareance la = backgrounds[Random.Range(0, backgrounds.Count)];
         background.sprite = la.background;
         background.sortingOrder = la.bgrLayer;
-        background.transform.position += la.bgrOffset;
+        background.transform.localPosition = new Vector3(la.bgrOffset.x, background.transform.localPosition.y);
 
         foreground.sprite = la.foreground;
         foreground.color = new Color(foreground.color.r, foreground.color.g, foreground.color.b, la.fgrOpacity);
         foreground.sortingOrder = la.fgrLayer;
-        foreground.transform.position += la.fgrOffset;
+        foreground.transform.localPosition = new Vector3(la.fgrOffset.x, foreground.transform.localPosition.y);
 
         Vector2 pos = trnsfrm.position;
 

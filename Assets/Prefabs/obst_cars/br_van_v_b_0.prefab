@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 827653980832698685}
   - component: {fileID: 827653980832698687}
-  - component: {fileID: 827653980832698686}
+  - component: {fileID: 5625556313838510181}
   m_Layer: 18
   m_Name: broken_car_back_0
   m_TagString: Untagged
@@ -83,8 +83,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!68 &827653980832698686
-EdgeCollider2D:
+--- !u!60 &5625556313838510181
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -97,14 +97,31 @@ EdgeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 4.03125, y: 2.15625}
+    newSize: {x: 3.28125, y: 1.6875}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   m_Points:
-  - {x: 1.4831429, y: -0.5274999}
-  - {x: -1.2440224, y: -0.5236485}
-  - {x: -1.5363579, y: -0.15806389}
-  - {x: -1.4957161, y: -0.04027462}
-  - {x: 1.1028347, y: -0.026384115}
-  - {x: 1.493473, y: -0.5166663}
+    m_Paths:
+    - - {x: 0.45845795, y: -0.043790817}
+      - {x: -0.40210915, y: -0.067391396}
+      - {x: -0.9662628, y: -0.106711626}
+      - {x: -1.1206436, y: -0.10105693}
+      - {x: -1.5575371, y: -0.119131565}
+      - {x: -1.5858192, y: -0.28483462}
+      - {x: -1.6198997, y: -0.46664834}
+      - {x: -1.5352783, y: -0.5207412}
+      - {x: -0.94613266, y: -0.4939984}
+      - {x: -0.32660675, y: -0.5020844}
+      - {x: 0.921669, y: -0.52524865}
+      - {x: 1.5978298, y: -0.53966594}
+      - {x: 1.5119209, y: -0.17350078}
+      - {x: 0.95500183, y: -0.056708932}
 --- !u!1 &827653981590371943
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,22 +170,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   personalSpace: {fileID: 7313397657071303555}
   reachingSpace: {fileID: 0}
-  mainCollider: {fileID: 0}
   hardness: 99999
   slowAmount: 0
-  useAnimationToDie: 0
-  addScoreOnDeath: 0
-  scoreAmount: 0
-  hierarchyObject: 0
-  forceY: 0
-  forcedY: 0
-  isModifier: 0
-  createRemains: 0
-  disableSpriteRendererOnDeath: 0
-  allowedRemainsTags: []
-  bloodSplatterPos: {fileID: 0}
-  bloodTrailLength: 0
-  animator: {fileID: 0}
 --- !u!61 &827653981590371944
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -182,7 +185,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.011864185, y: -0.27}
+  m_Offset: {x: -1.5381851, y: -0.30396444}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -193,7 +196,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.8962717, y: 0.3912052}
+  m_Size: {x: 0.23390198, y: 0.24744117}
   m_EdgeRadius: 0
 --- !u!1 &5030206539945279025
 GameObject:

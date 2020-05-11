@@ -20,25 +20,42 @@ namespace UI
             StartCoroutine("Prewarm");
         }
 
-        public void SetValue(dynamic value)
+        public void SetValue(int value)
         {
             if (text == null)
                 return;
             StartCoroutine(AnimateText(value));
         }
 
-        private IEnumerator AnimateText(dynamic value)
+        public void SetValue(float value)
         {
-            dynamic currentValue = 0;
-            dynamic deltaValue;
+            if (text == null)
+                return;
+            StartCoroutine(AnimateText(value));
+        }
 
-            if (value.GetType() == typeof(int))
-                deltaValue = value / (int)(time / deltaTime);
-            else
-                deltaValue = value / (float)(time / deltaTime);
+        private IEnumerator AnimateText(int value)
+        {
+            int currentValue = 0;
+            int deltaValue = value / (int)(time / deltaTime);
 
-            if (deltaValue == 0)
-                deltaValue = 1;
+            deltaValue = deltaValue == 0 ? 1 : deltaValue;
+
+            while (currentValue < value)
+            {
+                text.text = prefix + currentValue.ToString() + postfix;
+                currentValue += deltaValue;
+                yield return new WaitForSecondsRealtime(deltaTime);
+            }
+            text.text = prefix + value.ToString() + postfix;
+        }
+
+        private IEnumerator AnimateText(float value)
+        {
+            float currentValue = 0;
+            float deltaValue = value / time / deltaTime;
+
+            deltaValue = deltaValue == 0 ? 1 : deltaValue;
 
             while (currentValue < value)
             {

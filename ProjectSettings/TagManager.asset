@@ -15,6 +15,7 @@ TagManager:
   - mod_quadro_damage
   - m_stripe_mixed
   - m_stripe_mixed_b
+  - barrel
   layers:
   - Default
   - TransparentFX
@@ -24,12 +25,12 @@ TagManager:
   - UI
   - 
   - 
-  - Obstacles_Layer
-  - Tiles
-  - ignore_aiming_raycast
-  - ignore_shots
-  - shot
-  - player_shot
+  - physical_collider
+  - trigger_collider
+  - 
+  - 
+  - 
+  - 
   - ignore_player_shots
   - ignore_everything
   - player

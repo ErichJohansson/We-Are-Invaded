@@ -7,6 +7,7 @@ public class Modifier : MonoBehaviour
     public float lifetime;
     public GameObject visualEffect;
     public Sprite icon;
+    public Sprite effectImage;
 
     private bool isIndependent;
 
@@ -29,8 +30,6 @@ public class Modifier : MonoBehaviour
             isIndependent = ss.spawnedObjects.Remove(gameObject);
             transform.parent = transform.parent.parent;
         }
-
-        //GetComponent<Obstacle>().forbidRecycling = true;
     }
 
     protected IEnumerator Lifetime()

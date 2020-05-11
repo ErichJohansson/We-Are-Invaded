@@ -6,8 +6,8 @@ using UI;
 public class InputController : MonoBehaviour
 {
     private Camera cam;
-
-    float halfWidth;
+    private float halfWidth;
+    private bool inputRecieved;
 
     void Awake()
     {
@@ -28,17 +28,27 @@ public class InputController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
             UIController.Instance.pauseScreen.ActivatePause();
 
-        if (GameController.Instance.PlayerUnit == null || GameController.Instance.PlayerUnit.IsFastTraveling)
+        if (GameController.Instance.PlayerUnit == null || GameController.Instance.PlayerUnit.IsFastTraveling || UIController.Instance.Loading)
             return;
 
         if (Input.GetMouseButton(0))
-            HandleMousePlatformer();
+            inputRecieved = true;
 
         if (Input.GetMouseButtonUp(0))
+        {
+            inputRecieved = false;
             StopTurning();
+        }
     }
 
-    void HandleMousePlatformer()
+    private void FixedUpdate()
+    {
+        if (inputRecieved)
+            HandleMouse();
+        inputRecieved = false;
+    }
+
+    private void HandleMouse()
     {
         if (Time.timeScale == 0)
             return;
@@ -51,7 +61,7 @@ public class InputController : MonoBehaviour
         }
     }
 
-    void StopTurning()
+    private void StopTurning()
     {
         GameController.Instance.PlayerUnit.StopTurning();
     }

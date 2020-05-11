@@ -8,5 +8,5 @@ public class DamageReciever : MonoBehaviour
 
     public int CurrentHP { get; protected set; }
 
-    public virtual void ReceiveDamage(int damage, Vector3 pos, bool isCritical = false) { }
+    public virtual void ReceiveDamage(int damage, Vector3 pos, bool hitByPlayer, bool isCritical = false) { }
 }

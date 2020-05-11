@@ -36,16 +36,16 @@ MonoBehaviour:
     health: 32
     reload: 8
     speed: 6.4
-    turning: 0.33
+    turning: 0.37
   - upgradeCost: 1000
     damage: 11
     health: 35
     reload: 7
     speed: 6.8
-    turning: 0.35
+    turning: 0.41
   - upgradeCost: 1250
     damage: 14
     health: 40
     reload: 6
     speed: 7.2
-    turning: 0.38
+    turning: 0.44

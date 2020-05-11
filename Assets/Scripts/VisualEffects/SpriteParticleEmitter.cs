@@ -30,7 +30,6 @@ public class SpriteParticleEmitter : MonoBehaviour
 
     public void OnDeath(object sender, System.EventArgs eventArgs)
     {
-        Debug.Log("emit");
         Emit();
     }
 
@@ -38,7 +37,6 @@ public class SpriteParticleEmitter : MonoBehaviour
     {
         if (ps == null)
             return;
-        Debug.Log("emitted");
         ps.Play();
     }
 }

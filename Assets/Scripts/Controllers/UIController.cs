@@ -35,11 +35,22 @@ namespace UI
         public Sprite empty;
         private int lastOccupiedImage;
 
+        [Header("Modifier notification")]
+        public float modifierEffectTime;
+        public Image modifierEffect;
+        public Vector3 modifierStartPos;
+        public Vector3 modifierEndPos;
+        public AnimationCurve modifierPositionCurve;
+        private Transform modifierEffectTransform;
+
         public static UIController Instance { get; private set; }
+        public bool Loading { get; private set; }
+        public bool ShowingEffect { get; private set; }
 
         private void Awake()
         {
             Instance = this;
+            //modifierEffectTransform = modifierEffect.transform;
         }
 
         void Start()
@@ -140,9 +151,15 @@ namespace UI
         }
         #endregion
 
-        public void ActivateLoadEffect(bool reverse = false, Action action = null)
+        public void ActivateLoadEffect(float loadLength = -1f, bool reverse = false, Action action = null)
         {
-            StartCoroutine(LoadEffect(reverse, action));
+            Loading = true;
+            StartCoroutine(LoadEffect(loadLength > 0 ? loadLength : loadEffectLength, reverse, action));
+        }
+
+        public void ActivateModifierEffect(Sprite img)
+        {
+            StartCoroutine(ModifierEffect(img));
         }
 
         public void ChangeLoadEffectColor(Color newColor)
@@ -163,22 +180,42 @@ namespace UI
             damageEffect.gameObject.SetActive(false);
         }
 
-        private IEnumerator LoadEffect(bool reverse = false, Action action = null)
+        private IEnumerator LoadEffect(float loadLength, bool reverse = false, Action action = null)
         {
             loadEffect.gameObject.SetActive(true);
-            currentLoadEffectLength = !reverse ? loadEffectLength : 0;
+            currentLoadEffectLength = !reverse ? loadLength : 0;
             Time.timeScale = !reverse ? 0 : 1;
-            while ((currentLoadEffectLength > 0 && !reverse) || (currentLoadEffectLength < loadEffectLength && reverse))
+            while ((currentLoadEffectLength > 0 && !reverse) || (currentLoadEffectLength < loadLength && reverse))
             {
                 currentLoadEffectLength += !reverse ? -0.01f : 0.01f;
-                loadEffect.color = new Color(loadEffect.color.r, loadEffect.color.g, loadEffect.color.b, currentLoadEffectLength / loadEffectLength);
+                loadEffect.color = new Color(loadEffect.color.r, loadEffect.color.g, loadEffect.color.b, currentLoadEffectLength / loadLength);
                 yield return new WaitForSecondsRealtime(0.005f);
             }
             currentLoadEffectLength = 0;
             loadEffect.gameObject.SetActive(reverse);
+            if (reverse)
+                yield return new WaitForSeconds(0.25f);
             Time.timeScale = !reverse ? 1 : 0;
+            Loading = false;
             if (action != null)
                 action.Invoke();
+        }
+
+        private IEnumerator ModifierEffect(Sprite img)
+        {
+            float t = 0;
+            Time.timeScale = 0.3f;
+            modifierEffect.sprite = img;
+            ShowingEffect = true;
+            while (t < modifierEffectTime)
+            {
+                t += Time.deltaTime;
+                modifierEffectTransform.position = Vector3.Lerp(modifierStartPos, modifierEndPos, modifierPositionCurve.Evaluate(t / modifierEffectTime));
+                modifierEffectTransform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, modifierPositionCurve.Evaluate(t / modifierEffectTime));
+                yield return new WaitForEndOfFrame();
+            }
+            Time.timeScale = 1f;
+            ShowingEffect = false;
         }
     }
 }

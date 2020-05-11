@@ -37,9 +37,9 @@ public class GameController : MonoBehaviour
 
     public static GameController Instance { get; private set; }
 
-    public event EventHandler<RestartEventArgs> RestartEvent;
+    public event EventHandler<EventArgs> RestartEvent;
 
-    protected virtual void OnRestart(RestartEventArgs e)
+    protected virtual void OnRestart(EventArgs e)
     {
         RestartEvent?.Invoke(this, e);
     }
@@ -88,7 +88,7 @@ public class GameController : MonoBehaviour
     {
         UIController.Instance.ChangeLoadEffectColor(new Color(0, 0, 0, 1f));
         UIController.Instance.ActivateLoadEffect();
-        OnRestart(new RestartEventArgs());
+        OnRestart(new EventArgs());
 
         if (!PlatformerController.Instance.generated)
             PlatformerController.Instance.GenerateWorld();
@@ -97,7 +97,6 @@ public class GameController : MonoBehaviour
         // restarts player
         if (PlayerUnit != null)
             PlayerUnit.Restart();
-        //BossSpawner.Instance.Restart();
         Follower.Instance.Restart();
 
         DistanceTraveled = 0;

@@ -78,7 +78,7 @@ public class PlayerShooting : MonoBehaviour
         Enemy pe;
         if (col.TryGetComponent(out pe))
         {
-            pe.ReceiveDamage(damage, pe.transform.position, isCritical: damage > baseDamage);
+            pe.ReceiveDamage(damage, pe.transform.position, false, isCritical: damage > baseDamage);
             SpawnEffect(col);
         }
     }

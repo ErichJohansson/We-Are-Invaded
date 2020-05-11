@@ -12,6 +12,8 @@ namespace UI
         public AnimatedNumericText traveled;
         public AnimatedNumericText earned;
 
+        public float loadEffectLength;
+
         private ObjectPooler pooler;
         private Color screenColor;
 
@@ -34,7 +36,7 @@ namespace UI
             SetEndGameInfo();
             UIController.Instance.ShowPanel(panel);
             UIController.Instance.ChangeLoadEffectColor(screenColor);
-            UIController.Instance.ActivateLoadEffect(true);
+            UIController.Instance.ActivateLoadEffect(loadEffectLength, true);
             GameController.Instance.SaveGame();
         }
 
@@ -47,6 +49,8 @@ namespace UI
 
         public void RestartGame()
         {
+            if (UIController.Instance.Loading)
+                return;
             pooler.Restart();
             GameController.Instance.UpdateCash();
             GameController.Instance.SetPause(!panel.isShown);
