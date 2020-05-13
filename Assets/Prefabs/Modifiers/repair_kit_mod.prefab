@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 2433437210937602761}
   - component: {fileID: 4608266506293406745}
   - component: {fileID: 4813798423656124355}
-  - component: {fileID: 5172075113050949676}
   - component: {fileID: 3141173191797004038}
+  - component: {fileID: 5172075113050949676}
   m_Layer: 0
   m_Name: repair_kit_mod
   m_TagString: mod_repair
@@ -101,6 +101,25 @@ MonoBehaviour:
   lifetime: 0
   visualEffect: {fileID: 0}
   icon: {fileID: 0}
+  effectImage: {fileID: 2289938432896462216, guid: d5b1c90bdb3f65a4e9ed254c446a806d,
+    type: 3}
+  effectTimeScale: 0.2
+--- !u!114 &3141173191797004038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3513448223162832346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9622631d25ca6488207b036073b7b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  personalSpace: {fileID: 4943643910674660730}
+  reachingSpace: {fileID: 0}
+  hardness: 0
+  slowAmount: 0
 --- !u!61 &5172075113050949676
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -127,36 +146,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.6875, y: 0.87242603}
   m_EdgeRadius: 0
---- !u!114 &3141173191797004038
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3513448223162832346}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d9622631d25ca6488207b036073b7b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  personalSpace: {fileID: 4943643910674660730}
-  reachingSpace: {fileID: 0}
-  hardness: 0
-  slowAmount: 0
-  effectName: 
-  useAnimationToDie: 0
-  addScoreOnDeath: 0
-  scoreAmount: 0
-  hierarchyObject: 1
-  forceY: 0
-  forcedY: 0
-  isModifier: 0
-  createPopUp: 0
-  createEnemyRemains: 0
-  allowedRemainsTags: []
-  bloodSplatterPos: {fileID: 0}
-  bloodTrailLength: 0
-  animator: {fileID: 0}
 --- !u!1 &7136809167734142277
 GameObject:
   m_ObjectHideFlags: 0

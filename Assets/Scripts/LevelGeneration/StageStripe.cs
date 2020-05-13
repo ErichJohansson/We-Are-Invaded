@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class StageStripe : MonoBehaviour
 {
+    [Header("Boosters")]
     public List<GameObject> allowedBoosters;
+    public int triesPerBooster;
 
     public BoxCollider2D personalSpace;
     public BoxCollider2D reachingSpace;
@@ -45,7 +47,6 @@ public class StageStripe : MonoBehaviour
     {
         if (spawnedObjects.Count != 0)
         {
-            //Debug.LogError("More than 0 enemies spawned already");
             ClearChildrenObjects();
         }
 
@@ -91,7 +92,7 @@ public class StageStripe : MonoBehaviour
             return;
         float xOffset = personalSpace.size.x / 2;
         float yOffset = personalSpace.size.y / 2;
-        for (int j = 0; j < 100; j++)
+        for (int j = 0; j < triesPerBooster; j++)
         {
             float curX = Random.Range(pos.x - xOffset, pos.x + xOffset);
             float curY = Random.Range(pos.y - yOffset, pos.y + yOffset);

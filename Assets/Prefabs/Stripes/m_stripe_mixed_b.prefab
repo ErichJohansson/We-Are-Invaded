@@ -65,6 +65,7 @@ MonoBehaviour:
   - {fileID: 6794819712278861529, guid: d98f41a8bd7d44b49bb50429f85017c0, type: 3}
   - {fileID: 2123652826330718570, guid: 50babfa7af8162c48bc16b9a24cd186f, type: 3}
   - {fileID: 3513448223162832346, guid: acde4c6b3a2cb1f4b9c2079134c14dc9, type: 3}
+  triesPerBooster: 20
   personalSpace: {fileID: 7907449400648796919}
   reachingSpace: {fileID: 7807270007733355789}
   reactivateObjects:

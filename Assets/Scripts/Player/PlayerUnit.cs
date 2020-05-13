@@ -3,7 +3,7 @@ using UI;
 using UnityEngine;
 
 [System.Serializable]
-public class PlayerUnit : DamageReciever
+public class PlayerUnit : DamageRecieverComponent
 {
     public PlayerShooting shooting;
     public int ID;
@@ -152,7 +152,7 @@ public class PlayerUnit : DamageReciever
         maxHP = vehicle.health;
         turnRate = vehicle.turning;
         shooting.reloadTime = vehicle.reloadTime;
-        shooting.baseDamage = vehicle.damage;
+        shooting.BaseDamage = vehicle.damage;
         CurrentHP = maxHP;
         UIController.Instance.UpdateHitPoints(this, false);
     }

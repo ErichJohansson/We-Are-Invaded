@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Modifier : MonoBehaviour
@@ -8,14 +7,19 @@ public class Modifier : MonoBehaviour
     public GameObject visualEffect;
     public Sprite icon;
     public Sprite effectImage;
-
+    public float effectTimeScale;
     private bool isIndependent;
 
     public float TimeRemains { get; private set; }
     public bool Activated { get; protected set; }
 
     public virtual void Deactivate() { }
-    public virtual void Activate() { }
+    public virtual IEnumerator Activate() { yield return new WaitForEndOfFrame(); }
+
+    protected Coroutine TriggerNotifier()
+    {
+        return UIController.Instance.ActivateModifierEffect(effectImage, effectTimeScale);
+    }
 
     protected void RenewTime()
     {

@@ -6,26 +6,31 @@ public class IncreasedDamage : Modifier
 {
     private int oldDmg;
 
-    public override void Activate()
+    public override IEnumerator Activate()
     {
-        if (GameController.Instance.PlayerUnit.SpeedBoost != null)
-            return;
-        Activated = true;
-        // do visuals
-        DisableAppereance();
-        UIController.Instance.AddModifierIcon(icon);
+        if (GameController.Instance.PlayerUnit.SpeedBoost == null && !Activated)
+        {
+            // do visuals
+            Activated = true;
+            DisableAppereance();
+            UIController.Instance.AddModifierIcon(icon);
 
-        GameController.Instance.PlayerUnit.IncreasedDamage = this;
-        StartCoroutine("Lifetime");
-        oldDmg = GameController.Instance.PlayerUnit.shooting.baseDamage;
-        GameController.Instance.PlayerUnit.shooting.baseDamage = oldDmg * 4;
+            yield return TriggerNotifier();
+
+            GameController.Instance.PlayerUnit.IncreasedDamage = this;
+            StartCoroutine("Lifetime");
+            oldDmg = GameController.Instance.PlayerUnit.shooting.BaseDamage;
+            GameController.Instance.PlayerUnit.shooting.BaseDamage = oldDmg * 4;
+        }
+        else
+            yield return new WaitForEndOfFrame();
     }
 
     public override void Deactivate()
     {
         GameController.Instance.PlayerUnit.IncreasedDamage = null;
         UIController.Instance.RemoveModifierIcon(icon);
-        GameController.Instance.PlayerUnit.shooting.baseDamage = oldDmg;
+        GameController.Instance.PlayerUnit.shooting.BaseDamage = oldDmg;
         Destroy(gameObject);
     }
 
@@ -36,7 +41,7 @@ public class IncreasedDamage : Modifier
         {
             Debug.Log((GameController.Instance.PlayerUnit.IncreasedDamage == null) + " damage");
             if (GameController.Instance.PlayerUnit.IncreasedDamage == null)
-                Activate();
+                StartCoroutine(Activate());
             else if(!Activated)
             {
                 GameController.Instance.PlayerUnit.IncreasedDamage.RenewTime();

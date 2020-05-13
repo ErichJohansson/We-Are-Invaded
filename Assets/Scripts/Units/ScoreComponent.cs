@@ -27,7 +27,7 @@ public class ScoreComponent : MonoBehaviour
 
     public void AddScore()
     {
-        UI.UIController.Instance.AddScore(scoreAmount);
+        UIController.Instance.AddScore(scoreAmount);
         if (ps != null) ps.Play();
     }
 }

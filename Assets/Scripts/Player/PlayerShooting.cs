@@ -10,7 +10,6 @@ public class PlayerShooting : MonoBehaviour
     public Transform shootingPoint;
     public GunType gunType;
     public bool auto;
-    public int baseDamage;
     public LayerMask layerMask;
 
     public float reloadTime;
@@ -27,10 +26,24 @@ public class PlayerShooting : MonoBehaviour
     [HideInInspector] public Animator mainAnimator;
     private ParticleSystem particleSystem;
 
+    private int defaultDmg;
+    private int baseDmg;
+
     public bool Firing { get; set; }
     public bool Reloading { get; private set; }
     public bool InfiniteAmmo { get; set; }
     public int CurrentAmmo { get; private set; }
+    public int BaseDamage { 
+        get {
+            return baseDmg;
+        }
+        set {
+            defaultDmg = baseDmg;
+            baseDmg = value;
+            if (defaultDmg == 0)
+                defaultDmg = baseDmg;
+        } 
+    }
 
     private System.Random rnd;
 
@@ -39,6 +52,7 @@ public class PlayerShooting : MonoBehaviour
         rnd = new System.Random();
         mainAnimator = GetComponent<Animator>();
         particleSystem = GetComponentInChildren<ParticleSystem>();
+        defaultDmg = BaseDamage;
     }
 
     private void Start()
@@ -78,7 +92,7 @@ public class PlayerShooting : MonoBehaviour
         Enemy pe;
         if (col.TryGetComponent(out pe))
         {
-            pe.ReceiveDamage(damage, pe.transform.position, false, isCritical: damage > baseDamage);
+            pe.ReceiveDamage(damage, pe.transform.position, false, isCritical: damage > BaseDamage);
             SpawnEffect(col);
         }
     }
@@ -99,6 +113,8 @@ public class PlayerShooting : MonoBehaviour
             mainAnimator.SetTrigger("shotStart");
         if (particleSystem != null)
             particleSystem.Play();
+        if (defaultDmg < baseDmg)
+            CameraShakeController.Instance.ShakeCamera(0.2f, 2, 1);
 
         StartCoroutine("GunLight");
         List<Collider2D> colliders = new List<Collider2D>(Physics2D.OverlapBoxAll(shootingPoint.transform.position, splashArea.size, 0, layerMask));
@@ -117,7 +133,7 @@ public class PlayerShooting : MonoBehaviour
                     float hitThreshold = splashArea.size.x / dist;
                     float hitNow = hitThreshold >= 1f ? 1f : Random.Range(0, 1f);
                     if(hitNow <= hitThreshold)
-                        ApplyDamage(colliders[i], (int)(baseDamage * (splashArea.size.x / (2 * dist))));
+                        ApplyDamage(colliders[i], (int)(BaseDamage * (splashArea.size.x / (2 * dist))));
                 }
                 break;
             case GunType.SingleShot:
@@ -129,7 +145,7 @@ public class PlayerShooting : MonoBehaviour
                     float hitNow = hitThreshold >= 1f ? 1f : Random.Range(0, 1f);
                     if (hitNow <= hitThreshold)
                     {
-                        ApplyDamage(colliders[i], (int)(baseDamage * (splashArea.size.x / (2 * dist))));
+                        ApplyDamage(colliders[i], (int)(BaseDamage * (splashArea.size.x / (2 * dist))));
                         break;
                     }
                 }

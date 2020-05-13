@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : DamageReciever
+public class Enemy : DamageRecieverComponent
 {
     public EnemyShooting enemyShooting;
     public Animator hitAnimator;

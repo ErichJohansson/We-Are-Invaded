@@ -5,22 +5,26 @@ using UI;
 
 public class SpeedBoost : Modifier
 {
-    public override void Activate()
+    public override IEnumerator Activate()
     {
-        if (GameController.Instance.PlayerUnit.SpeedBoost != null)
-            return;
+        if (GameController.Instance.PlayerUnit.SpeedBoost == null && !Activated)
+        {
+            // do visuals
+            Activated = true;
+            DisableAppereance();
+            UIController.Instance.AddModifierIcon(icon);
+            Follower.Instance.gameObject.SetActive(false);
 
-        Follower.Instance.gameObject.SetActive(false);
-        Activated = true;
-        DisableAppereance();
-        GameController.Instance.PlayerUnit.SpeedBoost = this;
+            yield return TriggerNotifier();
 
-        GameController.Instance.PlayerUnit.MakeInvincible(false); // make invincible and NOT blinking i.e. invincible for the whole speed boost time
-
-        GameController.Instance.PlayerUnit.FastTravel(lifetime);
-
-        UIController.Instance.AddModifierIcon(icon);
-        StartCoroutine("Lifetime");
+            CameraShakeController.Instance.ShakeCamera(lifetime, 0.8f, 2f);
+            GameController.Instance.PlayerUnit.SpeedBoost = this;
+            GameController.Instance.PlayerUnit.MakeInvincible(false); // make invincible and NOT blinking i.e. invincible for the whole speed boost time
+            GameController.Instance.PlayerUnit.FastTravel(lifetime);
+            StartCoroutine("Lifetime");
+        }
+        else
+            yield return new WaitForEndOfFrame();
     }
 
     public override void Deactivate()
@@ -49,7 +53,7 @@ public class SpeedBoost : Modifier
         {
             Debug.Log((GameController.Instance.PlayerUnit.SpeedBoost == null) + " speed boost");
             if (GameController.Instance.PlayerUnit.SpeedBoost == null)
-                Activate();
+                StartCoroutine(Activate());
             else if (!Activated)
             {
                 GameController.Instance.PlayerUnit.SpeedBoost.RenewTime();

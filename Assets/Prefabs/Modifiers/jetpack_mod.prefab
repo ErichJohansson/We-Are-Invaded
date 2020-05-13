@@ -68,8 +68,8 @@ GameObject:
   - component: {fileID: 848864689210192400}
   - component: {fileID: 3335207389880161505}
   - component: {fileID: 8884978031729478522}
-  - component: {fileID: 2055338890662457145}
   - component: {fileID: 4855016564568035738}
+  - component: {fileID: 2055338890662457145}
   m_Layer: 0
   m_Name: jetpack_mod
   m_TagString: mod_jetpack
@@ -158,6 +158,25 @@ MonoBehaviour:
   lifetime: 1.5
   visualEffect: {fileID: 0}
   icon: {fileID: -6469987652469440005, guid: 13ab5526dc3a46d4eb56cd65a26fbb69, type: 3}
+  effectImage: {fileID: 4318899567704020704, guid: d5b1c90bdb3f65a4e9ed254c446a806d,
+    type: 3}
+  effectTimeScale: 0.2
+--- !u!114 &4855016564568035738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2123652826330718570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9622631d25ca6488207b036073b7b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  personalSpace: {fileID: 4764491912826090886}
+  reachingSpace: {fileID: 0}
+  hardness: 0
+  slowAmount: 0
 --- !u!61 &2055338890662457145
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -175,7 +194,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.21875, y: 1.125}
+    oldSize: {x: 0.84375, y: 1.3125}
     newSize: {x: 2.21875, y: 1.125}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -184,33 +203,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.21875, y: 0.8065691}
   m_EdgeRadius: 0
---- !u!114 &4855016564568035738
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2123652826330718570}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d9622631d25ca6488207b036073b7b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  personalSpace: {fileID: 4764491912826090886}
-  reachingSpace: {fileID: 0}
-  hardness: 0
-  slowAmount: 0
-  effectName: 
-  useAnimationToDie: 0
-  addScoreOnDeath: 0
-  scoreAmount: 0
-  hierarchyObject: 1
-  forceY: 0
-  forcedY: 0
-  isModifier: 0
-  createPopUp: 0
-  createEnemyRemains: 0
-  allowedRemainsTags: []
-  bloodSplatterPos: {fileID: 0}
-  bloodTrailLength: 0
-  animator: {fileID: 0}

@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Controllers\CameraShakeController.cs" />
     <Compile Include="Assets\Scripts\Controllers\GameController.cs" />
     <Compile Include="Assets\Scripts\Controllers\InputController.cs" />
     <Compile Include="Assets\Scripts\Controllers\ParallaxController.cs" />
@@ -117,11 +118,12 @@
     <Compile Include="Assets\Scripts\UI\UIObject.cs" />
     <Compile Include="Assets\Scripts\UI\VehicleSelectionScreen.cs" />
     <Compile Include="Assets\Scripts\UI\VehicleShowcase.cs" />
-    <Compile Include="Assets\Scripts\Units\DamageReciever.cs" />
+    <Compile Include="Assets\Scripts\Units\DamageRecieverComponent.cs" />
     <Compile Include="Assets\Scripts\Units\DeactivateComponent.cs" />
     <Compile Include="Assets\Scripts\Units\DeathComponent.cs" />
     <Compile Include="Assets\Scripts\Units\RemainsComponent.cs" />
     <Compile Include="Assets\Scripts\Units\ScoreComponent.cs" />
+    <Compile Include="Assets\Scripts\Units\ShakeTriggerComponent.cs" />
     <Compile Include="Assets\Scripts\VisualEffects\DamagePopup.cs" />
     <Compile Include="Assets\Scripts\VisualEffects\ExplosionEffect.cs" />
     <Compile Include="Assets\Scripts\VisualEffects\HitEffectSpawner.cs" />
