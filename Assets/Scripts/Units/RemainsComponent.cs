@@ -30,7 +30,7 @@ public class RemainsComponent : MonoBehaviour
             GameObject obj = pooler.GetPooledObject(allowedRemainsTags[Random.Range(0, allowedRemainsTags.Length)]);
             obj.transform.position = new Vector3(bloodSplatterPos.position.x, bloodSplatterPos.position.y, 9 + bloodSplatterPos.position.y / 10f);
             obj.SetActive(true);
-            if(deactivateComponent != null) StartCoroutine(deactivateComponent.DeactivateAfterDelay(15f, obj));
+            if(deactivateComponent != null) deactivateComponent.DeactivateAfterDelay(15f, obj);
         }
     }
 }

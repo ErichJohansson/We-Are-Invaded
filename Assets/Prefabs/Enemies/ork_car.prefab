@@ -58,7 +58,8 @@ MonoBehaviour:
   maxHP: 25
   enemyShooting: {fileID: 3851277973938510322}
   hitAnimator: {fileID: 3851277974615193014}
-  isBoss: 0
+  thisTransform: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!114 &3851277973938510322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,6 +73,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   autoStart: 1
+  instantStart: 0
   affectedArea: {fileID: 3851277975039837719}
   startPoint: {fileID: 3851277975638329782}
   endPoint: {fileID: 3851277975561422927}
@@ -80,6 +82,7 @@ MonoBehaviour:
   reloadTime: 2
   hitTick: 0.35
   noReturn: 1
+  autoRestart: 1
   groundHitAnimator: {fileID: 3851277975039837713}
   unitAnimator: {fileID: 3851277974544937164}
   gunLightSource: {fileID: 7081893862767545718}

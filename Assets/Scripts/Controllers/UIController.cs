@@ -89,13 +89,13 @@ public class UIController : MonoBehaviour
     #region UI updates / restarts
     public void AddScore(int score)
     {
-        GameController.Instance.AddPoints(score);
+        GameController.Instance.AddMoney(score);
         UpdateScore();
     }
 
     public void UpdateScore()
     {
-        score.text = GameController.Instance.ScoredPoints.ToString();
+        score.text = GameController.Instance.MoneyEarned.ToString();
     }
 
     public void UpdateAmmo(int currentAmmo)

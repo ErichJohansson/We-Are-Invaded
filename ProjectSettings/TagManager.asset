@@ -16,6 +16,9 @@ TagManager:
   - m_stripe_mixed
   - m_stripe_mixed_b
   - barrel
+  - boss
+  - botLeft_const
+  - topLeft_const
   layers:
   - Default
   - TransparentFX
@@ -37,7 +40,7 @@ TagManager:
   - trigger
   - obstacles
   - enemies
-  - 
+  - boss
   - 
   - 
   - 

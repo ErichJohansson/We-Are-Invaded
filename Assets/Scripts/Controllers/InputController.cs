@@ -21,7 +21,7 @@ public class InputController : MonoBehaviour
     {
         if (GameController.Instance.Pause && Input.GetKeyDown(KeyCode.Escape))
         {
-            UIController.Instance.pauseScreen.BackToMainMenu();
+            UIController.Instance.pauseScreen.ActivatePause();
             return;
         }
 

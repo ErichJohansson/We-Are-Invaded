@@ -8,6 +8,7 @@ public class ScoreComponent : MonoBehaviour
     private void Awake()
     {
         Enemy e = GetComponent<Enemy>();
+        ps = GetComponentInChildren<ParticleSystem>();
         if (e != null) e.DieEvent += OnDeath;
 
         if (ps != null)

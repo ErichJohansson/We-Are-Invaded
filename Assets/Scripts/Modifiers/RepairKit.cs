@@ -9,8 +9,9 @@ public class RepairKit : Modifier
         {
             Activated = true;
             DisableAppereance();
-            GameController.Instance.PlayerUnit.Repair(GameController.Instance.PlayerUnit.maxHP / 2);
-
+            int restoreAmount = GameController.Instance.PlayerUnit.maxHP / 2;
+            GameController.Instance.PlayerUnit.Repair(restoreAmount);
+            GameController.Instance.AddHealthRestored(restoreAmount);
             yield return TriggerNotifier();
 
             Destroy(gameObject);

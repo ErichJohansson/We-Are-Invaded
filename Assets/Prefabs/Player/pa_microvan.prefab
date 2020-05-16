@@ -947,6 +947,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 40
+  alwaysReceiveFullDamage: 0
   shooting: {fileID: 0}
   ID: 0
   hardness: 3
@@ -981,10 +982,9 @@ MonoBehaviour:
   shootingPoint: {fileID: 5647190733155717138}
   gunType: 1
   auto: 0
-  baseDamage: 10
   layerMask:
     serializedVersion: 2
-    m_Bits: 524288
+    m_Bits: 1572864
   reloadTime: 5
   cooldownTime: 0.5
   shootingDistance: 15

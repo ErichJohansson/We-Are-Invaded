@@ -63,9 +63,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Controllers\BossController.cs" />
     <Compile Include="Assets\Scripts\Controllers\CameraShakeController.cs" />
     <Compile Include="Assets\Scripts\Controllers\GameController.cs" />
     <Compile Include="Assets\Scripts\Controllers\InputController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\LanguageController.cs" />
     <Compile Include="Assets\Scripts\Controllers\ParallaxController.cs" />
     <Compile Include="Assets\Scripts\Controllers\PlatformerController.cs" />
     <Compile Include="Assets\Scripts\Controllers\UIController.cs" />
@@ -103,6 +105,7 @@
     <Compile Include="Assets\Scripts\PlatformerLogic\EnemyTypes\AreaDamage.cs" />
     <Compile Include="Assets\Scripts\PlatformerLogic\EnemyTypes\ChaserScenario.cs" />
     <Compile Include="Assets\Scripts\PlatformerLogic\EnemyTypes\EnemyBehaviour.cs" />
+    <Compile Include="Assets\Scripts\PlatformerLogic\EnemyTypes\Vertiboss.cs" />
     <Compile Include="Assets\Scripts\PlatformerLogic\EnemyTypes\VisibilityTrigger.cs" />
     <Compile Include="Assets\Scripts\PlatformerLogic\Follower.cs" />
     <Compile Include="Assets\Scripts\Player\PhysicalCollisionHandler.cs" />

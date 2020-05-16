@@ -31,6 +31,7 @@ public class AreaDamage : MonoBehaviour
 
     private void DealDamageInArea()
     {
+        GameController.Instance.AddBarrel();
         List<Collider2D> overlaped = new List<Collider2D>(Physics2D.OverlapBoxAll(thisTransform.position, area.size, 0, layerMask));
         overlaped.ForEach(x =>
         {

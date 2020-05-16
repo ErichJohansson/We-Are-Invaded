@@ -18,5 +18,11 @@ namespace UI
             panel.HidePanel();
             UIController.Instance.startGameScreen.panel.ShowPanel();
         }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape) && panel.isShown)
+                BackToMainMenu();
+        }
     }
 }

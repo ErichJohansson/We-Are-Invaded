@@ -24,25 +24,25 @@ public class ChaserScenario : EnemyBehaviour
 
         Vector2 nextPoint = playerTransform.position;
 
-        nextPoint.y = UnityEngine.Random.Range(0, 1f) >= 0.3f ? nextPoint.y : (thisTransform.position.y - nextPoint.y) * UnityEngine.Random.Range(0, 1f);
+        nextPoint.y = UnityEngine.Random.Range(0, 1f) >= 0.3f ? nextPoint.y : (ThisTransform.position.y - nextPoint.y) * UnityEngine.Random.Range(0, 1f);
 
-        if (Vector2.Distance(nextPoint, thisTransform.position) <= distanceThreshold || stop)
+        if (Vector2.Distance(nextPoint, ThisTransform.position) <= distanceThreshold || stop)
             return;
 
-        if (nextPoint.x > thisTransform.position.x)
-            thisTransform.localScale = new Vector3(-1, 1, 1);
+        if (nextPoint.x > ThisTransform.position.x)
+            ThisTransform.localScale = new Vector3(-1, 1, 1);
         else
-            thisTransform.localScale = new Vector3(1, 1, 1);
+            ThisTransform.localScale = new Vector3(1, 1, 1);
 
         movement = StartCoroutine(MoveTowards(nextPoint));
     }
 
     protected override IEnumerator MoveTowards(Vector2 moveTowards)
     {
-        while (Vector2.Distance(moveTowards, thisTransform.position) > distanceThreshold)
+        while (Vector2.Distance(moveTowards, ThisTransform.position) > distanceThreshold)
         {
-            Vector3 v = Vector2.MoveTowards(thisTransform.position, moveTowards, speed * Time.deltaTime);
-            thisTransform.position = new Vector3(v.x, v.y, 9f + v.y / 10);
+            Vector3 v = Vector2.MoveTowards(ThisTransform.position, moveTowards, speed * Time.deltaTime);
+            ThisTransform.position = new Vector3(v.x, v.y, 9f + v.y / 10);
             yield return new WaitForEndOfFrame();
         }
         NextPoint();
@@ -50,7 +50,7 @@ public class ChaserScenario : EnemyBehaviour
 
     protected override IEnumerator BehaviourRoutine()
     {
-        while (thisGameObject.activeInHierarchy)
+        while (ThisGameObject.activeInHierarchy)
         {
             yield return new WaitForSeconds(0.3f);
             NextPoint();

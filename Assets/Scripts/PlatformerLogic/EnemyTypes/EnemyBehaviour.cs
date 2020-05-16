@@ -11,8 +11,26 @@ public abstract class EnemyBehaviour : MonoBehaviour
     protected float speed;
     protected bool stop;
 
-    protected GameObject thisGameObject;
-    protected Transform thisTransform;
+    private GameObject thisObject;
+    private Transform thisTransform;
+    protected GameObject ThisGameObject 
+    { 
+        get 
+        { 
+            if (thisObject == null)
+                thisObject = gameObject;
+            return thisObject;
+        } 
+    }
+    protected Transform ThisTransform
+    {
+        get
+        {
+            if (thisTransform == null)
+                thisTransform = transform;
+            return thisTransform;
+        }
+    }
     protected Transform playerTransform;
 
     protected abstract void NextPoint();
@@ -20,13 +38,9 @@ public abstract class EnemyBehaviour : MonoBehaviour
     protected abstract IEnumerator MoveTowards(Vector2 moveTowards);
     public abstract void HandleCollision(Collider2D collidedWith);
 
-    public event EventHandler<EnemyStateEventArgs> EnemyStateChanged;
+    [SerializeField]protected float minY = -4.2f, maxY = 4.2f;
 
-    private void Start()
-    {
-        thisGameObject = gameObject;
-        thisTransform = thisGameObject.transform;
-    }
+    public event EventHandler<EnemyStateEventArgs> EnemyStateChanged;
 
     private void OnEnable()
     {

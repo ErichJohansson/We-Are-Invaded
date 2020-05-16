@@ -762,9 +762,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 673f1dacfff7f214ca593f7d537302f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHP: 0
   shooting: {fileID: 0}
   ID: 1
-  maxHP: 0
   hardness: 4
   maxSpeed: 0
   currentSpeed: 0
@@ -797,10 +797,9 @@ MonoBehaviour:
   shootingPoint: {fileID: 8381133734665020568}
   gunType: 1
   auto: 0
-  baseDamage: 0
   layerMask:
     serializedVersion: 2
-    m_Bits: 524288
+    m_Bits: 1572864
   reloadTime: 0
   cooldownTime: 0.25
   shootingDistance: 0

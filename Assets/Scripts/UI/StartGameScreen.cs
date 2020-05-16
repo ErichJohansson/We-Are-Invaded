@@ -25,17 +25,17 @@ namespace UI
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape) && panel.isShown)
             {
                 if (exitQuestion.activeSelf)
                 {
-                    CancelExit();
+                    ActivateExitQuestion(false);
                     return;
                 }
-                if (panel.isShown)
-                {
+                if (!panel.shownOnThisFrame)
                     ActivateExitQuestion(true);
-                }
+                else
+                    panel.shownOnThisFrame = false;
             }
         }
 
@@ -47,11 +47,6 @@ namespace UI
         public void ExitGame()
         {
             Application.Quit();
-        }
-
-        public void CancelExit()
-        {
-            ActivateExitQuestion(false);
         }
 
         public void ActivateMainMenu()

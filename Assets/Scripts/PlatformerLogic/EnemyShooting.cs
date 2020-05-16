@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyShooting : MonoBehaviour
 {
     public bool autoStart;
+    public bool instantStart = true;
+    public bool noReload = false;
     [Header("Shooting")]
     public BoxCollider2D affectedArea;
     public Transform startPoint;
@@ -14,6 +16,7 @@ public class EnemyShooting : MonoBehaviour
     public float reloadTime;
     public float hitTick;
     public bool noReturn;
+    public bool autoRestart;
 
     private bool reloading;
     private Transform fromP;
@@ -27,12 +30,15 @@ public class EnemyShooting : MonoBehaviour
     public GameObject gunLightSource;
     [Range(0f, 1f)] public float gunLightLength;
 
+    public Coroutine ShotRoutine { get; private set; }
+
     private void OnEnable()
     {
         reloading = false;
         affectedArea.enabled = false;
         fromP = startPoint;
         toP = endPoint;
+        ShotRoutine = null;
         if (autoStart)
             StartCoroutine("StartRoutine");
     }
@@ -56,10 +62,18 @@ public class EnemyShooting : MonoBehaviour
     }
 
     #region Coroutines
+    public void StartShooting(Transform predefinedTransform = null)
+    {
+        if(!instantStart)
+            StartCoroutine("StartRoutine");
+        else
+            ShotRoutine = StartCoroutine(Firing(startPoint, predefinedTransform != null ? predefinedTransform : endPoint));
+    }
+
     private IEnumerator StartRoutine()
     {
         yield return new WaitForSeconds(Random.Range(0, 2f));
-        StartCoroutine(Firing(fromP, toP));
+        ShotRoutine = StartCoroutine(Firing(fromP, toP));
     }
 
     private IEnumerator Reload()
@@ -69,7 +83,7 @@ public class EnemyShooting : MonoBehaviour
         reloading = true;
         yield return new WaitForSeconds(reloadTime);
         reloading = false;
-        StartCoroutine(Firing(fromP, toP));
+        if (autoRestart) StartCoroutine(Firing(fromP, toP));
     }
 
     private IEnumerator Firing(Transform from, Transform to)
@@ -77,20 +91,28 @@ public class EnemyShooting : MonoBehaviour
         float t = 0;
         fromP = noReturn ? from : to;
         toP = noReturn ? to : from;
+        groundHitAnimator.transform.localScale = new Vector3(to != toP ? -1 : 1, 1, 1);
+
         StartCoroutine("HitTick");
         StartCoroutine("GunLight");
-        unitAnimator.SetTrigger("shot");
         groundHitAnimator.SetActive(true);
         while (t < moveTime && !reloading)
         {
             t += Time.deltaTime;
+            unitAnimator.SetTrigger("shot");
             groundHitAnimator.transform.position = Vector3.Lerp(fromP.position, toP.position, t / moveTime);
             yield return new WaitForEndOfFrame();
         }
         StopCoroutine("GunLight");
+        ShotRoutine = null;
         gunLightSource.SetActive(false);
         StopCoroutine("HitTick");
-        StartCoroutine("Reload");
+        if (!noReload) StartCoroutine("Reload");
+        else
+        {
+            unitAnimator.SetTrigger("idle");
+            groundHitAnimator.SetActive(false);
+        }
     }
 
     private IEnumerator HitTick()

@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
-using Assets.Scripts.CustomEventArgs;
 using UI;
-using Assets.SimpleLocalization;
 using System;
 using System.Collections;
 
@@ -30,8 +28,12 @@ public class GameController : MonoBehaviour
             Follower.Instance.StartFollowing();
         }
     }
-    public int ScoredPoints { get; private set; }
+    public int MoneyEarned { get; private set; }
     public float DistanceTraveled { get; private set; }
+    public int BarrelsExploded { get; private set; }
+    public int HealthRestored { get; private set; }
+    public int DamageToEnemies { get; private set; }
+
     public bool Pause { get; set; }
     public bool SomeScreenIsShown { get; set; }
 
@@ -49,20 +51,6 @@ public class GameController : MonoBehaviour
         Instance = this;
         SomeScreenIsShown = true;
 
-        LocalizationManager.Read();
-        switch (Application.systemLanguage)
-        {
-            case SystemLanguage.German:
-                LocalizationManager.Language = "German";
-                break;
-            case SystemLanguage.Russian:
-                LocalizationManager.Language = "Russian";
-                break;
-            default:
-                LocalizationManager.Language = "English";
-                break;
-        }
-
         Time.timeScale = 0;
         DamagePopup.CreatePopup(0, new Vector3(-100, 0, 0));
     }
@@ -74,20 +62,13 @@ public class GameController : MonoBehaviour
         gameObject.AddComponent<InputController>();
     }
 
-    public void AddPoints(int pts)
+    public void StartGame(bool blockLoadEffect = false)
     {
-        ScoredPoints += pts;
-    }
-
-    public void AddDistance(float val) 
-    {
-        DistanceTraveled += Mathf.Round(val * 500f) / 1000f;
-    }
-
-    public void StartGame()
-    {
-        UIController.Instance.ChangeLoadEffectColor(new Color(0, 0, 0, 1f));
-        UIController.Instance.ActivateLoadEffect();
+        if (!blockLoadEffect)
+        {
+            UIController.Instance.ChangeLoadEffectColor(new Color(0, 0, 0, 1f));
+            UIController.Instance.ActivateLoadEffect();
+        }
         OnRestart(new EventArgs());
 
         if (!PlatformerController.Instance.generated)
@@ -98,19 +79,22 @@ public class GameController : MonoBehaviour
         if (PlayerUnit != null)
             PlayerUnit.Restart();
         Follower.Instance.Restart();
-
+        BossController.Instance.Restart();
+        MoneyEarned = 0;
+        HealthRestored = 0;
+        BarrelsExploded = 0;
+        DamageToEnemies = 0;
         DistanceTraveled = 0;
         UIController.Instance.UpdateTraveledDistance();
-        ScoredPoints = 0;
         UIController.Instance.UpdateScore();
     }
 
     public void UpdateCash()
     {
-        cash += ScoredPoints;
+        cash += MoneyEarned;
         foreach (VehicleShowcase vhcl in VehicleSelectionController.Instance.vehicles)
             vhcl.ShowVehicle();
-        ScoredPoints = 0;
+        MoneyEarned = 0;
         UIController.Instance.UpdateCash();
     }
 
@@ -209,6 +193,33 @@ public class GameController : MonoBehaviour
 
         VehicleSelectionController.Instance.SelectVehicle(gd.selectedTankID);
         UpdateCash();
+    }
+    #endregion
+
+    #region Various metrics
+    public void AddMoney(int coins)
+    {
+        MoneyEarned += coins;
+    }
+
+    public void AddDistance(float val)
+    {
+        DistanceTraveled += Mathf.Round(val * 500f) / 1000f;
+    }
+
+    public void AddBarrel()
+    {
+        BarrelsExploded++;
+    }
+
+    public void AddHealthRestored(int restored)
+    {
+        HealthRestored += restored;
+    }
+
+    public void AddDamageToEnemies(int damage)
+    {
+        DamageToEnemies += damage;
     }
     #endregion
 

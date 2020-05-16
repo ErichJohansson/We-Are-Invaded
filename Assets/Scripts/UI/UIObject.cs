@@ -23,6 +23,7 @@ namespace UI
         public float waitFor;
 
         public bool isShown;
+        public bool shownOnThisFrame;
         private bool isMoving;
 
         void Start()
@@ -46,6 +47,7 @@ namespace UI
                 GameController.Instance.SomeScreenIsShown = true;
                 isShown = true;
                 isMoving = false;
+                shownOnThisFrame = true;
                 return;
             }
             if (!isMoving)

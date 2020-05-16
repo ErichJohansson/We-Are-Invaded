@@ -1,16 +1,18 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
-using Assets.SimpleLocalization;
 
 namespace UI
 {
     public class GameOverScreen : MonoBehaviour
     {
-        public Text info;
         public UIObject panel;
 
-        public AnimatedNumericText traveled;
-        public AnimatedNumericText earned;
+        public AnimatedNumericText distanceTraveled;
+        public AnimatedNumericText moneyEarned;
+        public AnimatedNumericText barrelsExploded;
+        public AnimatedNumericText damageToEnemies;
+        public AnimatedNumericText healthRestored;
 
         public float loadEffectLength;
 
@@ -26,8 +28,11 @@ namespace UI
 
         private void SetEndGameInfo()
         {
-            traveled.SetValue(GameController.Instance.DistanceTraveled);
-            earned.SetValue(GameController.Instance.ScoredPoints);
+            distanceTraveled.SetValue(GameController.Instance.DistanceTraveled);
+            moneyEarned.SetValue(GameController.Instance.MoneyEarned);
+            barrelsExploded.SetValue(GameController.Instance.BarrelsExploded);
+            damageToEnemies.SetValue(GameController.Instance.DamageToEnemies);
+            healthRestored.SetValue(GameController.Instance.HealthRestored);
         }
 
         public void ShowGameOverScreen()
@@ -51,10 +56,19 @@ namespace UI
         {
             if (UIController.Instance.Loading)
                 return;
+
+            StartCoroutine(RestartRoutine());
+        }
+
+        private IEnumerator RestartRoutine()
+        {
             pooler.Restart();
+            GameController.Instance.StartGame(true);
+            yield return new WaitForSecondsRealtime(0.5f);
+            UIController.Instance.ChangeLoadEffectColor(new Color(0, 0, 0, 1f));
+            UIController.Instance.ActivateLoadEffect();
             GameController.Instance.UpdateCash();
             GameController.Instance.SetPause(!panel.isShown);
-            GameController.Instance.StartGame();
             UIController.Instance.HidePanel(panel);
         }
     }

@@ -62,7 +62,7 @@ public class DeathComponent : MonoBehaviour
                 deactivateComponent.DeactivateAfterDelay(animator.GetCurrentAnimatorStateInfo(0).length * 7, gameObject);
             }
             else
-                deactivateComponent.DeactivateAfterDelay(6f, gameObject);
+                deactivateComponent.DeactivateAfterDelay(1f, gameObject);
         }
     }
 }

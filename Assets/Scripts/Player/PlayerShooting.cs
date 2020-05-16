@@ -92,7 +92,7 @@ public class PlayerShooting : MonoBehaviour
         Enemy pe;
         if (col.TryGetComponent(out pe))
         {
-            pe.ReceiveDamage(damage, pe.transform.position, false, isCritical: damage > BaseDamage);
+            pe.ReceiveDamage(pe.alwaysReceiveFullDamage ? baseDmg : damage, pe.transform.position, false, isCritical: damage > BaseDamage);
             SpawnEffect(col);
         }
     }

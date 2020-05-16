@@ -7,13 +7,12 @@ public class Enemy : DamageRecieverComponent
 {
     public EnemyShooting enemyShooting;
     public Animator hitAnimator;
-    public bool isBoss;
     [HideInInspector] public Transform thisTransform;
 
     private BoxCollider2D collider;
     private EnemyBehaviour eb;
     private int currentHP;
-    private Animator animator;
+    [HideInInspector] public Animator animator;
 
     public bool IsInActiveState { get; private set; }
 
@@ -35,6 +34,7 @@ public class Enemy : DamageRecieverComponent
         IsInActiveState = false;
         if (eb != null) eb.EnemyStateChanged += OnEnemyActivatedHanlder;
         GameController.Instance.RestartEvent += Restart;
+        currentHP = maxHP;
     }
 
     public virtual void OnDeath(DieEventArgs e)
@@ -66,6 +66,8 @@ public class Enemy : DamageRecieverComponent
     {
         DamagePopup.CreatePopup(damage, pos, isCritical);
         currentHP -= damage;
+        if (hitByPlayer)
+            GameController.Instance.AddDamageToEnemies(damage);
         if (currentHP <= 0)
         {
             OnDeath(new DieEventArgs(hitByPlayer));
