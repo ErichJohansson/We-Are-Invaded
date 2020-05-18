@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2201550539522559927
+--- !u!1 &688934945101985165
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,38 +8,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2201550539522559923}
-  - component: {fileID: 2201550539522559920}
-  - component: {fileID: 2201550539522559921}
-  - component: {fileID: 2201550539522559926}
-  m_Layer: 20
-  m_Name: ground_hit_anim_0
+  - component: {fileID: 6743763613455409567}
+  - component: {fileID: 3492864154422274734}
+  - component: {fileID: 3295693540733256161}
+  m_Layer: 0
+  m_Name: boss_ground_hit_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!4 &2201550539522559923
+--- !u!4 &6743763613455409567
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2201550539522559927}
+  m_GameObject: {fileID: 688934945101985165}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.3, y: -4.4, z: 0}
+  m_LocalPosition: {x: -2.44, y: -4.31, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2201550540744823611}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &2201550539522559920
+--- !u!212 &3492864154422274734
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2201550539522559927}
+  m_GameObject: {fileID: 688934945101985165}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -71,30 +70,30 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
-  m_Sprite: {fileID: 7994955765505864655, guid: 8fcac22b7f43db44c9621149b9211ba6,
+  m_SortingOrder: 5
+  m_Sprite: {fileID: -4015267056055880481, guid: 59a4ac1b6ea9a814ea07dc6d95f6a09f,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.96875, y: 0.4375}
+  m_Size: {x: 0.96875, y: 0.8125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &2201550539522559921
+--- !u!95 &3295693540733256161
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2201550539522559927}
+  m_GameObject: {fileID: 688934945101985165}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 14ae3323d7c475642a8d622709caf93e, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9112cb60151f0364e9dcab843df88fb2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -103,32 +102,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!61 &2201550539522559926
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2201550539522559927}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.20759201}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.96875, y: 0.4375}
-    newSize: {x: 0.96875, y: 0.4375}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 3.7407074, y: 1.3550453}
-  m_EdgeRadius: 0
 --- !u!1 &2201550540143474048
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,7 +178,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.829
-  m_Color: {r: 0.8679245, g: 0.5913499, b: 0.24154504, a: 1}
+  m_Color: {r: 0.41692358, g: 0.8679245, b: 0.1432894, a: 1}
   m_Intensity: 6.68
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 00000000
@@ -373,9 +346,9 @@ Transform:
   - {fileID: 2201550540792993530}
   - {fileID: 2201550540143474051}
   - {fileID: 2201550540389060079}
-  - {fileID: 2201550539522559923}
   - {fileID: 5465846676726775505}
   - {fileID: 5369004238138630219}
+  - {fileID: 6743763613455409567}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -461,7 +434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b24bb0272128b614986efb3e3c9fa167, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 35
+  maxHP: 50
   alwaysReceiveFullDamage: 1
   enemyShooting: {fileID: 2201550540744823589}
   hitAnimator: {fileID: 0}
@@ -491,7 +464,7 @@ MonoBehaviour:
   hitTick: 0.35
   noReturn: 1
   autoRestart: 0
-  groundHitAnimator: {fileID: 2201550539522559927}
+  groundHitAnimator: {fileID: 688934945101985165}
   unitAnimator: {fileID: 2201550540744823609}
   gunLightSource: {fileID: 2201550540389060077}
   gunLightLength: 0.1
@@ -672,7 +645,7 @@ Transform:
   m_LocalScale: {x: 0.67899996, y: 1, z: 0.45154998}
   m_Children: []
   m_Father: {fileID: 2201550540744823611}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6082526299430706312
 MeshFilter:
@@ -765,7 +738,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2201550540744823611}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &5271407391090820378
 ParticleSystem:

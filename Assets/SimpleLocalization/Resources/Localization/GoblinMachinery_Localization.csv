@@ -1,9 +1,4 @@
 Key,English,Russian
-GameOver.GameInfo,"Game over :C 
- Scored {0} points!
- Traveled {1} m","Игра окончена :C 
- Набрано {0} очков!
- Пройдено {1} метров"
 GameOver.RestartButton,Restart,Заново
 GameStart.StartButton,Play!,Играть!
 GameStart.ExitButton,Exit,Выйти
@@ -21,3 +16,17 @@ TankSelect.Damage,Damage:,Урон:
 TankSelect.Question,Are you sure you want to buy it?,Хотите приобрести?
 Game.Positive,Yes,Да
 Game.Negative,No,Нет
+Tutorial.Next,Next tip,Следующая подсказка
+Tutorial.Controls,For vertical movement hold your finger where you want your car to go.,"Для движения вверх-вниз удерживайте палец там, куда должна поехать машина."
+Tutorial.Fire,Tap on FIRE button to use your gun.,"Нажмите на кнопку FIRE, чтобы выстрелить по противнику."
+Tutorial.SpeedUp,"If you want to go faster, then hold a Speed Up button.","Удерживайте эту кнопку, чтобы ехать быстрее."
+Tutorial.Health,This bar displays your current health.,Здесь отображается ваше текущее здоровье.
+Tutorial.Reload,This bar displays how many bullets is left and how much time is left for your gun to be reloaded.,"Здесь отображается количество патронов в обойме и то, сколько времени осталось до окончания перезарядки."
+Tutorial.Score,Your reward for killing enemies and traveled distance are both displayed there.,Здесь отображаются ваши заработанные монеты и пройденное расстояние.
+Tutorial.Danger,"If you see this sign, beware! The faster it's blinking, the closer The Horror is.","Этот знак говорит о том, что опасность приближается. Чем быстрее он мигает, тем ближе Ужас."
+GameOver.Score,Money earned:,Заработано монет:
+GameOver.Dist,Distance traveled:,Пройдено метров:
+GameOver.Barrels,Barrels exploded:,Взорванно бочек:
+GameOver.Damage,Damage to enemies:,Урон по врагам:
+GameOver.Health,Health restored:,Восстановлено здоровья:
+Game.Back,<<< Back,<<< Назад

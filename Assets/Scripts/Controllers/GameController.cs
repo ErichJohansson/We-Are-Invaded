@@ -13,7 +13,6 @@ public class GameController : MonoBehaviour
     public int cash;
 
     private PlayerUnit pu;
-    private bool firstLaunch;
 
     [Header("New game values")]
     public int initialCash;
@@ -64,20 +63,18 @@ public class GameController : MonoBehaviour
 
     public void StartGame(bool blockLoadEffect = false)
     {
-        if (!blockLoadEffect)
-        {
-            UIController.Instance.ChangeLoadEffectColor(new Color(0, 0, 0, 1f));
-            UIController.Instance.ActivateLoadEffect();
-        }
+        StartCoroutine(StartRoutine(blockLoadEffect));
+    }
+
+    private IEnumerator StartRoutine(bool blockLoadEffect = false)
+    {
         OnRestart(new EventArgs());
 
-        if (!PlatformerController.Instance.generated)
-            PlatformerController.Instance.GenerateWorld();
-        else
-            PlatformerController.Instance.RegenerateLevel();
+        if (!PlatformerController.Instance.generated) PlatformerController.Instance.GenerateWorld();
+        else PlatformerController.Instance.RegenerateLevel();
         // restarts player
-        if (PlayerUnit != null)
-            PlayerUnit.Restart();
+        if (PlayerUnit != null) PlayerUnit.Restart();
+
         Follower.Instance.Restart();
         BossController.Instance.Restart();
         MoneyEarned = 0;
@@ -87,6 +84,14 @@ public class GameController : MonoBehaviour
         DistanceTraveled = 0;
         UIController.Instance.UpdateTraveledDistance();
         UIController.Instance.UpdateScore();
+
+        yield return new WaitForSecondsRealtime(0.5f);
+        if (!blockLoadEffect)
+        {
+            UIController.Instance.ChangeLoadEffectColor(new Color(0, 0, 0, 1f));
+            UIController.Instance.ActivateLoadEffect(action: () => { if (!TutorialController.Instance.TutorialCompleted) TutorialController.Instance.StartTutorial(); });
+        }
+
     }
 
     public void UpdateCash()
@@ -129,6 +134,7 @@ public class GameController : MonoBehaviour
         gd.cash = cash;
         gd.selectedTankID = PlayerUnit == null ? 0 : PlayerUnit.ID;
         gd.tankData = new TankData[VehicleSelectionController.Instance.vehicles.Length];
+        gd.tutorialCompleted = TutorialController.Instance.TutorialCompleted;
         for (int i = 0; i < VehicleSelectionController.Instance.vehicles.Length; i++)
         {
             gd.tankData[i] = new TankData();
@@ -168,7 +174,8 @@ public class GameController : MonoBehaviour
         }
 
         cash = gd.cash;
-        firstLaunch = gd.firstLaunch;
+        TutorialController.Instance.TutorialCompleted = gd.tutorialCompleted;
+
         for (int i = 0; i < gd.tankData.Length; i++)
         {
             if (gd.tankData[i] == null)

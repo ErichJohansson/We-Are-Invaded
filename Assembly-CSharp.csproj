@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\Controllers\LanguageController.cs" />
     <Compile Include="Assets\Scripts\Controllers\ParallaxController.cs" />
     <Compile Include="Assets\Scripts\Controllers\PlatformerController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\TutorialController.cs" />
     <Compile Include="Assets\Scripts\Controllers\UIController.cs" />
     <Compile Include="Assets\Scripts\Controllers\VehicleSelectionController.cs" />
     <Compile Include="Assets\Scripts\CustomEventArgs\DieEventArgs.cs" />
@@ -117,7 +118,6 @@
     <Compile Include="Assets\Scripts\UI\PauseScreen.cs" />
     <Compile Include="Assets\Scripts\UI\ScrollSnap.cs" />
     <Compile Include="Assets\Scripts\UI\StartGameScreen.cs" />
-    <Compile Include="Assets\Scripts\UI\Tutorial.cs" />
     <Compile Include="Assets\Scripts\UI\UIObject.cs" />
     <Compile Include="Assets\Scripts\UI\VehicleSelectionScreen.cs" />
     <Compile Include="Assets\Scripts\UI\VehicleShowcase.cs" />
@@ -147,7 +147,6 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
-    <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
@@ -155,6 +154,7 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\TextMesh Pro\Fonts\1001fonts-hardpixel-eula.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />

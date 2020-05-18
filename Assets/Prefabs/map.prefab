@@ -294,14 +294,14 @@ MonoBehaviour:
   - background: {fileID: 21300000, guid: d19a01c96ab991f4da2ddb31bcab1304, type: 3}
     foreground: {fileID: 21300000, guid: deab0aba48581004993bd646678ecdff, type: 3}
     bgrLayer: 2
-    fgrLayer: 5
+    fgrLayer: 6
     fgrOpacity: 0.605
     bgrOffset: {x: 0, y: 0, z: 0}
     fgrOffset: {x: 5.78, y: 0, z: 0}
   - background: {fileID: 21300000, guid: 79213aae272fa0640bfe2f93909a5414, type: 3}
     foreground: {fileID: 21300000, guid: 1746043eb67471049be5b6b36f1b10f0, type: 3}
     bgrLayer: 2
-    fgrLayer: 5
+    fgrLayer: 6
     fgrOpacity: 1
     bgrOffset: {x: 0, y: 0, z: 0}
     fgrOffset: {x: 4.81, y: 0, z: 0}

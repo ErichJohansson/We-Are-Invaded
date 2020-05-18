@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class BossController : MonoBehaviour
 {
-    public int mtth;
-    private int ticks;
+    public int meanTTH;
+    public int minTTH;
+    private int ticks = 0;
     ObjectPooler op;
     UIController ui;
     PlayerUnit player;
@@ -23,9 +24,10 @@ public class BossController : MonoBehaviour
     private IEnumerator BossTimer()
     {
         player = GameController.Instance.PlayerUnit;
-        while (Random.Range(0, 1f) > ticks / (float)mtth || player.IsFastTraveling || ui.ShowingEffect)
+        while (Random.Range(0, 1f) > ticks / (float)meanTTH || player.IsFastTraveling || ui.ShowingEffect || ticks <= minTTH)
         {
             ticks++;
+            Debug.Log(ticks);
             yield return new WaitForSeconds(1f);
         }
         GameObject go = op.GetPooledObject("boss");
@@ -38,7 +40,7 @@ public class BossController : MonoBehaviour
 
     public void Restart()
     {
-        StopCoroutine("BossTimer");
+        StopAllCoroutines();
         ticks = 0;
         StartCoroutine("BossTimer");
     }

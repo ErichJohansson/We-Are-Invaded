@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Text.RegularExpressions;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.SimpleLocalization
@@ -10,6 +11,14 @@ namespace Assets.SimpleLocalization
     public class LocalizedText : MonoBehaviour
     {
         public string LocalizationKey;
+        private Text txt;
+
+        private void Awake()
+        {
+            txt = GetComponent<Text>();
+            if (Regex.IsMatch(txt.text, "[a-z].[a-z]", RegexOptions.IgnoreCase))
+                LocalizationKey = txt.text;
+        }
 
         public void Start()
         {
@@ -24,7 +33,7 @@ namespace Assets.SimpleLocalization
 
         private void Localize()
         {
-            GetComponent<Text>().text = LocalizationManager.Localize(LocalizationKey);
+            txt.text = LocalizationManager.Localize(LocalizationKey);
         }
     }
 }
