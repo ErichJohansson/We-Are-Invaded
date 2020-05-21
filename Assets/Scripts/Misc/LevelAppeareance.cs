@@ -11,6 +11,9 @@ public class LevelAppeareance
 
     [Range(0, 1f)] public float fgrOpacity;
 
-    public Vector3 bgrOffset;
+    public Vector3 bgrOffset = new Vector3(0, 4.21f);
     public Vector3 fgrOffset;
+
+    public GameObject filler;
+    public GameObject postFiller;
 }

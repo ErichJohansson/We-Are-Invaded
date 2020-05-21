@@ -214,7 +214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   personalSpace: {fileID: 588105626166525353}
   reachingSpace: {fileID: 0}
-  hardness: 40
+  hardness: 130
   slowAmount: 2.4
 --- !u!114 &5197549572127611418
 MonoBehaviour:
@@ -229,10 +229,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 1
+  alwaysReceiveFullDamage: 0
   enemyShooting: {fileID: 0}
   hitAnimator: {fileID: 0}
-  isBoss: 0
   thisTransform: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!114 &5395970340356868664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,7 +247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   disableSpriteRendererOnDeath: 0
-  bloodTrailLength: 1.5
+  bloodTrailLength: 0
   animator: {fileID: 5197549571572657558}
   useAnimationToDie: 1
 --- !u!114 &223896267196623549
@@ -261,6 +262,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca81228a98a8194449b29882183eb188, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  additionalObjectsWithDelay: []
+  additionalObjectsWithoutDelay: []
 --- !u!114 &1540458514790218223
 MonoBehaviour:
   m_ObjectHideFlags: 0

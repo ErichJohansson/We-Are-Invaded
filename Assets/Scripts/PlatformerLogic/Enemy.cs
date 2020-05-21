@@ -62,11 +62,11 @@ public class Enemy : DamageRecieverComponent
         }
     }
 
-    public override void ReceiveDamage(int damage, Vector3 pos, bool hitByPlayer, bool isCritical = false)
+    public override void ReceiveDamage(int damage, Vector3 pos, bool hitByPlayer, bool shotByPlayer, bool isCritical = false)
     {
         DamagePopup.CreatePopup(damage, pos, isCritical);
         currentHP -= damage;
-        if (hitByPlayer)
+        if (shotByPlayer)
             GameController.Instance.AddDamageToEnemies(damage);
         if (currentHP <= 0)
         {

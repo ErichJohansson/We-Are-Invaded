@@ -950,12 +950,12 @@ MonoBehaviour:
   alwaysReceiveFullDamage: 0
   shooting: {fileID: 0}
   ID: 0
-  hardness: 3
+  hardness: 99
   maxSpeed: 9.6
   currentSpeed: 0
   speedUpRate: 6
   turnRate: 0.5
-  totalSpeedBoostLength: 10
+  totalSpeedBoostLength: 30
   currentSpeedBoostLength: 0
   speedingUp: 0
   frontCollider: {fileID: 5647190732148074363}

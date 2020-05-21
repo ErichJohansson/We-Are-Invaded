@@ -5238,7 +5238,7 @@ MonoBehaviour:
   personalSpace: {fileID: 588105626166525353}
   reachingSpace: {fileID: 0}
   hardness: 5
-  slowAmount: 2.4
+  slowAmount: 1
 --- !u!114 &5197549572127611418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5252,10 +5252,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 8
+  alwaysReceiveFullDamage: 0
   enemyShooting: {fileID: 0}
   hitAnimator: {fileID: 329747501}
-  isBoss: 0
   thisTransform: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!114 &9184073745837221140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5270,6 +5271,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewArea: {fileID: 5107242095150577497}
   distanceThreshold: 0.5
+  minY: -4.2
+  maxY: 4.2
 --- !u!114 &5395970340356868664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5375,6 +5378,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca81228a98a8194449b29882183eb188, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  additionalObjectsWithDelay: []
+  additionalObjectsWithoutDelay: []
 --- !u!198 &4221213366008198204
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -10230,7 +10235,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7594672475073933373}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.36, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5197549572127611421}
@@ -10249,7 +10254,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 2.2, y: -0.3866849}
+  m_Offset: {x: 3.2879653, y: -0.2135992}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -10260,7 +10265,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 9.782051, y: 3.595088}
+  m_Size: {x: 7.60612, y: 7.6502323}
   m_EdgeRadius: 0
 --- !u!114 &3825906488014810828
 MonoBehaviour:

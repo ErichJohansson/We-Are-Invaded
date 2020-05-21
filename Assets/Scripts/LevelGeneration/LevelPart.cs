@@ -6,6 +6,8 @@ using UnityEngine;
 public class LevelPart : MonoBehaviour
 {
     [Header("Spawned objects settings")]
+    public Transform fillerTransform;
+    public Transform postFillerTransform;
     public Transform spawnPoint;
     public List<GameObject> allowedStripes;
 
@@ -29,7 +31,9 @@ public class LevelPart : MonoBehaviour
 
     [SerializeField ]private List<GameObject> spawnedStripes;
     private ObjectPooler pooler;
-    Transform trnsfrm;
+    private GameObject filler;
+    private GameObject postFiller;
+    Transform thisTransform;
 
     public float Length
     {
@@ -43,7 +47,7 @@ public class LevelPart : MonoBehaviour
 
     private void Awake()
     {
-        trnsfrm = gameObject.transform;
+        thisTransform = gameObject.transform;
         pooler = FindObjectOfType<ObjectPooler>();
         spawnedStripes = new List<GameObject>();
     }
@@ -71,17 +75,32 @@ public class LevelPart : MonoBehaviour
         LevelAppeareance la = backgrounds[Random.Range(0, backgrounds.Count)];
         background.sprite = la.background;
         background.sortingOrder = la.bgrLayer;
-        background.transform.localPosition = new Vector3(la.bgrOffset.x, background.transform.localPosition.y);
+        background.transform.localPosition = new Vector3(la.bgrOffset.x, la.bgrOffset.y);
 
         foreground.sprite = la.foreground;
         foreground.color = new Color(foreground.color.r, foreground.color.g, foreground.color.b, la.fgrOpacity);
         foreground.sortingOrder = la.fgrLayer;
         foreground.transform.localPosition = new Vector3(la.fgrOffset.x, foreground.transform.localPosition.y);
 
-        Vector2 pos = trnsfrm.position;
+
+        if (filler != null) Destroy(filler);
+        if (la.filler != null)
+        {
+            GameObject filler = Instantiate(la.filler, fillerTransform.position, Quaternion.identity, thisTransform);
+            this.filler = filler;
+        }
+        if (postFiller != null) Destroy(postFiller);
+        if (la.postFiller != null)
+        {
+            GameObject filler = Instantiate(la.postFiller, postFillerTransform.position, Quaternion.identity, thisTransform);
+            this.postFiller = filler;
+        }
+
+
+        Vector2 pos = thisTransform.position;
 
         float prevX = spawnPoint.position.x + 10f;
-        float endX = trnsfrm.position.x + chunkArea.size.x / 2;
+        float endX = thisTransform.position.x + chunkArea.size.x / 2;
 
         while (prevX + 5 <= endX)
         {

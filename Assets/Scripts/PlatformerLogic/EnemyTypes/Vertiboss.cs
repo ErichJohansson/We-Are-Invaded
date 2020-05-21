@@ -58,7 +58,7 @@ public class Vertiboss : EnemyBehaviour
         ThisGameObject.SetActive(false);
     }
 
-    protected override IEnumerator MoveTowards(Vector2 moveTowards)
+    protected override IEnumerator MoveTowards(Vector2 moveTowards, float spd)
     {
         shooting.unitAnimator.SetTrigger("idle");
         speed *= 0.9f;
@@ -107,7 +107,7 @@ public class Vertiboss : EnemyBehaviour
                 break;
         }
         if (nextY != ThisTransform.position.y && movementRoutine == null)
-            movementRoutine = StartCoroutine(MoveTowards(new Vector2(0, nextY)));
+            movementRoutine = StartCoroutine(MoveTowards(new Vector2(0, nextY), speed));
     }
 
     /// <summary>

@@ -266,6 +266,8 @@ Transform:
   - {fileID: 3091617188426594239}
   - {fileID: 2367508689221949954}
   - {fileID: 3685654975991042184}
+  - {fileID: 7941270479033078393}
+  - {fileID: 8066617004929388358}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -281,10 +283,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c5309fc17bd36c49b0512d9bb98b780, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fillerTransform: {fileID: 7941270479033078393}
+  postFillerTransform: {fileID: 8066617004929388358}
   spawnPoint: {fileID: 3091617188426594239}
   allowedStripes:
   - {fileID: 6616981852844787893, guid: 247180d556e8e8043a9f0e56c2a6947b, type: 3}
   - {fileID: 6616981852844787893, guid: 9a2d7f59c56bac14b9d957aa15183095, type: 3}
+  - {fileID: 6616981852844787893, guid: 540af7a4ef42b684cb87266fd257498a, type: 3}
+  - {fileID: 6616981852844787893, guid: 478eddb163564204e9ca4854a784586b, type: 3}
+  - {fileID: 6616981852844787893, guid: b8a3c4bd473857e4993dc5879fef08c4, type: 3}
+  - {fileID: 6616981852844787893, guid: e611e8810fe5da841824fefd464bcfe4, type: 3}
   maxStripes: 5
   minStripes: 3
   triesPerStrip: 60
@@ -296,22 +304,29 @@ MonoBehaviour:
     bgrLayer: 2
     fgrLayer: 6
     fgrOpacity: 0.605
-    bgrOffset: {x: 0, y: 0, z: 0}
+    bgrOffset: {x: 0, y: 4.21, z: 0}
     fgrOffset: {x: 5.78, y: 0, z: 0}
+    filler: {fileID: 771602109314324679, guid: d765f4c32b490ec45ab4be83f1bf636b, type: 3}
+    postFiller: {fileID: 0}
   - background: {fileID: 21300000, guid: 79213aae272fa0640bfe2f93909a5414, type: 3}
     foreground: {fileID: 21300000, guid: 1746043eb67471049be5b6b36f1b10f0, type: 3}
     bgrLayer: 2
     fgrLayer: 6
     fgrOpacity: 1
-    bgrOffset: {x: 0, y: 0, z: 0}
+    bgrOffset: {x: 0, y: 4.21, z: 0}
     fgrOffset: {x: 4.81, y: 0, z: 0}
+    filler: {fileID: 771602109314324679, guid: c9618b77a2f6fb14c94ccf066dcb2cce, type: 3}
+    postFiller: {fileID: 0}
   - background: {fileID: 21300000, guid: 4723f4343ace49a49aec9119948069e7, type: 3}
     foreground: {fileID: 0}
     bgrLayer: 3
     fgrLayer: 3
     fgrOpacity: 1
-    bgrOffset: {x: 0, y: 0, z: 0}
+    bgrOffset: {x: 0, y: 3.16, z: 0}
     fgrOffset: {x: 0, y: 0, z: 0}
+    filler: {fileID: 6227254003925713093, guid: 6991bba4f0bbbc643ad3c44f5791fa9b,
+      type: 3}
+    postFiller: {fileID: 0}
   background: {fileID: 7119685559256547691}
   foreground: {fileID: 6516766657607102199}
   spawnedStripes: []
@@ -451,4 +466,64 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2931380156848099901}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7204531307100562853
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8066617004929388358}
+  m_Layer: 15
+  m_Name: post_filler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8066617004929388358
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7204531307100562853}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 63.97, y: 1.81, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2931380156848099901}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8166911684948820665
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7941270479033078393}
+  m_Layer: 15
+  m_Name: filler_pos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7941270479033078393
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8166911684948820665}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -63.65, y: 1.461, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2931380156848099901}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

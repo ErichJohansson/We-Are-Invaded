@@ -19,6 +19,10 @@ TagManager:
   - boss
   - botLeft_const
   - topLeft_const
+  - m_stripe_no_shots
+  - m_stripe_no_shots_1
+  - m_stripe_no_shots_no_enemies
+  - m_stripe_no_shots_no_enemies_1
   layers:
   - Default
   - TransparentFX

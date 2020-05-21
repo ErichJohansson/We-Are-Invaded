@@ -16,6 +16,8 @@ namespace UI
 
         public float loadEffectLength;
 
+        public GameObject restartButton;
+
         private ObjectPooler pooler;
         private Color screenColor;
 
@@ -23,7 +25,7 @@ namespace UI
         {
             pooler = FindObjectOfType<ObjectPooler>();
             screenColor = panel.GetComponent<Image>().color;
-            screenColor.a = 1;
+            screenColor.a = 1;            
         }
 
         private void SetEndGameInfo()
@@ -37,11 +39,12 @@ namespace UI
 
         public void ShowGameOverScreen()
         {
+            restartButton.SetActive(false);
             GameController.Instance.SetPause(!panel.isShown);
             SetEndGameInfo();
             UIController.Instance.ShowPanel(panel);
             UIController.Instance.ChangeLoadEffectColor(screenColor);
-            UIController.Instance.ActivateLoadEffect(loadEffectLength, true);
+            UIController.Instance.ActivateLoadEffect(loadEffectLength, true, () => { restartButton.SetActive(true); });
             GameController.Instance.SaveGame();
         }
 

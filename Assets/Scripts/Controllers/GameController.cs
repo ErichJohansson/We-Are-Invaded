@@ -69,7 +69,11 @@ public class GameController : MonoBehaviour
     private IEnumerator StartRoutine(bool blockLoadEffect = false)
     {
         OnRestart(new EventArgs());
-
+        if (!blockLoadEffect)
+        {
+            UIController.Instance.ChangeLoadEffectColor(new Color(0, 0, 0, 1f));
+            UIController.Instance.loadEffect.gameObject.SetActive(true);
+        }
         if (!PlatformerController.Instance.generated) PlatformerController.Instance.GenerateWorld();
         else PlatformerController.Instance.RegenerateLevel();
         // restarts player
@@ -88,7 +92,6 @@ public class GameController : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.5f);
         if (!blockLoadEffect)
         {
-            UIController.Instance.ChangeLoadEffectColor(new Color(0, 0, 0, 1f));
             UIController.Instance.ActivateLoadEffect(action: () => { if (!TutorialController.Instance.TutorialCompleted) TutorialController.Instance.StartTutorial(); });
         }
 

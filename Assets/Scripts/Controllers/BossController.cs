@@ -27,7 +27,7 @@ public class BossController : MonoBehaviour
         while (Random.Range(0, 1f) > ticks / (float)meanTTH || player.IsFastTraveling || ui.ShowingEffect || ticks <= minTTH)
         {
             ticks++;
-            Debug.Log(ticks);
+            //Debug.Log(ticks);
             yield return new WaitForSeconds(1f);
         }
         GameObject go = op.GetPooledObject("boss");

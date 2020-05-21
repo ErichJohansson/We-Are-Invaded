@@ -13,6 +13,8 @@ public class PhysicalCollisionHandler : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
+        if (parent.currentSpeed <= 0.1f)
+            return;
         parent.currentSpeed -= 0.1f;
     }
 }

@@ -63,8 +63,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\GooglePlayGames\Editor\GPGSAndroidSetupUI.cs" />
+    <Compile Include="Assets\GooglePlayGames\Editor\GPGSDocsUI.cs" />
+    <Compile Include="Assets\GooglePlayGames\Editor\GPGSPostBuild.cs" />
+    <Compile Include="Assets\GooglePlayGames\Editor\GPGSProjectSettings.cs" />
+    <Compile Include="Assets\GooglePlayGames\Editor\GPGSStrings.cs" />
+    <Compile Include="Assets\GooglePlayGames\Editor\GPGSUpgrader.cs" />
+    <Compile Include="Assets\GooglePlayGames\Editor\GPGSUtil.cs" />
+    <Compile Include="Assets\GooglePlayGames\Editor\NearbyConnectionUI.cs" />
     <Compile Include="Assets\SimpleLocalization\Editor\LocalizationSyncEditor.cs" />
     <Compile Include="Assets\Unity-Logs-Viewer\Reporter\Editor\ReporterEditor.cs" />
+    <None Include="Assets\ExternalDependencyManager\Editor\GoogleRegistries.xml" />
+    <None Include="Assets\GooglePlayGames\Editor\GooglePlayGamesPluginDependencies.xml" />
+    <None Include="Assets\GooglePlayGames\Editor\template-GameInfo.txt" />
+    <None Include="Assets\ExternalDependencyManager\Editor\external-dependency-manager_version-1.2.153_manifest.txt" />
+    <None Include="Assets\GooglePlayGames\Editor\m2repository\com\google\games\gpgs-plugin-support\maven-metadata.xml" />
+    <None Include="Assets\GooglePlayGames\Editor\GooglePlayGamesPlugin_v0.10.09.txt" />
+    <None Include="Assets\GooglePlayGames\Editor\template-AndroidManifest.txt" />
+    <None Include="Assets\GooglePlayGames\Editor\template-Constants.txt" />
     <Reference Include="UnityEditor.TestRunner">
       <HintPath>D:/UnityGames/Tank Breakthrough/Tank Breakthrough/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
     </Reference>
@@ -340,6 +356,21 @@
     </Reference>
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/16.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.IOSResolver_v1.2.153">
+      <HintPath>D:/UnityGames/Tank Breakthrough/Tank Breakthrough/Assets/ExternalDependencyManager/Editor/Google.IOSResolver_v1.2.153.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.JarResolver_v1.2.153">
+      <HintPath>D:/UnityGames/Tank Breakthrough/Tank Breakthrough/Assets/ExternalDependencyManager/Editor/Google.JarResolver_v1.2.153.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.PackageManagerResolver_v1.2.153">
+      <HintPath>D:/UnityGames/Tank Breakthrough/Tank Breakthrough/Assets/ExternalDependencyManager/Editor/Google.PackageManagerResolver_v1.2.153.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.VersionHandler">
+      <HintPath>D:/UnityGames/Tank Breakthrough/Tank Breakthrough/Assets/ExternalDependencyManager/Editor/Google.VersionHandler.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.VersionHandlerImpl_v1.2.153">
+      <HintPath>D:/UnityGames/Tank Breakthrough/Tank Breakthrough/Assets/ExternalDependencyManager/Editor/Google.VersionHandlerImpl_v1.2.153.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.NRefactory">
       <HintPath>D:/UnityGames/Tank Breakthrough/Tank Breakthrough/Library/PackageCache/com.unity.render-pipelines.core@7.1.5/Editor/ShaderGenerator/ICSharpCode.NRefactory.dll</HintPath>

@@ -862,14 +862,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 55
+  alwaysReceiveFullDamage: 0
   shooting: {fileID: 0}
   ID: 2
-  hardness: 8
+  hardness: 99
   maxSpeed: 12
   currentSpeed: 0
   speedUpRate: 6
   turnRate: 0.6
-  totalSpeedBoostLength: 15
+  totalSpeedBoostLength: 30
   currentSpeedBoostLength: 0
   speedingUp: 0
   frontCollider: {fileID: 717620893085583958}

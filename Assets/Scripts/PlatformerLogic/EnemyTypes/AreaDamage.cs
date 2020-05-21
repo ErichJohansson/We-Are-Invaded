@@ -36,7 +36,7 @@ public class AreaDamage : MonoBehaviour
         overlaped.ForEach(x =>
         {
             var e = x.GetComponent<Enemy>();
-            if (e != null && e != thisEnemy) e.ReceiveDamage(Random.Range(e.maxHP, damage), e.thisTransform.position, true);
+            if (e != null && e != thisEnemy) e.ReceiveDamage(Random.Range(e.maxHP, damage), e.thisTransform.position, true, false);
         });
     }
 }

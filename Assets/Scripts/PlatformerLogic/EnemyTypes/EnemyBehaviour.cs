@@ -35,7 +35,7 @@ public abstract class EnemyBehaviour : MonoBehaviour
 
     protected abstract void NextPoint();
     protected abstract IEnumerator BehaviourRoutine();
-    protected abstract IEnumerator MoveTowards(Vector2 moveTowards);
+    protected abstract IEnumerator MoveTowards(Vector2 moveTowards, float spd);
     public abstract void HandleCollision(Collider2D collidedWith);
 
     [SerializeField]protected float minY = -4.2f, maxY = 4.2f;
@@ -47,7 +47,7 @@ public abstract class EnemyBehaviour : MonoBehaviour
         if (GameController.Instance.playerObject != null)
         {
             playerTransform = GameController.Instance.playerObject.transform;
-            speed = GameController.Instance.PlayerUnit.maxSpeed * 1.04f;
+            speed = GameController.Instance.PlayerUnit.maxSpeed;
         }
         stop = false;
     }

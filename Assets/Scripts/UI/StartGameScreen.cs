@@ -17,9 +17,9 @@ namespace UI
         public void StartGame()
         {
             pooler.Restart();
+            GameController.Instance.StartGame();
             GameController.Instance.UpdateCash();
             GameController.Instance.SetPause(!panel.isShown);
-            GameController.Instance.StartGame();
             UIController.Instance.HidePanel(panel);
         }
 

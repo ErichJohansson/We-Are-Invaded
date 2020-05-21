@@ -224,7 +224,7 @@ public class PlayerUnit : DamageRecieverComponent
 
         Vector3 newPos = Vector3.MoveTowards(new Vector3(0, thisTransform.position.y), new Vector3(0, movingTo.y), currentSpeed * Time.deltaTime * turnRate);
 
-        if (newPos.y > 1.28f || (newPos.y < -4.5f && newPos.y - thisTransform.position.y < 0))
+        if (newPos.y >0.78f || (newPos.y < -4.5f && newPos.y - thisTransform.position.y < 0))
             return;
 
         thisTransform.position = new Vector3(thisTransform.position.x, newPos.y, 9 + newPos.y / 10.00f);
@@ -255,7 +255,7 @@ public class PlayerUnit : DamageRecieverComponent
 
         if (!speedingUp && currentSpeedBoostLength < totalSpeedBoostLength)
         {
-            currentSpeedBoostLength += Time.deltaTime;
+            currentSpeedBoostLength += Time.deltaTime * 3;
             UIController.Instance.UpdateSpeedUpSlider();
         }
 
@@ -308,6 +308,8 @@ public class PlayerUnit : DamageRecieverComponent
             {
                 if (trailRoutine == null)
                     trailRoutine = StartCoroutine("TrailLifetime");
+                if (thisTransform.position.x > obs.transform.position.x)
+                    ReceiveDamage(Random.Range(2, 5), thisTransform.position, false);
                 obs.OnDeath(new Assets.Scripts.CustomEventArgs.DieEventArgs(true));
             }
 
