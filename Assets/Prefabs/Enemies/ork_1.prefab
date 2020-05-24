@@ -5239,6 +5239,7 @@ MonoBehaviour:
   reachingSpace: {fileID: 0}
   hardness: 5
   slowAmount: 1
+  dealDamageOnDeath: 1
 --- !u!114 &5197549572127611418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5271,8 +5272,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewArea: {fileID: 5107242095150577497}
   distanceThreshold: 0.5
-  minY: -4.2
-  maxY: 4.2
+  minY: -4.6
+  maxY: 0.3
 --- !u!114 &5395970340356868664
 MonoBehaviour:
   m_ObjectHideFlags: 0

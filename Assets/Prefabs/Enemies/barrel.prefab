@@ -216,6 +216,7 @@ MonoBehaviour:
   reachingSpace: {fileID: 0}
   hardness: 130
   slowAmount: 2.4
+  dealDamageOnDeath: 1
 --- !u!114 &5197549572127611418
 MonoBehaviour:
   m_ObjectHideFlags: 0

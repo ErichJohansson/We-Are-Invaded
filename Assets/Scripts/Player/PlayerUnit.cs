@@ -79,7 +79,7 @@ public class PlayerUnit : DamageRecieverComponent
     {
         CurrentHP = maxHP;
         UIController.Instance.UpdateHitPoints(this, false);
-        currentSpeedBoostLength = 0;
+        currentSpeedBoostLength = totalSpeedBoostLength;
         ActivateParallax();
     }
 
@@ -270,11 +270,11 @@ public class PlayerUnit : DamageRecieverComponent
 
     public void SpeedUp()
     {
-        if (currentSpeed < 2 * maxSpeed)
+        if (currentSpeed < 3 * maxSpeed)
         {
             currentSpeed += Time.fixedDeltaTime * speedUpRate;
         }
-        currentSpeedBoostLength -= 2 * Time.fixedDeltaTime;
+        //currentSpeedBoostLength -= 2 * Time.fixedDeltaTime;
 
         UIController.Instance.UpdateSpeedUpSlider();
     }
@@ -308,7 +308,7 @@ public class PlayerUnit : DamageRecieverComponent
             {
                 if (trailRoutine == null)
                     trailRoutine = StartCoroutine("TrailLifetime");
-                if (thisTransform.position.x > obs.transform.position.x)
+                if (thisTransform.position.x > obs.transform.position.x && obs.dealDamageOnDeath)
                     ReceiveDamage(Random.Range(2, 5), thisTransform.position, false);
                 obs.OnDeath(new Assets.Scripts.CustomEventArgs.DieEventArgs(true));
             }

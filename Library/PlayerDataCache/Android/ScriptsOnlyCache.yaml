@@ -119,6 +119,7 @@ ScriptsOnlyBuild:
     - UnityEngine.EventSystems.EventSystem
     - UnityEngine.EventSystems.EventTrigger
     - UnityEngine.EventSystems.StandaloneInputModule
+    - UnityEngine.UI.AspectRatioFitter
     - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.ContentSizeFitter
@@ -231,6 +232,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 12264}
     - Class: 114
       Script: {instanceID: 12290}
+    - Class: 114
+      Script: {instanceID: 12350}
     - Class: 114
       Script: {instanceID: 12374}
     - Class: 114
@@ -822,7 +825,7 @@ ScriptsOnlyBuild:
     className: CameraSwitcher
   - hash:
       serializedVersion: 2
-      Hash: aced6abca3285391a1504ab756395503
+      Hash: 0fd270061ee18c9e6fff4ec10e71754b
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Obstacle
@@ -1975,4 +1978,4 @@ ScriptsOnlyBuild:
   platform: 13
   scenePathNames:
   - Assets/Scenes/MainScene.unity
-  playerPath: "C:/Users/\u042F/Desktop/We Are Invaded.apk"
+  playerPath: "C:/Users/\u042F/Desktop/We Are Invaded_0.1.aab"

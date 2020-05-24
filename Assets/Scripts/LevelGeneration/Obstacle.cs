@@ -9,6 +9,7 @@ public class Obstacle : MonoBehaviour
 
     public int hardness;
     public float slowAmount;
+    public bool dealDamageOnDeath;
 
     public event System.EventHandler<DieEventArgs> DieEvent;
     private SpriteRenderer sr;

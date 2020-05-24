@@ -50,6 +50,11 @@ public class GameController : MonoBehaviour
         Instance = this;
         SomeScreenIsShown = true;
 
+        Screen.autorotateToLandscapeLeft = true;
+        Screen.autorotateToLandscapeRight = true;
+        Screen.autorotateToPortrait = false;
+        Screen.autorotateToPortraitUpsideDown = false;
+
         Time.timeScale = 0;
         DamagePopup.CreatePopup(0, new Vector3(-100, 0, 0));
     }

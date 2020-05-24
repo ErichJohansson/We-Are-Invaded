@@ -105,12 +105,12 @@ public class UIController : MonoBehaviour
 
     public void UpdateTraveledDistance()
     {
-        distance.text = GameController.Instance.DistanceTraveled.ToString("F3") + " m";
+        distance.text = GameController.Instance.DistanceTraveled.ToString("F2") + " m";
     }
 
     public void UpdateHitPoints(PlayerUnit player, bool damage)
     {
-        hpSlider.value = 1f - player.CurrentHP / (float)player.maxHP;
+        hpSlider.value = player.CurrentHP / (float)player.maxHP;
 
         currentDamageEffectLength = damageEffectLength;
         if (damage)
@@ -141,7 +141,7 @@ public class UIController : MonoBehaviour
 
     public void UpdateSpeedUpSlider()
     {
-        speedUpSlider.value = GameController.Instance.PlayerUnit.currentSpeedBoostLength / GameController.Instance.PlayerUnit.totalSpeedBoostLength;
+        //speedUpSlider.value = GameController.Instance.PlayerUnit.currentSpeedBoostLength / GameController.Instance.PlayerUnit.totalSpeedBoostLength;
     }
 
     public void RestartDamageEffect()

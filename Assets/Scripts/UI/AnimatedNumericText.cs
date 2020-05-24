@@ -53,17 +53,17 @@ namespace UI
         private IEnumerator AnimateText(float value)
         {
             float currentValue = 0;
-            float deltaValue = value / time / deltaTime;
+            float deltaValue = value / (time / deltaTime);
 
             deltaValue = deltaValue == 0 ? 1 : deltaValue;
 
             while (currentValue < value)
             {
-                text.text = prefix + currentValue.ToString() + postfix;
+                text.text = prefix + currentValue.ToString("F2") + postfix;
                 currentValue += deltaValue;
                 yield return new WaitForSecondsRealtime(deltaTime);
             }
-            text.text = prefix + value.ToString() + postfix;
+            text.text = prefix + value.ToString("F2") + postfix;
         }
 
         private IEnumerator Prewarm()
