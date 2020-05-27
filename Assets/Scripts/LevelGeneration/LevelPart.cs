@@ -65,7 +65,7 @@ public class LevelPart : MonoBehaviour
     {
         foreach (GameObject stripe in spawnedStripes)
         {
-            stripe.GetComponent<StageStripe>().ClearChildrenObjects();
+            stripe.GetComponent<Stripe>().ClearChildrenObjects();
             stripe.SetActive(false);
         }
     }
@@ -106,7 +106,7 @@ public class LevelPart : MonoBehaviour
         {
             yield return new WaitForEndOfFrame();
             GameObject go = allowedStripes[Random.Range(0, allowedStripes.Count)];
-            StageStripe ss = go.GetComponent<StageStripe>();
+            Stripe ss = go.GetComponent<Stripe>();
 
             float curX = prevX + ss.personalSpace.size.x + 1f;
             float curY = Random.Range(chunkArea.offset.y + pos.y - yOffset, chunkArea.offset.y + pos.y + yOffset);
@@ -125,14 +125,14 @@ public class LevelPart : MonoBehaviour
         Debug.Log("regenerated lp");
         foreach(GameObject stripe in spawnedStripes)
         {
-            stripe.GetComponent<StageStripe>().ClearChildrenObjects();
+            stripe.GetComponent<Stripe>().ClearChildrenObjects();
             stripe.SetActive(false);
         }
         spawnedStripes.Clear();
 
         gameObject.transform.position += new Vector3(restart ? 0 : levelOffest, 0, 0);
 
-        LevelPart lp = FindObjectOfType<PlatformerController>().GetSpawnedPart(ID == 0 ? 2 : ID - 1).GetComponent<LevelPart>();
+        LevelPart lp = FindObjectOfType<LevelController>().GetSpawnedPart(ID == 0 ? 2 : ID - 1).GetComponent<LevelPart>();
         if (lp.transform.position.x - gameObject.transform.position.x < -384)
             lp.Regenerate();
 

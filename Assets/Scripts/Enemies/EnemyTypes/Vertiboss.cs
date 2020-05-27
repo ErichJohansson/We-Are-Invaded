@@ -7,7 +7,7 @@ public class Vertiboss : EnemyBehaviour
     public Sprite effectImage;
     [Range(0, 1f)] public float effectTimeScale;
 
-    private EnemyShooting shooting;
+    private EnemyGun shooting;
     private Coroutine movementRoutine;
     private Coroutine loadingRoutine;
 
@@ -22,7 +22,7 @@ public class Vertiboss : EnemyBehaviour
     private void Awake()
     {
         currentStance = Stance.Roaming;
-        shooting = GetComponent<EnemyShooting>();
+        shooting = GetComponent<EnemyGun>();
         constEndPoint = shooting.endPoint;
         dynamicEndPoint = constEndPoint;
         topLeft = GameObject.FindGameObjectWithTag("topLeft_const").transform;

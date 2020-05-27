@@ -2,7 +2,7 @@
 using Assets.Scripts.CustomEventArgs;
 using UnityEngine;
 
-[RequireComponent(typeof(DeactivateComponent))]
+[RequireComponent(typeof(DeactivationComponent))]
 public class DeathComponent : MonoBehaviour
 {
     public bool disableSpriteRendererOnDeath;
@@ -12,7 +12,7 @@ public class DeathComponent : MonoBehaviour
 
     public bool useAnimationToDie;
     private SpriteRenderer sr;
-    private DeactivateComponent deactivateComponent;
+    private DeactivationComponent deactivateComponent;
 
     private void Awake()
     {
@@ -23,7 +23,7 @@ public class DeathComponent : MonoBehaviour
         if (o != null) o.DieEvent += OnDeath;
 
         sr = GetComponent<SpriteRenderer>();
-        deactivateComponent = GetComponent<DeactivateComponent>();
+        deactivateComponent = GetComponent<DeactivationComponent>();
 
 
         animator = GetComponentInChildren<Animator>();

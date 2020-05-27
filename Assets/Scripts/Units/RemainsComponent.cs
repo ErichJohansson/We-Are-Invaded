@@ -6,7 +6,7 @@ public class RemainsComponent : MonoBehaviour
     public string[] allowedRemainsTags;
     public Transform bloodSplatterPos;
     private ObjectPooler pooler;
-    private DeactivateComponent deactivateComponent;
+    private DeactivationComponent deactivateComponent;
 
     private void Awake()
     {
@@ -14,12 +14,12 @@ public class RemainsComponent : MonoBehaviour
         if (e != null) e.DieEvent += OnDeath;
 
         pooler = FindObjectOfType<ObjectPooler>();
-        deactivateComponent = GetComponent<DeactivateComponent>();
+        deactivateComponent = GetComponent<DeactivationComponent>();
     }
 
     public void OnDeath(object sender, System.EventArgs eventArgs)
     {
-        Debug.Log("remains");
+        //Debug.Log("remains");
         CreateRemains();
     }
 

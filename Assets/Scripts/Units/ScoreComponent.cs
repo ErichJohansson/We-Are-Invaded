@@ -22,7 +22,7 @@ public class ScoreComponent : MonoBehaviour
 
     public void OnDeath(object sender, System.EventArgs eventArgs)
     {
-        Debug.Log("score");
+        //Debug.Log("score");
         AddScore();
     }
 

@@ -152,7 +152,7 @@ public class VehicleSelectionController : MonoBehaviour
     {
         if (GameController.Instance.PlayerUnit != null) GameController.Instance.PlayerUnit.Restart();
         playerObject = SelectedVehicle.playerObject;
-        PlatformerController.Instance.SpawnPlayer(playerObject, SelectedVehicle);
+        LevelController.Instance.SpawnPlayer(playerObject, SelectedVehicle);
     }
 
     private void PropertyChangedHandler(object sender, PropertyChangedEventArgs e)

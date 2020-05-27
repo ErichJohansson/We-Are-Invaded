@@ -46,7 +46,7 @@ public class Modifier : MonoBehaviour
 
     private void MakeIndependent()
     {
-        StageStripe ss = GetComponentInParent<StageStripe>();
+        Stripe ss = GetComponentInParent<Stripe>();
         if (ss != null)
         {
             isIndependent = ss.spawnedObjects.Remove(gameObject);

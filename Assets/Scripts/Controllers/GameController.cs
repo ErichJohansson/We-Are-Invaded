@@ -79,8 +79,8 @@ public class GameController : MonoBehaviour
             UIController.Instance.ChangeLoadEffectColor(new Color(0, 0, 0, 1f));
             UIController.Instance.loadEffect.gameObject.SetActive(true);
         }
-        if (!PlatformerController.Instance.generated) PlatformerController.Instance.GenerateWorld();
-        else PlatformerController.Instance.RegenerateLevel();
+        if (!LevelController.Instance.generated) LevelController.Instance.GenerateWorld();
+        else LevelController.Instance.RegenerateLevel();
         // restarts player
         if (PlayerUnit != null) PlayerUnit.Restart();
 

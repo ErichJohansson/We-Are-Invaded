@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Enemy : DamageRecieverComponent
 {
-    public EnemyShooting enemyShooting;
+    public EnemyGun enemyShooting;
     public Animator hitAnimator;
     [HideInInspector] public Transform thisTransform;
 
@@ -20,7 +20,7 @@ public class Enemy : DamageRecieverComponent
 
     private void Awake()
     {
-        enemyShooting = GetComponent<EnemyShooting>();
+        enemyShooting = GetComponent<EnemyGun>();
         collider = GetComponent<BoxCollider2D>();
         animator = GetComponentInChildren<Animator>();
         eb = GetComponent<EnemyBehaviour>();
