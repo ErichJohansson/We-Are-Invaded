@@ -25,7 +25,7 @@ public class Obstacle : MonoBehaviour
         if (sr != null)
             sr.enabled = true;
         Vector2 pos = gameObject.transform.position;
-        gameObject.transform.position = new Vector3(pos.x, pos.y, 9 + (pos.y / 10.00f));
+        gameObject.transform.position = new Vector3(pos.x, pos.y, pos.y / 10f);
     }
 
     private void OnDisable()

@@ -180,6 +180,7 @@
     <Compile Include="Assets\Scripts\UI\AnimatedNumericText.cs" />
     <Compile Include="Assets\Scripts\UI\ColorShowcase.cs" />
     <Compile Include="Assets\Scripts\UI\GameOverScreen.cs" />
+    <Compile Include="Assets\Scripts\UI\ImageAnimator.cs" />
     <Compile Include="Assets\Scripts\UI\PauseScreen.cs" />
     <Compile Include="Assets\Scripts\UI\ScrollSnap.cs" />
     <Compile Include="Assets\Scripts\UI\StartGameScreen.cs" />

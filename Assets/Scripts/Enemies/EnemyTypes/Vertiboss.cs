@@ -65,7 +65,7 @@ public class Vertiboss : EnemyBehaviour
         while (Mathf.Abs(ThisTransform.position.y - moveTowards.y) > distanceThreshold)
         {
             Vector3 v = Vector2.MoveTowards(new Vector2(0, ThisTransform.position.y), moveTowards, speed * Time.deltaTime);
-            ThisTransform.position = new Vector3(ThisTransform.position.x, v.y, 9 + (v.y / 10.00f));
+            ThisTransform.position = new Vector3(ThisTransform.position.x, v.y, v.y / 10f);
             yield return new WaitForEndOfFrame();
         }
         // starts shooting when arrived to the destination

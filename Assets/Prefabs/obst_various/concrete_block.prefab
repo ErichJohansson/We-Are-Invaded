@@ -108,14 +108,14 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.20812607, y: 0.17858648}
-      - {x: -0.36509705, y: 0.025937319}
+    - - {x: -0.42561722, y: 0.14440942}
+      - {x: -0.5080223, y: 0.019723415}
       - {x: -0.37914276, y: -0.1523776}
-      - {x: 0.04043579, y: -0.42444277}
-      - {x: 0.1561966, y: -0.44032812}
-      - {x: 0.2175827, y: -0.24468732}
-      - {x: 0.16741943, y: -0.03413081}
-      - {x: -0.06493378, y: 0.11536646}
+      - {x: -0.0061683655, y: -0.5766866}
+      - {x: 0.57564545, y: -0.57392955}
+      - {x: 0.27350998, y: -0.09555054}
+      - {x: 0.030708313, y: 0.1522901}
+      - {x: -0.12396622, y: 0.20546997}
 --- !u!1 &2800261798005691235
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,6 +223,7 @@ MonoBehaviour:
   reachingSpace: {fileID: 0}
   hardness: 9999
   slowAmount: 0
+  dealDamageOnDeath: 0
 --- !u!61 &4360486273244836322
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -236,7 +237,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.12, y: -0.18}
+  m_Offset: {x: -0.25, y: -0.18}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}

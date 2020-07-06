@@ -227,7 +227,7 @@ public class PlayerUnit : DamageRecieverComponent
         if (newPos.y >0.78f || (newPos.y < -4.5f && newPos.y - thisTransform.position.y < 0))
             return;
 
-        thisTransform.position = new Vector3(thisTransform.position.x, newPos.y, 9 + newPos.y / 10.00f);
+        thisTransform.position = new Vector3(thisTransform.position.x, newPos.y, newPos.y / 10f);
     }
 
     public void StopTurning()

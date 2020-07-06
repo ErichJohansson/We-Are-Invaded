@@ -20,14 +20,10 @@ namespace UI
         public Button yesButton;
         public Button noButton;
 
-        private void Awake()
-        {
-            priceTag.text = showcase.vehicle.colorSchemes[id].price.ToString();
-        }
-
         public void ShowScheme()
         {
-            priceTag.color = showcase.vehicle.colorSchemes[id].price <= GameController.Instance.cash ? enoughMoneyColor : notEnoughMoneyColor;
+            priceTag.text = showcase.vehicle.colorSchemes[id].price.ToString();
+            UpdatePriceColor();
             priceTag.gameObject.SetActive(!showcase.vehicle.colorSchemes[id].purchased);
         }
 
@@ -65,5 +61,10 @@ namespace UI
             question.SetActive(false);
         }
         #endregion
+
+        public void UpdatePriceColor()
+        {
+            priceTag.color = showcase.vehicle.colorSchemes[id].price <= GameController.Instance.cash ? enoughMoneyColor : notEnoughMoneyColor;
+        }
     }
 }

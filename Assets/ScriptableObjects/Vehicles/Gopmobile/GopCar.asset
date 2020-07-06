@@ -17,6 +17,7 @@ MonoBehaviour:
   colorSchemes:
   - {fileID: 11400000, guid: 5f255e79a95472141a738bb610da14b3, type: 2}
   - {fileID: 11400000, guid: 5e9cba0b12483dc47bcb486b09207735, type: 2}
+  - {fileID: 11400000, guid: 81605b11c2b114e4faba01078e3245be, type: 2}
   id: 1
   selectedColorScheme: 0
   currentLevel: 0

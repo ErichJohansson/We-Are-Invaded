@@ -35,7 +35,6 @@ public class VehicleSelectionController : MonoBehaviour
 
     public void SelectVehicle(int id)
     {
-        Debug.Log("selected " + id);
         if (id >= vehicles.Length)
             return;
         if (GameController.Instance.playerObject != null)
@@ -61,7 +60,7 @@ public class VehicleSelectionController : MonoBehaviour
             GameController.Instance.cash -= vehicle.price;
             vehicle.purchased = true;
             selectVehicleButton.SetActive(true);
-            selectVehicleButton.GetComponent<Button>().interactable = vehicle.purchased;
+            selectVehicleButton.GetComponent<Button>().interactable = true;
         }
         else if (vehicle.currentLevel + 1 < vehicle.upgradeLevels.Length)
         {
@@ -109,6 +108,17 @@ public class VehicleSelectionController : MonoBehaviour
         return true;
     }
 
+    public void UpdateColorPricetags()
+    {
+        for (int i = 0; i < vehicles.Length; i++)
+        {
+            for (int j = 0; j < vehicles[i].colorShowcases.Length; j++)
+            {
+                vehicles[i].colorShowcases[j].UpdatePriceColor();
+            }
+        }
+    }
+
     private void FinishSelection()
     {
         for (int i = 0; i < vehicles.Length; i++)
@@ -153,6 +163,12 @@ public class VehicleSelectionController : MonoBehaviour
         if (GameController.Instance.PlayerUnit != null) GameController.Instance.PlayerUnit.Restart();
         playerObject = SelectedVehicle.playerObject;
         LevelController.Instance.SpawnPlayer(playerObject, SelectedVehicle);
+        ImageAnimator ia = vehicles[SelectedVehicle.id].GetComponentInChildren<ImageAnimator>();
+        if (ia != null)
+        {
+            ia.clip = SelectedVehicle.colorSchemes[SelectedVehicle.selectedColorScheme].previewClip;
+            ia.UpdateClip();
+        }
     }
 
     private void PropertyChangedHandler(object sender, PropertyChangedEventArgs e)
@@ -161,10 +177,20 @@ public class VehicleSelectionController : MonoBehaviour
         {
             selectVehicleButton.GetComponent<Button>().interactable = vehicles[scrollSnap.CurrentPage].vehicle.purchased;
             selectVehicleButton.SetActive(SelectedVehicle.id == vehicles[scrollSnap.CurrentPage].vehicle.id ? false : vehicles[scrollSnap.CurrentPage].vehicle.purchased);
+            PlaySelectedVehicleAnimation();
         }
         catch (System.NullReferenceException)
         {
             selectVehicleButton.SetActive(false);
         }
+    }
+
+    private void PlaySelectedVehicleAnimation()
+    {
+        for (int i = 0; i < vehicles.Length; i++)
+        {
+            vehicles[i].GetComponentInChildren<ImageAnimator>()?.Stop();
+        }
+        vehicles[scrollSnap.CurrentPage].GetComponentInChildren<ImageAnimator>()?.Play();
     }
 }

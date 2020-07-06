@@ -28,7 +28,7 @@ public class RemainsComponent : MonoBehaviour
         if (allowedRemainsTags.Length != 0)
         {
             GameObject obj = pooler.GetPooledObject(allowedRemainsTags[Random.Range(0, allowedRemainsTags.Length)]);
-            obj.transform.position = new Vector3(bloodSplatterPos.position.x, bloodSplatterPos.position.y, 9 + bloodSplatterPos.position.y / 10f);
+            obj.transform.position = new Vector3(bloodSplatterPos.position.x, bloodSplatterPos.position.y, bloodSplatterPos.position.y / 10f);
             obj.SetActive(true);
             if(deactivateComponent != null) deactivateComponent.DeactivateAfterDelay(15f, obj);
         }

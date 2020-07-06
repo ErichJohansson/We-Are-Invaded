@@ -13,6 +13,7 @@ public class UIController : MonoBehaviour
     public Text ammo;
     public Slider hpSlider;
     public Slider reloadSlider;
+    public GameObject reloadBgrPlain;
     public Slider speedUpSlider;
 
     public GameOverScreen gameOverScreen;

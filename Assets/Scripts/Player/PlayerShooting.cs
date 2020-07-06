@@ -159,7 +159,8 @@ public class PlayerShooting : MonoBehaviour
 
         CurrentAmmo = magazineCapacity;
         UIController.Instance.UpdateAmmo(CurrentAmmo);
-        UIController.Instance.UpdateReloadSlider(1f);
+        UIController.Instance.UpdateReloadSlider(0f);
+        UIController.Instance.reloadBgrPlain.SetActive(false);
         cooldown = false;
         Reloading = false;
         InfiniteAmmo = false;
@@ -171,6 +172,7 @@ public class PlayerShooting : MonoBehaviour
     {
         float t = 0;
         Reloading = true;
+        UIController.Instance.reloadBgrPlain.SetActive(true);
         while (t < reloadTime)
         {
             t += Time.deltaTime;
@@ -179,6 +181,8 @@ public class PlayerShooting : MonoBehaviour
         }
         Reloading = false;
         CurrentAmmo = magazineCapacity;
+        UIController.Instance.reloadBgrPlain.SetActive(false);
+        UIController.Instance.UpdateReloadSlider(0f);
         UIController.Instance.UpdateAmmo(CurrentAmmo);
     }
 

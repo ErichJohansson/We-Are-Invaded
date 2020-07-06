@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   price: 500
   purchased: 0
+  previewClip: {fileID: 7400000, guid: 9a77c5da481b2c647ad207a1363e587c, type: 2}
   previewSprite: {fileID: 1025677488800424263, guid: 62729eb6ea6ff3147a37a8daeee388d9,
     type: 3}
   animatorController: {fileID: 9100000, guid: 223069bea9c585244b203a2753004d88, type: 2}

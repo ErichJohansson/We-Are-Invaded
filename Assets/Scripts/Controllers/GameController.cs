@@ -198,7 +198,16 @@ public class GameController : MonoBehaviour
                     if (gd.tankData[i].colorShemesPurchaseState != null)
                     {
                         for (int j = 0; j < vhcl.vehicle.colorSchemes.Length; j++)
-                            vhcl.vehicle.colorSchemes[j].purchased = gd.tankData[i].colorShemesPurchaseState[j];
+                        {
+                            try
+                            {
+                                vhcl.vehicle.colorSchemes[j].purchased = gd.tankData[i].colorShemesPurchaseState[j];
+                            }
+                            catch (IndexOutOfRangeException)
+                            {
+                                vhcl.vehicle.colorSchemes[j].purchased = false;
+                            }
+                        }
                     }
                     vhcl.ShowVehicle();                    
                     break;

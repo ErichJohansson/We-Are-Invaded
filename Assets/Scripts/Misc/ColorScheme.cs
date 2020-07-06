@@ -5,6 +5,7 @@ public class ColorScheme : ScriptableObject
 {
     public int price;
     public bool purchased;
+    public AnimationClip previewClip;
     public Sprite previewSprite;
     public RuntimeAnimatorController animatorController;
 }

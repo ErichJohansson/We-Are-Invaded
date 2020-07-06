@@ -46,6 +46,7 @@ namespace UI
             UIController.Instance.ChangeLoadEffectColor(screenColor);
             UIController.Instance.ActivateLoadEffect(loadEffectLength, true, () => { restartButton.SetActive(true); });
             GameController.Instance.SaveGame();
+            VehicleSelectionController.Instance.UpdateColorPricetags();
         }
 
         public void BackToMainMenu()

@@ -37,7 +37,7 @@ public class LevelController : MonoBehaviour
         if (GameController.Instance.playerObject != null)
             Destroy(GameController.Instance.playerObject);
 
-        GameObject go = Instantiate(playerObject, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, 9 + gameObject.transform.position.y / 10.00f), Quaternion.identity, world);
+        GameObject go = Instantiate(playerObject, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.y / 10.00f), Quaternion.identity, world);
         GameController.Instance.playerObject = go;
         GameController.Instance.camera.Follow = GameController.Instance.playerObject.transform;
         PlayerUnit pu = GameController.Instance.playerObject.GetComponent<PlayerUnit>();
@@ -49,7 +49,7 @@ public class LevelController : MonoBehaviour
     {
         if (GameController.Instance.playerObject == null)
             return;
-        GameController.Instance.playerObject.transform.position = new Vector3(respawnAt.x, respawnAt.y, 9 + respawnAt.y / 10.00f);
+        GameController.Instance.playerObject.transform.position = new Vector3(respawnAt.x, respawnAt.y, respawnAt.y / 10.00f);
         GameController.Instance.camera.Follow = GameController.Instance.playerObject.transform;
         GameController.Instance.playerObject.SetActive(true);
     }

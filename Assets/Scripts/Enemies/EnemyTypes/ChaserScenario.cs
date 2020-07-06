@@ -53,7 +53,7 @@ public class ChaserScenario : EnemyBehaviour
         while (Vector2.Distance(moveTowards, ThisTransform.position) > distanceThreshold)
         {
             Vector3 v = Vector2.MoveTowards(ThisTransform.position, moveTowards, spd * Time.deltaTime);
-            ThisTransform.position = new Vector3(v.x, v.y, 9f + v.y / 10);
+            ThisTransform.position = new Vector3(v.x, v.y, v.y / 10);
             yield return new WaitForEndOfFrame();
         }
         NextPoint();

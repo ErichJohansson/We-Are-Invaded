@@ -8,7 +8,8 @@ namespace UI
     {
         public Vehicle vehicle;
         public Text vehicleName;
-        public Image vehicleImage;
+        public Image previewImage;
+        public ImageAnimator previewClip;
         public Text price;
 
         public Slider damage;
@@ -34,7 +35,7 @@ namespace UI
         public Button yesButton;
         public Button noButton;
 
-        private ColorShowcase[] colorShowcases;
+        public ColorShowcase[] colorShowcases;
 
         [Header("Price tag colors")]
         [SerializeField]
@@ -55,7 +56,8 @@ namespace UI
         public void ShowVehicle()
         {
             vehicleName.text = vehicle.name;
-            vehicleImage.sprite = vehicle.colorSchemes[vehicle.selectedColorScheme].previewSprite;
+            previewClip.clip = vehicle.colorSchemes[vehicle.selectedColorScheme].previewClip;
+            previewImage.sprite = vehicle.colorSchemes[vehicle.selectedColorScheme].previewSprite;
             vehicleLock.SetActive(!vehicle.purchased);
             damage.value = (float)vehicle.damage / (float)Vehicle.maxDamage;
             health.value = (float)vehicle.health / (float)Vehicle.maxHealth;
