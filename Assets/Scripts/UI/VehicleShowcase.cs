@@ -57,7 +57,7 @@ namespace UI
         {
             vehicleName.text = vehicle.name;
             previewClip.clip = vehicle.colorSchemes[vehicle.selectedColorScheme].previewClip;
-            previewImage.sprite = vehicle.colorSchemes[vehicle.selectedColorScheme].previewSprite;
+            previewImage.sprite = vehicle.colorSchemes[vehicle.selectedColorScheme].previewSprites[0];
             vehicleLock.SetActive(!vehicle.purchased);
             damage.value = (float)vehicle.damage / (float)Vehicle.maxDamage;
             health.value = (float)vehicle.health / (float)Vehicle.maxHealth;
@@ -72,7 +72,8 @@ namespace UI
             else if (vehicle.currentLevel + 1 < vehicle.upgradeLevels.Length)
                 price.color = vehicle.upgradeLevels[vehicle.currentLevel + 1].upgradeCost <= GameController.Instance.cash ? enoughMoneyColor : notEnoughMoneyColor;
 
-            selectVehicleButton.interactable = vehicle.purchased;
+            Vehicle selectedVehicle = VehicleSelectionController.Instance.SelectedVehicle;
+            if (selectedVehicle != null && selectedVehicle.id == vehicle.id) selectVehicleButton.interactable = vehicle.purchased;
             foreach (ColorShowcase cs in colorShowcases)
                 cs.ShowScheme();
             if (VehicleSelectionController.Instance.SelectedVehicle != null)

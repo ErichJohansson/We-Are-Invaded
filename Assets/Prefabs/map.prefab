@@ -324,8 +324,7 @@ MonoBehaviour:
     fgrOpacity: 1
     bgrOffset: {x: 0, y: 3.16, z: 0}
     fgrOffset: {x: 0, y: 0, z: 0}
-    filler: {fileID: 6227254003925713093, guid: 6991bba4f0bbbc643ad3c44f5791fa9b,
-      type: 3}
+    filler: {fileID: 0}
     postFiller: {fileID: 0}
   background: {fileID: 7119685559256547691}
   foreground: {fileID: 6516766657607102199}

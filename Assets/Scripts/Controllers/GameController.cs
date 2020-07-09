@@ -2,6 +2,7 @@
 using UI;
 using System;
 using System.Collections;
+using GooglePlayGames.BasicApi.SavedGame;
 
 public class GameController : MonoBehaviour
 {
@@ -61,7 +62,9 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        LoadGame();
+        SaveController.Instance.OnLoad += LoadGame;
+        GPSController.Instance.SignIn(SaveController.Instance.LoadGame);
+
         Pause = true;
         gameObject.AddComponent<InputController>();
     }
@@ -157,14 +160,18 @@ public class GameController : MonoBehaviour
                 gd.tankData[i].colorShemesPurchaseState[j] = VehicleSelectionController.Instance.vehicles[i].vehicle.colorSchemes[j].purchased;
             }
         }
-        SaveManager.SaveGame(gd);
+        SaveController.Instance.SaveGame(gd);
     }
 
-    private void LoadGame()
+    private void LoadGame(SavedGameRequestStatus status)
     {
-        GameData gd = SaveManager.LoadGame();
+        Debug.Log("Load started");
+        GameData gd = SaveController.Instance.gameData;
+        FindObjectOfType<ScrollSnap>()?.gameObject.SetActive(true);
+
         if (gd == null)
         {
+            Debug.Log("creating default save");
             cash = initialCash;
 
             initialVehicle.currentLevel = 0;
@@ -172,17 +179,19 @@ public class GameController : MonoBehaviour
             initialVehicle.UpdateStats();
 
             foreach (VehicleShowcase vhcl in VehicleSelectionController.Instance.vehicles)
-            {
                 vhcl.ShowVehicle();
-            } 
 
             VehicleSelectionController.Instance.SelectVehicle(initialVehicle);
             UpdateCash();
+            SaveController.Instance.gameData = gd;
+            Debug.Log("default save created");
             return;
         }
 
         cash = gd.cash;
         TutorialController.Instance.TutorialCompleted = gd.tutorialCompleted;
+
+        Debug.Log("Loading data from existing save");
 
         for (int i = 0; i < gd.tankData.Length; i++)
         {
@@ -217,6 +226,7 @@ public class GameController : MonoBehaviour
 
         VehicleSelectionController.Instance.SelectVehicle(gd.selectedTankID);
         UpdateCash();
+        Debug.Log("Load finished");
     }
     #endregion
 

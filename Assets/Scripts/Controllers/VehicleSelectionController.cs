@@ -19,8 +19,7 @@ public class VehicleSelectionController : MonoBehaviour
     void Awake()
     {
         Instance = this;
-        scrollSnap = FindObjectOfType<ScrollSnap>();
-        scrollSnap.PropertyChanged += PropertyChangedHandler;
+        SetupScrollSnap();
     }
 
     /// <summary>
@@ -60,7 +59,8 @@ public class VehicleSelectionController : MonoBehaviour
             GameController.Instance.cash -= vehicle.price;
             vehicle.purchased = true;
             selectVehicleButton.SetActive(true);
-            selectVehicleButton.GetComponent<Button>().interactable = true;
+            Button b = selectVehicleButton.GetComponent<Button>();
+            if (b != null) b.interactable = true;
         }
         else if (vehicle.currentLevel + 1 < vehicle.upgradeLevels.Length)
         {
@@ -131,6 +131,7 @@ public class VehicleSelectionController : MonoBehaviour
 
     private void PickVehicle()
     {
+        SetupScrollSnap();
         for (int i = 0; i < vehicles.Length; i++)
             vehicles[i].colorSchemeScrollView.SetActive(false);
         SelectedVehicle = vehicles[scrollSnap.CurrentPage].vehicle;
@@ -141,6 +142,7 @@ public class VehicleSelectionController : MonoBehaviour
 
     private void PickVehicle(int id)
     {
+        SetupScrollSnap();
         for (int i = 0; i < vehicles.Length; i++)
             vehicles[i].colorSchemeScrollView.SetActive(false);
         selectVehicleButton.GetComponent<Button>().interactable = vehicles[id].vehicle.purchased;
@@ -167,7 +169,7 @@ public class VehicleSelectionController : MonoBehaviour
         if (ia != null)
         {
             ia.clip = SelectedVehicle.colorSchemes[SelectedVehicle.selectedColorScheme].previewClip;
-            ia.UpdateClip();
+            ia.sprites = SelectedVehicle.colorSchemes[SelectedVehicle.selectedColorScheme].previewSprites;
         }
     }
 
@@ -192,5 +194,24 @@ public class VehicleSelectionController : MonoBehaviour
             vehicles[i].GetComponentInChildren<ImageAnimator>()?.Stop();
         }
         vehicles[scrollSnap.CurrentPage].GetComponentInChildren<ImageAnimator>()?.Play();
+    }
+
+    private void SetupScrollSnap()
+    {
+        try
+        {
+            if (scrollSnap == null)
+            {
+                scrollSnap = FindObjectOfType<ScrollSnap>();
+                if (scrollSnap == null) return;
+                scrollSnap.gameObject.SetActive(true);
+                scrollSnap.PropertyChanged += PropertyChangedHandler;
+            }
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log(e);
+        }
+
     }
 }

@@ -15,6 +15,9 @@ MonoBehaviour:
   price: 0
   purchased: 1
   previewClip: {fileID: 7400000, guid: 497edcb03accc30409f8d9a4beac5534, type: 2}
-  previewSprite: {fileID: 3756802434146677969, guid: e33a41780d6aa544e8e720132773fbb6,
-    type: 3}
+  previewSprites:
+  - {fileID: 3756802434146677969, guid: e33a41780d6aa544e8e720132773fbb6, type: 3}
+  - {fileID: -6345201772214040654, guid: e33a41780d6aa544e8e720132773fbb6, type: 3}
+  - {fileID: -7066035513626735818, guid: e33a41780d6aa544e8e720132773fbb6, type: 3}
+  - {fileID: 3211093842174619958, guid: e33a41780d6aa544e8e720132773fbb6, type: 3}
   animatorController: {fileID: 9100000, guid: f7e8eefacad0e94469705be62763ea98, type: 2}

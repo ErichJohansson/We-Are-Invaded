@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\GPGSIds.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\Achievement.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\CommonStatusCodes.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\CommonTypes.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="Assets\GooglePlayGames\PluginVersion.cs" />
     <Compile Include="Assets\Scripts\Controllers\BossController.cs" />
     <Compile Include="Assets\Scripts\Controllers\CameraShakeController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\GPSController.cs" />
     <Compile Include="Assets\Scripts\Controllers\GameController.cs" />
     <Compile Include="Assets\Scripts\Controllers\InputController.cs" />
     <Compile Include="Assets\Scripts\Controllers\LanguageController.cs" />
@@ -165,7 +167,7 @@
     <Compile Include="Assets\Scripts\Misc\LevelUtils.cs" />
     <Compile Include="Assets\Scripts\Misc\ObjectToPool.cs" />
     <Compile Include="Assets\Scripts\Misc\RemainsRecycler.cs" />
-    <Compile Include="Assets\Scripts\Misc\SaveManager.cs" />
+    <Compile Include="Assets\Scripts\Misc\SaveController.cs" />
     <Compile Include="Assets\Scripts\Misc\TankData.cs" />
     <Compile Include="Assets\Scripts\Misc\UpgradeLevel.cs" />
     <Compile Include="Assets\Scripts\Misc\Vehicle.cs" />
@@ -212,7 +214,6 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
-    <None Include="Assets\ClassDiagram.cd" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
