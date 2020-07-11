@@ -129,14 +129,16 @@
     <Compile Include="Assets\GooglePlayGames\Platforms\PlayGamesClientFactory.cs" />
     <Compile Include="Assets\GooglePlayGames\Platforms\TokenClient.cs" />
     <Compile Include="Assets\GooglePlayGames\PluginVersion.cs" />
+    <Compile Include="Assets\Scripts\Controllers\AchievementController.cs" />
     <Compile Include="Assets\Scripts\Controllers\BossController.cs" />
     <Compile Include="Assets\Scripts\Controllers\CameraShakeController.cs" />
-    <Compile Include="Assets\Scripts\Controllers\GPSController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\GPGSController.cs" />
     <Compile Include="Assets\Scripts\Controllers\GameController.cs" />
     <Compile Include="Assets\Scripts\Controllers\InputController.cs" />
     <Compile Include="Assets\Scripts\Controllers\LanguageController.cs" />
     <Compile Include="Assets\Scripts\Controllers\LevelController.cs" />
     <Compile Include="Assets\Scripts\Controllers\ParallaxController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\SaveController.cs" />
     <Compile Include="Assets\Scripts\Controllers\TutorialController.cs" />
     <Compile Include="Assets\Scripts\Controllers\UIController.cs" />
     <Compile Include="Assets\Scripts\Controllers\VehicleSelectionController.cs" />
@@ -167,7 +169,6 @@
     <Compile Include="Assets\Scripts\Misc\LevelUtils.cs" />
     <Compile Include="Assets\Scripts\Misc\ObjectToPool.cs" />
     <Compile Include="Assets\Scripts\Misc\RemainsRecycler.cs" />
-    <Compile Include="Assets\Scripts\Misc\SaveController.cs" />
     <Compile Include="Assets\Scripts\Misc\TankData.cs" />
     <Compile Include="Assets\Scripts\Misc\UpgradeLevel.cs" />
     <Compile Include="Assets\Scripts\Misc\Vehicle.cs" />

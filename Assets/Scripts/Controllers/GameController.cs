@@ -33,6 +33,7 @@ public class GameController : MonoBehaviour
     public int BarrelsExploded { get; private set; }
     public int HealthRestored { get; private set; }
     public int DamageToEnemies { get; private set; }
+    public int ModifiersCollected { get; private set; }
 
     public bool Pause { get; set; }
     public bool SomeScreenIsShown { get; set; }
@@ -62,8 +63,8 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        SaveController.Instance.OnLoad += LoadGame;
-        GPSController.Instance.SignIn(SaveController.Instance.LoadGame);
+        SaveController.Instance.OnLoad += ProcessLoadData;
+        GPGSController.Instance.SignIn(SaveController.Instance.LoadGame, SaveController.Instance.LoadGame);
 
         Pause = true;
         gameObject.AddComponent<InputController>();
@@ -94,6 +95,7 @@ public class GameController : MonoBehaviour
         BarrelsExploded = 0;
         DamageToEnemies = 0;
         DistanceTraveled = 0;
+        ModifiersCollected = 0;
         UIController.Instance.UpdateTraveledDistance();
         UIController.Instance.UpdateScore();
 
@@ -102,7 +104,6 @@ public class GameController : MonoBehaviour
         {
             UIController.Instance.ActivateLoadEffect(action: () => { if (!TutorialController.Instance.TutorialCompleted) TutorialController.Instance.StartTutorial(); });
         }
-
     }
 
     public void UpdateCash()
@@ -163,7 +164,7 @@ public class GameController : MonoBehaviour
         SaveController.Instance.SaveGame(gd);
     }
 
-    private void LoadGame(SavedGameRequestStatus status)
+    private void ProcessLoadData(SavedGameRequestStatus status)
     {
         Debug.Log("Load started");
         GameData gd = SaveController.Instance.gameData;
@@ -188,6 +189,7 @@ public class GameController : MonoBehaviour
             return;
         }
 
+        VehicleSelectionController.Instance.SelectVehicle(gd.selectedTankID);
         cash = gd.cash;
         TutorialController.Instance.TutorialCompleted = gd.tutorialCompleted;
 
@@ -224,7 +226,6 @@ public class GameController : MonoBehaviour
             }
         }
 
-        VehicleSelectionController.Instance.SelectVehicle(gd.selectedTankID);
         UpdateCash();
         Debug.Log("Load finished");
     }
@@ -234,6 +235,11 @@ public class GameController : MonoBehaviour
     public void AddMoney(int coins)
     {
         MoneyEarned += coins;
+    }
+
+    public void AddModifier()
+    {
+        ModifiersCollected++;
     }
 
     public void AddDistance(float val)
@@ -259,7 +265,8 @@ public class GameController : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        Debug.Log("quit");
+        Debug.Log("quitting");
         SaveGame();
+        Debug.Log("quit");
     }
 }

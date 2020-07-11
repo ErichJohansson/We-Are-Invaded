@@ -122,6 +122,16 @@ public class Vertiboss : EnemyBehaviour
 
     private void OnDisable()
     {
+        try
+        {
+            if (GetComponent<Enemy>()?.CurrentHP <= 0)
+                AchievementController.Instance.UnlockAchievement(GPGSIds.achievement_helicopter_boss);
+        }
+        catch (System.Exception)
+        {
+            Debug.Log("AchievementController is null? " + (AchievementController.Instance == null) + "; <Enemy> is null? " + (GetComponent<Enemy>() == null));
+        }
+
         BossController.Instance.Restart();
         movementRoutine = null;
         loadingRoutine = null;

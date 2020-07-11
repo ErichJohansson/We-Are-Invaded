@@ -10,7 +10,7 @@ public class VehicleSelectionController : MonoBehaviour
     public GameObject selectVehicleButton;
 
     private GameObject playerObject;
-    private ScrollSnap scrollSnap;
+    [SerializeField] private ScrollSnap scrollSnap;
 
     public Vehicle SelectedVehicle { get; private set; }
 
@@ -19,8 +19,8 @@ public class VehicleSelectionController : MonoBehaviour
     void Awake()
     {
         Instance = this;
-        SetupScrollSnap();
     }
+
 
     /// <summary>
     /// Call on APPLY button click.
@@ -61,6 +61,7 @@ public class VehicleSelectionController : MonoBehaviour
             selectVehicleButton.SetActive(true);
             Button b = selectVehicleButton.GetComponent<Button>();
             if (b != null) b.interactable = true;
+            AchievementController.Instance.UnlockAchievement(GPGSIds.achievement_brand_new);
         }
         else if (vehicle.currentLevel + 1 < vehicle.upgradeLevels.Length)
         {
@@ -70,6 +71,7 @@ public class VehicleSelectionController : MonoBehaviour
             vehicle.UpdateStats();
             if (SelectedVehicle.id == vehicle.id)
                 SetAndSpawnVehicle();
+            AchievementController.Instance.UnlockAchievement(GPGSIds.achievement_level_up);
         }
 
         FinishSelection();
@@ -97,6 +99,7 @@ public class VehicleSelectionController : MonoBehaviour
         {
             GameController.Instance.cash -= vehicle.colorSchemes[colorShemeID].price;
             vehicle.colorSchemes[colorShemeID].purchased = true;
+            AchievementController.Instance.UnlockAchievement(GPGSIds.achievement_new_look);
         }
         if (SelectedVehicle.id == vehicle.id)
         {
@@ -171,6 +174,7 @@ public class VehicleSelectionController : MonoBehaviour
             ia.clip = SelectedVehicle.colorSchemes[SelectedVehicle.selectedColorScheme].previewClip;
             ia.sprites = SelectedVehicle.colorSchemes[SelectedVehicle.selectedColorScheme].previewSprites;
         }
+        GameController.Instance.SaveGame();
     }
 
     private void PropertyChangedHandler(object sender, PropertyChangedEventArgs e)
@@ -200,18 +204,13 @@ public class VehicleSelectionController : MonoBehaviour
     {
         try
         {
-            if (scrollSnap == null)
-            {
-                scrollSnap = FindObjectOfType<ScrollSnap>();
-                if (scrollSnap == null) return;
-                scrollSnap.gameObject.SetActive(true);
-                scrollSnap.PropertyChanged += PropertyChangedHandler;
-            }
+            if (scrollSnap == null || scrollSnap.gameObject.activeSelf) return;
+            scrollSnap.gameObject.SetActive(true);
+            scrollSnap.PropertyChanged += PropertyChangedHandler;
         }
         catch (System.Exception e)
         {
             Debug.Log(e);
         }
-
     }
 }

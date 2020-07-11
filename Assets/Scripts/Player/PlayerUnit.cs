@@ -256,7 +256,6 @@ public class PlayerUnit : DamageRecieverComponent
         if (!speedingUp && currentSpeedBoostLength < totalSpeedBoostLength)
         {
             currentSpeedBoostLength += Time.deltaTime * 3;
-            UIController.Instance.UpdateSpeedUpSlider();
         }
 
         thisTransform.position += new Vector3(currentSpeed * Time.deltaTime, 0);
@@ -274,9 +273,6 @@ public class PlayerUnit : DamageRecieverComponent
         {
             currentSpeed += Time.fixedDeltaTime * speedUpRate;
         }
-        //currentSpeedBoostLength -= 2 * Time.fixedDeltaTime;
-
-        UIController.Instance.UpdateSpeedUpSlider();
     }
 
     private IEnumerator FastTraveling(float fastTravelingTime)

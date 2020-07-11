@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using UI;
+using GooglePlayGames;
 
 public class UIController : MonoBehaviour
 {
@@ -140,11 +141,6 @@ public class UIController : MonoBehaviour
         reloadSlider.value = value;
     }
 
-    public void UpdateSpeedUpSlider()
-    {
-        //speedUpSlider.value = GameController.Instance.PlayerUnit.currentSpeedBoostLength / GameController.Instance.PlayerUnit.totalSpeedBoostLength;
-    }
-
     public void RestartDamageEffect()
     {
         currentDamageEffectLength = 0;
@@ -166,6 +162,26 @@ public class UIController : MonoBehaviour
     public void ChangeLoadEffectColor(Color newColor)
     {
         loadEffect.color = newColor;
+    }
+
+    public void ShowAchievements()
+    {
+        if (!Social.localUser.authenticated)
+        {
+            GPGSController.Instance.SignIn();
+            return;
+        }
+        Social.ShowAchievementsUI();
+    }
+
+    public void ShowLeaderboard()
+    {
+        if (!Social.localUser.authenticated)
+        {
+            GPGSController.Instance.SignIn();
+            return;
+        }
+        PlayGamesPlatform.Instance.ShowLeaderboardUI(GPGSIds.leaderboard_longest_run);
     }
 
     private IEnumerator DamageEffect()

@@ -44,14 +44,18 @@ namespace UI
             SetEndGameInfo();
             UIController.Instance.ShowPanel(panel);
             UIController.Instance.ChangeLoadEffectColor(screenColor);
-            UIController.Instance.ActivateLoadEffect(loadEffectLength, true, () => { restartButton.SetActive(true); });
-            GameController.Instance.SaveGame();
+            UIController.Instance.ActivateLoadEffect(loadEffectLength, true, () => { 
+                restartButton.SetActive(true);
+                AchievementController.Instance.CheckEligibleAchievements();
+                AchievementController.Instance.ReportToLeaderboard((long)GameController.Instance.DistanceTraveled);
+                GameController.Instance.UpdateCash();
+                GameController.Instance.SaveGame();
+            });          
             VehicleSelectionController.Instance.UpdateColorPricetags();
         }
 
         public void BackToMainMenu()
         {
-            GameController.Instance.UpdateCash();
             panel.HidePanel();
             UIController.Instance.startGameScreen.panel.ShowPanel();
         }
