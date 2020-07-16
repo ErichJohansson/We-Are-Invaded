@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 873cb2698ed97a34d9fee2f5cee4195f, type: 3}
+  m_Name: mil_suv_color_desert
+  m_EditorClassIdentifier: 
+  price: 1500
+  purchased: 0
+  previewClip: {fileID: 7400000, guid: 7e524949adb99904b8390d51980bab9d, type: 2}
+  previewSprites:
+  - {fileID: -2626744642130248522, guid: 65fb44fe56aefc54eb7555d5fa3b4d71, type: 3}
+  - {fileID: -8527542169166148609, guid: 65fb44fe56aefc54eb7555d5fa3b4d71, type: 3}
+  - {fileID: -3359668431650244102, guid: 65fb44fe56aefc54eb7555d5fa3b4d71, type: 3}
+  - {fileID: 3367569740497298793, guid: 65fb44fe56aefc54eb7555d5fa3b4d71, type: 3}
+  animatorController: {fileID: 9100000, guid: 4bc2e54f96590d640a38a7b64c0c34e0, type: 2}

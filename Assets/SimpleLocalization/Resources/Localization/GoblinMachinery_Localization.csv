@@ -24,6 +24,7 @@ Tutorial.Health,This bar displays your current health.,Здесь отображ
 Tutorial.Reload,This bar displays how many bullets is left and how much time is left for your gun to be reloaded.,"Здесь отображается количество патронов в обойме и то, сколько времени осталось до окончания перезарядки."
 Tutorial.Score,Your reward for killing enemies and traveled distance are both displayed there.,Здесь отображаются ваши заработанные монеты и пройденное расстояние.
 Tutorial.Danger,"If you see this sign, beware! The faster it's blinking, the closer The Horror is.","Этот знак говорит о том, что опасность приближается. Чем быстрее он мигает, тем ближе Ужас."
+Tutorial.NextSlide,Next,Далее
 GameOver.Score,Money earned:,Заработано монет:
 GameOver.Dist,Distance traveled:,Пройдено метров:
 GameOver.Barrels,Barrels exploded:,Взорванно бочек:
@@ -31,3 +32,10 @@ GameOver.Damage,Damage to enemies:,Урон по врагам:
 GameOver.Health,Health restored:,Восстановлено здоровья:
 Game.Back,<<< Back,<<< Назад
 Game.Resume,Resume,Продолжить
+Tutorial.Slide1,It was a peaceful day in the city..,"Это был обычный день в городе, ничего не предвещало беды..."
+Tutorial.Slide2,"Suddenly, a portal to another dimension was opened by cultists. Their goal was to summon The Horror.","Как вдруг культисты открыли портал в другое измерение, чтобы призвать оттуда Ужас!"
+Tutorial.Slide3,People were running away in fear trying to save their lives..,"Люди бежали в страхе, спасая свои жизни.."
+Tutorial.Slide4,And I need to get out of the city.,Мне нужно выбираться из города.
+Ad.Reward,Get 500 coins!,Получи 500 монет!
+GameStart.LeaveReview,Like our game? Rate it!,Нравится игра? Поставь оценку!
+GameStart.Later,Later,Позже

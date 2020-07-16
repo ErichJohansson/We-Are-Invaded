@@ -2,16 +2,17 @@
 using UI;
 using System;
 using System.Collections;
-using GooglePlayGames.BasicApi.SavedGame;
 
 public class GameController : MonoBehaviour
 {
     public GameObject playerObject;
     public Cinemachine.CinemachineVirtualCamera camera;
-    public Transform coinTarget;
     public ParallaxController[] backgrounds;
-
     public int cash;
+
+    [Header("Tutorial")]
+    public TutorialController tutorial;
+    public TutorialController cutScene;
 
     private PlayerUnit pu;
 
@@ -34,6 +35,10 @@ public class GameController : MonoBehaviour
     public int HealthRestored { get; private set; }
     public int DamageToEnemies { get; private set; }
     public int ModifiersCollected { get; private set; }
+    public DateTime LastLaunch { get; private set; }
+    public bool AdWatchedToday { get; set; }
+    public bool ReviewSuggestedToday { get; set; }
+    public bool ShowDailyAd { get; set; }
 
     public bool Pause { get; set; }
     public bool SomeScreenIsShown { get; set; }
@@ -63,8 +68,10 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        SaveController.Instance.OnLoad += ProcessLoadData;
-        GPGSController.Instance.SignIn(SaveController.Instance.LoadGame, SaveController.Instance.LoadGame);
+        ProcessLoadData();
+        if (!cutScene.TutorialCompleted) cutScene.StartTutorial();
+
+        GPGSController.Instance.SignIn();
 
         Pause = true;
         gameObject.AddComponent<InputController>();
@@ -78,6 +85,8 @@ public class GameController : MonoBehaviour
     private IEnumerator StartRoutine(bool blockLoadEffect = false)
     {
         OnRestart(new EventArgs());
+        AdController.Instance.IncreaseCounter();
+        AdController.Instance.RequestInterstitial();
         if (!blockLoadEffect)
         {
             UIController.Instance.ChangeLoadEffectColor(new Color(0, 0, 0, 1f));
@@ -102,7 +111,7 @@ public class GameController : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.5f);
         if (!blockLoadEffect)
         {
-            UIController.Instance.ActivateLoadEffect(action: () => { if (!TutorialController.Instance.TutorialCompleted) TutorialController.Instance.StartTutorial(); });
+            UIController.Instance.ActivateLoadEffect(1f, action: () => { if (!tutorial.TutorialCompleted) tutorial.StartTutorial(); });
         }
     }
 
@@ -143,10 +152,14 @@ public class GameController : MonoBehaviour
     public void SaveGame()
     {
         GameData gd = new GameData();
+        gd.lastLaunch = DateTime.Now;
+        gd.adWatchedToday = AdWatchedToday;
+        gd.reviewSuggestedToday = ReviewSuggestedToday; 
         gd.cash = cash;
         gd.selectedTankID = PlayerUnit == null ? 0 : PlayerUnit.ID;
         gd.tankData = new TankData[VehicleSelectionController.Instance.vehicles.Length];
-        gd.tutorialCompleted = TutorialController.Instance.TutorialCompleted;
+        gd.tutorialCompleted = tutorial.TutorialCompleted;
+        gd.cutSceneCompleted = cutScene.TutorialCompleted;
         for (int i = 0; i < VehicleSelectionController.Instance.vehicles.Length; i++)
         {
             gd.tankData[i] = new TankData();
@@ -164,10 +177,10 @@ public class GameController : MonoBehaviour
         SaveController.Instance.SaveGame(gd);
     }
 
-    private void ProcessLoadData(SavedGameRequestStatus status)
+    private void ProcessLoadData()
     {
         Debug.Log("Load started");
-        GameData gd = SaveController.Instance.gameData;
+        GameData gd = SaveController.Instance.LoadGame();
         FindObjectOfType<ScrollSnap>()?.gameObject.SetActive(true);
 
         if (gd == null)
@@ -178,23 +191,47 @@ public class GameController : MonoBehaviour
             initialVehicle.currentLevel = 0;
             initialVehicle.purchased = true;
             initialVehicle.UpdateStats();
+            LastLaunch = DateTime.Now;
+            AdWatchedToday = false;
+            ShowDailyAd = true;
 
             foreach (VehicleShowcase vhcl in VehicleSelectionController.Instance.vehicles)
                 vhcl.ShowVehicle();
 
+            UIController.Instance.rewardAdButton.SetActive(true);
+            AdController.Instance.RequestRewardAd();
             VehicleSelectionController.Instance.SelectVehicle(initialVehicle);
             UpdateCash();
-            SaveController.Instance.gameData = gd;
+            SaveGame();
             Debug.Log("default save created");
             return;
         }
 
-        VehicleSelectionController.Instance.SelectVehicle(gd.selectedTankID);
-        cash = gd.cash;
-        TutorialController.Instance.TutorialCompleted = gd.tutorialCompleted;
-
         Debug.Log("Loading data from existing save");
 
+        cash = gd.cash;
+
+        if (!gd.adWatchedToday)
+        {
+            AdWatchedToday = false;
+            ShowDailyAd = true;
+        }
+        else if ((gd.lastLaunch.DayOfYear - DateTime.Now.DayOfYear) != 0)
+        {
+            AdWatchedToday = false;
+            ShowDailyAd = true;
+            ReviewSuggestedToday = false;
+        }
+        else
+        {
+            AdWatchedToday = gd.adWatchedToday;
+            ReviewSuggestedToday = gd.reviewSuggestedToday;
+            ShowDailyAd = false;
+        }
+
+        VehicleSelectionController.Instance.SelectVehicle(gd.selectedTankID);
+        tutorial.TutorialCompleted = gd.tutorialCompleted;
+        cutScene.TutorialCompleted = gd.cutSceneCompleted;
         for (int i = 0; i < gd.tankData.Length; i++)
         {
             if (gd.tankData[i] == null)
@@ -224,6 +261,12 @@ public class GameController : MonoBehaviour
                     break;
                 }
             }
+        }
+
+        if (ShowDailyAd)
+        {
+            UIController.Instance.rewardAdButton.SetActive(true);
+            AdController.Instance.RequestRewardAd();
         }
 
         UpdateCash();
@@ -265,8 +308,7 @@ public class GameController : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        Debug.Log("quitting");
         SaveGame();
-        Debug.Log("quit");
+        Debug.Log("quitting");
     }
 }

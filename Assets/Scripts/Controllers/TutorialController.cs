@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TutorialController : MonoBehaviour
 {
@@ -8,14 +9,9 @@ public class TutorialController : MonoBehaviour
     public GameObject nextButton;
     public GameObject tutorialPanel;
     private int currentPopup;
+    private Button btn;
 
     public bool TutorialCompleted { get; set; }
-    public static TutorialController Instance { get; private set; }
-
-    private void Awake()
-    {
-        Instance = this;
-    }
 
     public void StartTutorial()
     {
@@ -24,20 +20,26 @@ public class TutorialController : MonoBehaviour
         tutorialPanel.SetActive(true);
         popups[currentPopup].SetActive(true);
         nextButton.SetActive(true);
+        btn = nextButton.GetComponent<Button>();
     }
 
-    public void NextSlide()
+    public void NextSlide(float loadLen)
     {
         popups[currentPopup].SetActive(false);
+        btn.interactable = false;
         currentPopup++;
         if (currentPopup < popups.Count)
-            popups[currentPopup].SetActive(true);
+            UIController.Instance.ActivateLoadEffect(loadLen, currentPopup % 2 == 0, 
+                () => { 
+                    popups[currentPopup].SetActive(true); 
+                    UIController.Instance.loadEffect.gameObject.SetActive(false);
+                    btn.interactable = true;
+            });
         else
         {
             TutorialCompleted = true;
             tutorialPanel.SetActive(false);
             Time.timeScale = 1;
-            GameController.Instance.SaveGame();
         }
     }
 

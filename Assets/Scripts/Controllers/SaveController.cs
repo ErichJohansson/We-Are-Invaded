@@ -1,123 +1,49 @@
-﻿using GooglePlayGames;
-using GooglePlayGames.BasicApi.SavedGame;
-using System;
-using System.IO;
+﻿using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 public class SaveController : MonoBehaviour
 {
-    public GameData gameData;
-    public Action<SavedGameRequestStatus> OnSave;
-    public Action<SavedGameRequestStatus> OnLoad;
     private BinaryFormatter formatter;
+    private string path;
 
     public static SaveController Instance { get; private set; }
 
     private void Awake()
     {
         Instance = this;
+        path = Application.persistentDataPath + "/gamedata.bin";
         formatter = new BinaryFormatter();
     }
 
     public void SaveGame(GameData data)
     {
-        //string path = Application.persistentDataPath + "/gamedata.bin";
-        //FileStream stream = new FileStream(path, FileMode.OpenOrCreate);
-        //Debug.Log("game saved locally");
-        //formatter.Serialize(stream, data);
-        //stream.Close();
-        gameData = data;
-        SaveToCloud();
-    }
-
-    public void LoadGame()
-    {
-        //if (!GPSController.Instance.platform.localUser.authenticated)
-        //{
-        //    Debug.Log("No auth, loading local file");
-        //    string path = Application.persistentDataPath + "/gamedata.bin";
-        //    if (File.Exists(path))
-        //    {
-        //        FileStream stream = new FileStream(path, FileMode.Open);
-        //        Debug.Log("game loaded locally");
-        //        gameData = formatter.Deserialize(stream) as GameData;
-        //        stream.Close();
-        //    }
-        //    else
-        //    {
-        //        Debug.Log("No data found so it's a new game");
-        //        gameData = null;
-        //    }
-        //    OnLoad?.Invoke(SavedGameRequestStatus.AuthenticationError);
-        //}
-        //else
-            LoadFromCloud();  
-    }
-
-    public byte[] Serialize()
-    {
-        using (MemoryStream ms = new MemoryStream())
+        if (data == null)
         {
-            formatter.Serialize(ms, gameData);
-            return ms.GetBuffer();
+            Debug.Log("Data was null");
+            return;
         }
+        FileStream stream = new FileStream(path, FileMode.OpenOrCreate);
+        Debug.Log("game saved locally");
+        formatter.Serialize(stream, data);
+        stream.Close();
     }
 
-    public GameData Deserialize(byte[] byteData)
+    public GameData LoadGame()
     {
-        using (MemoryStream ms = new MemoryStream(byteData))
+        Debug.Log("loading local file");
+        if (File.Exists(path))
         {
-            if (byteData.Length == 0)
-                return null;
-            return (GameData)formatter.Deserialize(ms);
-        }
-    }
-
-    public void SaveToCloud()
-    {
-        GPGSController.Instance.OpenCloudSave(OnSaveResponse);
-    }
-
-    private void OnSaveResponse(SavedGameRequestStatus status, ISavedGameMetadata meta)
-    {
-        if (status == SavedGameRequestStatus.Success)
-        {
-            var data = Serialize();
-            SavedGameMetadataUpdate update = new SavedGameMetadataUpdate.Builder().WithUpdatedDescription(DateTime.Now.ToString()).Build();
-            GPGSController.Instance.platform.SavedGame.CommitUpdate(meta, update, data, SaveCallback);
+            FileStream stream = new FileStream(path, FileMode.Open);
+            Debug.Log("game loaded locally");
+            GameData gameData = formatter.Deserialize(stream) as GameData;
+            stream.Close();
+            return gameData;
         }
         else
-            OnSave?.Invoke(status);
-    }
-
-    private void SaveCallback(SavedGameRequestStatus status, ISavedGameMetadata meta)
-    {
-        OnSave?.Invoke(status);
-        if (status == SavedGameRequestStatus.Success) Debug.Log("game saved to cloud");
-    }
-
-    public void LoadFromCloud()
-    {
-        Debug.Log("Cloud load started");
-        GPGSController.Instance.OpenCloudSave(OnLoadResponse);
-    }
-
-    private void OnLoadResponse(SavedGameRequestStatus status, ISavedGameMetadata meta)
-    {
-        if (status == SavedGameRequestStatus.Success)
         {
-            Debug.Log("Recieved some data from cloud");
-            GPGSController.Instance.platform.SavedGame.ReadBinaryData(meta, LoadCallback);
+            Debug.Log("No data found so it's a new game");
+            return null;
         }
-        else
-            OnLoad?.Invoke(status);
-    }
-
-    private void LoadCallback(SavedGameRequestStatus status, byte[] data)
-    {
-        gameData = Deserialize(data);
-        Debug.Log("Cloud data deserialized");
-        OnLoad?.Invoke(status);
     }
 }

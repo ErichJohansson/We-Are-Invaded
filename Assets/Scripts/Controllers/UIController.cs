@@ -17,9 +17,14 @@ public class UIController : MonoBehaviour
     public GameObject reloadBgrPlain;
     public Slider speedUpSlider;
 
+    public Button vehicleSelectionButton;
+    public GameObject reviewPopup;
+
     public GameOverScreen gameOverScreen;
     public StartGameScreen startGameScreen;
     public PauseScreen pauseScreen;
+
+    public GameObject rewardAdButton;
 
     [Header("Damage Effect")]
     public Image damageEffect;
@@ -150,6 +155,11 @@ public class UIController : MonoBehaviour
 
     public void ActivateLoadEffect(float loadLength = -1f, bool reverse = false, Action action = null)
     {
+        if (loadLength <= 0)
+        {
+            action?.Invoke();
+            return;
+        }
         Loading = true;
         StartCoroutine(LoadEffect(loadLength > 0 ? loadLength : loadEffectLength, reverse, action));
     }
@@ -181,7 +191,18 @@ public class UIController : MonoBehaviour
             GPGSController.Instance.SignIn();
             return;
         }
-        PlayGamesPlatform.Instance.ShowLeaderboardUI(GPGSIds.leaderboard_longest_run);
+        PlayGamesPlatform.Instance.ShowLeaderboardUI();
+    }
+
+    public void ActivateReviewPopup(bool state)
+    {
+        reviewPopup?.SetActive(state);
+        if (!state) GameController.Instance.ReviewSuggestedToday = true;
+    }
+
+    public void OpenStorePage()
+    {
+        Application.OpenURL("market://details?id=" + Application.productName);
     }
 
     private IEnumerator DamageEffect()
@@ -214,8 +235,7 @@ public class UIController : MonoBehaviour
             yield return new WaitForSeconds(0.25f);
         Time.timeScale = !reverse ? 1 : 0;
         Loading = false;
-        if (action != null)
-            action.Invoke();
+        action?.Invoke();
     }
 
     private IEnumerator ModifierEffect(Sprite img, float timeScale)

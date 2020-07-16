@@ -434,7 +434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b24bb0272128b614986efb3e3c9fa167, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 50
+  maxHP: 300
   alwaysReceiveFullDamage: 1
   enemyShooting: {fileID: 2201550540744823589}
   hitAnimator: {fileID: 0}
@@ -458,7 +458,7 @@ MonoBehaviour:
   affectedArea: {fileID: 2201550540792993509}
   startPoint: {fileID: 2201550540792993530}
   endPoint: {fileID: 2201550540143474051}
-  damage: 12
+  damage: 24
   moveTime: 4
   reloadTime: 5
   hitTick: 0.35
@@ -704,7 +704,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}

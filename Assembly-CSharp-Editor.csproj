@@ -74,9 +74,9 @@
     <Compile Include="Assets\SimpleLocalization\Editor\LocalizationSyncEditor.cs" />
     <Compile Include="Assets\Unity-Logs-Viewer\Reporter\Editor\ReporterEditor.cs" />
     <None Include="Assets\ExternalDependencyManager\Editor\GoogleRegistries.xml" />
+    <None Include="Assets\ExternalDependencyManager\Editor\external-dependency-manager_version-1.2.156_manifest.txt" />
     <None Include="Assets\GooglePlayGames\Editor\GooglePlayGamesPluginDependencies.xml" />
     <None Include="Assets\GooglePlayGames\Editor\template-GameInfo.txt" />
-    <None Include="Assets\ExternalDependencyManager\Editor\external-dependency-manager_version-1.2.153_manifest.txt" />
     <None Include="Assets\GooglePlayGames\Editor\m2repository\com\google\games\gpgs-plugin-support\maven-metadata.xml" />
     <None Include="Assets\GooglePlayGames\Editor\GooglePlayGamesPlugin_v0.10.09.txt" />
     <None Include="Assets\GooglePlayGames\Editor\template-AndroidManifest.txt" />
@@ -282,20 +282,20 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/16.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
-    <Reference Include="Google.IOSResolver_v1.2.153">
-      <HintPath>D:/UnityGames/Tank Breakthrough/Tank Breakthrough/Assets/ExternalDependencyManager/Editor/Google.IOSResolver_v1.2.153.dll</HintPath>
+    <Reference Include="Google.IOSResolver_v1.2.156">
+      <HintPath>D:/UnityGames/Tank Breakthrough/Tank Breakthrough/Assets/ExternalDependencyManager/Editor/Google.IOSResolver_v1.2.156.dll</HintPath>
     </Reference>
-    <Reference Include="Google.JarResolver_v1.2.153">
-      <HintPath>D:/UnityGames/Tank Breakthrough/Tank Breakthrough/Assets/ExternalDependencyManager/Editor/Google.JarResolver_v1.2.153.dll</HintPath>
+    <Reference Include="Google.JarResolver_v1.2.156">
+      <HintPath>D:/UnityGames/Tank Breakthrough/Tank Breakthrough/Assets/ExternalDependencyManager/Editor/Google.JarResolver_v1.2.156.dll</HintPath>
     </Reference>
-    <Reference Include="Google.PackageManagerResolver_v1.2.153">
-      <HintPath>D:/UnityGames/Tank Breakthrough/Tank Breakthrough/Assets/ExternalDependencyManager/Editor/Google.PackageManagerResolver_v1.2.153.dll</HintPath>
+    <Reference Include="Google.PackageManagerResolver_v1.2.156">
+      <HintPath>D:/UnityGames/Tank Breakthrough/Tank Breakthrough/Assets/ExternalDependencyManager/Editor/Google.PackageManagerResolver_v1.2.156.dll</HintPath>
     </Reference>
     <Reference Include="Google.VersionHandler">
       <HintPath>D:/UnityGames/Tank Breakthrough/Tank Breakthrough/Assets/ExternalDependencyManager/Editor/Google.VersionHandler.dll</HintPath>
     </Reference>
-    <Reference Include="Google.VersionHandlerImpl_v1.2.153">
-      <HintPath>D:/UnityGames/Tank Breakthrough/Tank Breakthrough/Assets/ExternalDependencyManager/Editor/Google.VersionHandlerImpl_v1.2.153.dll</HintPath>
+    <Reference Include="Google.VersionHandlerImpl_v1.2.156">
+      <HintPath>D:/UnityGames/Tank Breakthrough/Tank Breakthrough/Assets/ExternalDependencyManager/Editor/Google.VersionHandlerImpl_v1.2.156.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.NRefactory">
       <HintPath>D:/UnityGames/Tank Breakthrough/Tank Breakthrough/Library/PackageCache/com.unity.render-pipelines.core@7.3.1/Editor/ShaderGenerator/ICSharpCode.NRefactory.dll</HintPath>
@@ -749,6 +749,14 @@
     <ProjectReference Include="Assembly-CSharp.csproj">
       <Project>{C0D37BC0-FF33-353B-6569-E260BF3A007D}</Project>
       <Name>Assembly-CSharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="GoogleMobileAds.csproj">
+      <Project>{A7EB9301-FB74-B2C3-1A54-BD396D8302D9}</Project>
+      <Name>GoogleMobileAds</Name>
+    </ProjectReference>
+    <ProjectReference Include="GoogleMobileAds.Editor.csproj">
+      <Project>{D5CA17CE-CFEA-385A-9159-359B431FC34C}</Project>
+      <Name>GoogleMobileAds.Editor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

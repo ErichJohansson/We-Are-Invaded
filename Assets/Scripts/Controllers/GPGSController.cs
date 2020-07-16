@@ -29,6 +29,11 @@ public class GPGSController : MonoBehaviour
     {
         try
         {
+            if(Application.platform != RuntimePlatform.Android)
+            {
+                Debug.Log("No GPGS - Current platform is not Android");
+                return;
+            }    
             Social.localUser.Authenticate((bool success) => {
                 if (success)
                 {

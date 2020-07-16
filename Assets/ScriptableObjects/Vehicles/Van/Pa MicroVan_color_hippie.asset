@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 873cb2698ed97a34d9fee2f5cee4195f, type: 3}
+  m_Name: Pa MicroVan_color_hippie
+  m_EditorClassIdentifier: 
+  price: 1500
+  purchased: 0
+  previewClip: {fileID: 7400000, guid: 50286484de18cf142b7ca3f130b53ec0, type: 2}
+  previewSprites:
+  - {fileID: 5167785429200795455, guid: 8474b6dda16e8cc4cbe526aadf6d1447, type: 3}
+  - {fileID: 3578516889645750172, guid: 8474b6dda16e8cc4cbe526aadf6d1447, type: 3}
+  - {fileID: -1082923506476043473, guid: 8474b6dda16e8cc4cbe526aadf6d1447, type: 3}
+  - {fileID: -5241087844033798489, guid: 8474b6dda16e8cc4cbe526aadf6d1447, type: 3}
+  animatorController: {fileID: 9100000, guid: 3fffe6e559321cc4bb444039c4d28c09, type: 2}

@@ -130,6 +130,7 @@
     <Compile Include="Assets\GooglePlayGames\Platforms\TokenClient.cs" />
     <Compile Include="Assets\GooglePlayGames\PluginVersion.cs" />
     <Compile Include="Assets\Scripts\Controllers\AchievementController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\AdController.cs" />
     <Compile Include="Assets\Scripts\Controllers\BossController.cs" />
     <Compile Include="Assets\Scripts\Controllers\CameraShakeController.cs" />
     <Compile Include="Assets\Scripts\Controllers\GPGSController.cs" />
@@ -144,6 +145,11 @@
     <Compile Include="Assets\Scripts\Controllers\VehicleSelectionController.cs" />
     <Compile Include="Assets\Scripts\CustomEventArgs\DieEventArgs.cs" />
     <Compile Include="Assets\Scripts\CustomEventArgs\EnemyStateEventArgs.cs" />
+    <Compile Include="Assets\Scripts\Effects\AudioPlayer.cs" />
+    <Compile Include="Assets\Scripts\Effects\DamagePopup.cs" />
+    <Compile Include="Assets\Scripts\Effects\ExplosionEffect.cs" />
+    <Compile Include="Assets\Scripts\Effects\HitEffectSpawner.cs" />
+    <Compile Include="Assets\Scripts\Effects\SpriteParticleEmitter.cs" />
     <Compile Include="Assets\Scripts\Enemies\Enemy.cs" />
     <Compile Include="Assets\Scripts\Enemies\EnemyGun.cs" />
     <Compile Include="Assets\Scripts\Enemies\EnemyTypes\AreaDamage.cs" />
@@ -196,10 +202,6 @@
     <Compile Include="Assets\Scripts\Units\RemainsComponent.cs" />
     <Compile Include="Assets\Scripts\Units\ScoreComponent.cs" />
     <Compile Include="Assets\Scripts\Units\ShakeTriggerComponent.cs" />
-    <Compile Include="Assets\Scripts\VisualEffects\DamagePopup.cs" />
-    <Compile Include="Assets\Scripts\VisualEffects\ExplosionEffect.cs" />
-    <Compile Include="Assets\Scripts\VisualEffects\HitEffectSpawner.cs" />
-    <Compile Include="Assets\Scripts\VisualEffects\SpriteParticleEmitter.cs" />
     <Compile Include="Assets\SimpleLocalization\Downloader.cs" />
     <Compile Include="Assets\SimpleLocalization\Example.cs" />
     <Compile Include="Assets\SimpleLocalization\LocalizationManager.cs" />
@@ -843,7 +845,16 @@
       <HintPath>D:/UnityGames/Tank Breakthrough/Tank Breakthrough/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup></ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="GoogleMobileAds.csproj">
+      <Project>{A7EB9301-FB74-B2C3-1A54-BD396D8302D9}</Project>
+      <Name>GoogleMobileAds</Name>
+    </ProjectReference>
+    <ProjectReference Include="GoogleMobileAds.Editor.csproj">
+      <Project>{D5CA17CE-CFEA-385A-9159-359B431FC34C}</Project>
+      <Name>GoogleMobileAds.Editor</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
