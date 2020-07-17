@@ -1,19 +1,32 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
+[RequireComponent(typeof(AudioSource))]
 public class AudioPlayer : MonoBehaviour
 {
-    public AudioSource source;
-    public AudioClip clip;
+    public bool useOnUI;
+    public AudioClip[] variedSounds;
 
-    [SerializeField] private bool loop;
+    private AudioSource source;
 
     private void Awake()
     {
-        source.loop = loop;
+        source = GetComponent<AudioSource>();
+        if (useOnUI)
+        {
+            Button b = GetComponent<Button>();
+            b?.onClick.AddListener(Play);
+        }
     }
 
     public void Play()
     {
-        source?.PlayOneShot(clip);
+        if (variedSounds.Length > 0) source.clip = variedSounds[Random.Range(0, variedSounds.Length)];
+        source?.Play();
+    }
+
+    public void Stop()
+    {
+        source?.Stop();
     }
 }

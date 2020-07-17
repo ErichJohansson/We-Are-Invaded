@@ -32,20 +32,20 @@ public class VehicleSelectionController : MonoBehaviour
         PickVehicle();
     }
 
-    public void SelectVehicle(int id)
+    public void SelectVehicle(int id, int colorId)
     {
         if (id >= vehicles.Length)
             return;
         if (GameController.Instance.playerObject != null)
             Destroy(GameController.Instance.playerObject);
-        PickVehicle(id);
+        PickVehicle(id, colorId);
     }
 
     public void SelectVehicle(Vehicle vehicle)
     {
         if (GameController.Instance.playerObject != null)
             Destroy(GameController.Instance.playerObject);
-        PickVehicle(vehicle.id);
+        PickVehicle(vehicle.id, vehicle.selectedColorScheme);
     }
 
     public void PurchaseVehicle(Vehicle vehicle)
@@ -143,7 +143,7 @@ public class VehicleSelectionController : MonoBehaviour
         SetAndSpawnVehicle();
     }
 
-    private void PickVehicle(int id)
+    private void PickVehicle(int id, int colorId)
     {
         SetupScrollSnap();
         for (int i = 0; i < vehicles.Length; i++)
@@ -155,6 +155,7 @@ public class VehicleSelectionController : MonoBehaviour
             if (vehicles[i].vehicle.id == vehicles[id].vehicle.id)
             {
                 SelectedVehicle = vehicles[i].vehicle;
+                SelectedVehicle.selectedColorScheme = colorId;
                 break;
             }
         }

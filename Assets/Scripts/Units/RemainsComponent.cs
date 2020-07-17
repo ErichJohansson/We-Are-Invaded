@@ -19,7 +19,6 @@ public class RemainsComponent : MonoBehaviour
 
     public void OnDeath(object sender, System.EventArgs eventArgs)
     {
-        //Debug.Log("remains");
         CreateRemains();
     }
 

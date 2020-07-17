@@ -9,6 +9,7 @@ public class DeathComponent : MonoBehaviour
 
     public float bloodTrailLength;
     public Animator animator;
+    public AudioPlayer deathSound;
 
     public bool useAnimationToDie;
     private SpriteRenderer sr;
@@ -25,7 +26,6 @@ public class DeathComponent : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         deactivateComponent = GetComponent<DeactivationComponent>();
 
-
         animator = GetComponentInChildren<Animator>();
         if(animator == null) animator = GetComponent<Animator>();
     }
@@ -40,6 +40,7 @@ public class DeathComponent : MonoBehaviour
         if(hitByPlayer) GameController.Instance.PlayerUnit.trailLifetime += bloodTrailLength;
         if (disableSpriteRendererOnDeath && sr != null)
             sr.enabled = false;
+        deathSound?.Play();
         if (useAnimationToDie)
         {
             foreach (BoxCollider2D col in GetComponents<BoxCollider2D>())

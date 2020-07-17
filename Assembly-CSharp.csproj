@@ -140,6 +140,7 @@
     <Compile Include="Assets\Scripts\Controllers\LevelController.cs" />
     <Compile Include="Assets\Scripts\Controllers\ParallaxController.cs" />
     <Compile Include="Assets\Scripts\Controllers\SaveController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\SoundController.cs" />
     <Compile Include="Assets\Scripts\Controllers\TutorialController.cs" />
     <Compile Include="Assets\Scripts\Controllers\UIController.cs" />
     <Compile Include="Assets\Scripts\Controllers\VehicleSelectionController.cs" />

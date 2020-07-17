@@ -229,7 +229,7 @@ public class GameController : MonoBehaviour
             ShowDailyAd = false;
         }
 
-        VehicleSelectionController.Instance.SelectVehicle(gd.selectedTankID);
+        VehicleSelectionController.Instance.SelectVehicle(gd.selectedTankID, gd.tankData[gd.selectedTankID].selectedColorScheme);
         tutorial.TutorialCompleted = gd.tutorialCompleted;
         cutScene.TutorialCompleted = gd.cutSceneCompleted;
         for (int i = 0; i < gd.tankData.Length; i++)

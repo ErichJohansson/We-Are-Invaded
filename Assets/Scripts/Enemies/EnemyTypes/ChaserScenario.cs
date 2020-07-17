@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class ChaserScenario : EnemyBehaviour
 {
+    public AudioPlayer triggerSound;
+
     private Coroutine movement;
     private bool firstPoint = true;
     private float spdKf = 1.2f;
@@ -47,6 +49,7 @@ public class ChaserScenario : EnemyBehaviour
             ThisTransform.localScale = new Vector3(1, 1, 1);
 
         movement = StartCoroutine(MoveTowards(nextPoint, firstPoint ? speed : speed * spdKf));
+        if (firstPoint) triggerSound?.Play();
         firstPoint = false;
     }
 

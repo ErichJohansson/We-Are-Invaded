@@ -20,4 +20,4 @@ MonoBehaviour:
   - {fileID: -3737976854956847860, guid: 47527b984bb69a94db264bd93bafa673, type: 3}
   - {fileID: -7926346316835060414, guid: 47527b984bb69a94db264bd93bafa673, type: 3}
   - {fileID: -954788759116993504, guid: 47527b984bb69a94db264bd93bafa673, type: 3}
-  animatorController: {fileID: 9100000, guid: 4bc2e54f96590d640a38a7b64c0c34e0, type: 2}
+  animatorController: {fileID: 9100000, guid: 9b3a0491e2c65ec45b03c64985c06985, type: 2}

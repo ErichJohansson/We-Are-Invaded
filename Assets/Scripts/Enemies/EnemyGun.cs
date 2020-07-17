@@ -25,6 +25,7 @@ public class EnemyGun : MonoBehaviour
     [Header("Effects")]
     public GameObject groundHitAnimator;
     public Animator unitAnimator;
+    public AudioPlayer gunSound;
 
     [Header("Gun Light settings")]
     public GameObject gunLightSource;
@@ -96,6 +97,7 @@ public class EnemyGun : MonoBehaviour
         StartCoroutine("HitTick");
         StartCoroutine("GunLight");
         groundHitAnimator.SetActive(true);
+        gunSound?.Play();
         while (t < moveTime && !reloading)
         {
             t += Time.deltaTime;
@@ -103,14 +105,15 @@ public class EnemyGun : MonoBehaviour
             groundHitAnimator.transform.position = Vector3.Lerp(fromP.position, toP.position, t / moveTime);
             yield return new WaitForEndOfFrame();
         }
+        gunSound?.Stop();
+        unitAnimator.SetTrigger("idle");
         StopCoroutine("GunLight");
         ShotRoutine = null;
         gunLightSource.SetActive(false);
         StopCoroutine("HitTick");
         if (!noReload) StartCoroutine("Reload");
         else
-        {
-            unitAnimator.SetTrigger("idle");
+        {       
             groundHitAnimator.SetActive(false);
         }
     }

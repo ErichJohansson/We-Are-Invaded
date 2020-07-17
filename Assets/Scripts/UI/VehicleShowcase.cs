@@ -58,6 +58,12 @@ namespace UI
             vehicleName.text = vehicle.name;
             previewClip.clip = vehicle.colorSchemes[vehicle.selectedColorScheme].previewClip;
             previewImage.sprite = vehicle.colorSchemes[vehicle.selectedColorScheme].previewSprites[0];
+            ImageAnimator ia = GetComponentInChildren<ImageAnimator>();
+            if (ia != null)
+            {
+                ia.clip = vehicle.colorSchemes[vehicle.selectedColorScheme].previewClip;
+                ia.sprites = vehicle.colorSchemes[vehicle.selectedColorScheme].previewSprites;
+            }
             vehicleLock.SetActive(!vehicle.purchased);
             damage.value = (float)vehicle.damage / (float)Vehicle.maxDamage;
             health.value = (float)vehicle.health / (float)Vehicle.maxHealth;

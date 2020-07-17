@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using UI;
 
 public class PlayerShooting : MonoBehaviour
 {
@@ -18,6 +17,10 @@ public class PlayerShooting : MonoBehaviour
 
     public float shootingDistance;
     public int magazineCapacity;
+
+    [Header("Sounds")]
+    public AudioPlayer gunSound;
+    public AudioPlayer dryGunSound;
 
     [Header("Gun Light settings")]
     public GameObject gunLightSource;
@@ -72,8 +75,8 @@ public class PlayerShooting : MonoBehaviour
 
     private void PlayerFire()
     {
-        if (Reloading || cooldown || !gameObject.activeSelf || GameController.Instance.PlayerUnit.IsFastTraveling)
-            return;
+        if (Reloading) dryGunSound?.Play();
+        if (Reloading || cooldown || !gameObject.activeSelf || GameController.Instance.PlayerUnit.IsFastTraveling) return;
 
         if(!InfiniteAmmo)
             CurrentAmmo--;
@@ -118,11 +121,10 @@ public class PlayerShooting : MonoBehaviour
 
         StartCoroutine("GunLight");
         List<Collider2D> colliders = new List<Collider2D>(Physics2D.OverlapBoxAll(shootingPoint.transform.position, splashArea.size, 0, layerMask));
-        
+        gunSound?.Play();
         if (colliders.Count == 0)
             return;
         colliders = colliders.OrderBy(x => rnd.Next()).ToList();
-
         switch (gunType)
         {
             case GunType.Shotgun:
