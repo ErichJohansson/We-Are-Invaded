@@ -18,12 +18,14 @@ public class Follower : MonoBehaviour
     private bool isFollowing;
     private Vector3 startPos = new Vector3(-200, 0, 0);
     private bool wokeUp;
+    private AudioPlayer roar;
 
     public static Follower Instance { get; private set; }
 
     private void Awake()
     {
         Instance = this;
+        roar = GetComponent<AudioPlayer>();
     }
 
     public void StartFollowing()
@@ -48,13 +50,17 @@ public class Follower : MonoBehaviour
     private void Update()
     {
         if (GameController.Instance.PlayerUnit == null || GameController.Instance.Pause || !wokeUp)
+        {
+            roar?.Stop();
             return;
+        }
 
         if (isFollowing)
         {
             distanceToPlayer = GameController.Instance.PlayerUnit.gameObject.transform.position.x - gameObject.transform.position.x;
             if (distanceToPlayer > distanceToStopFollowing)
             {
+                roar?.Stop();
                 StopCoroutine("DangerSign");
                 dangerSign.SetActive(false);
                 isFollowing = false;
@@ -76,12 +82,13 @@ public class Follower : MonoBehaviour
         PlayerUnit pu = collision.GetComponentInParent<PlayerUnit>();
         if (pu != null)
         {
-            pu.ReceiveDamage(99999, startPos, false);
+            pu.ReceiveDamage(999, startPos, false);
         }
     }
 
     private IEnumerator DangerSign()
     {
+        roar?.Play();
         while(true)
         {
             dangerSign.SetActive(!dangerSign.activeSelf);

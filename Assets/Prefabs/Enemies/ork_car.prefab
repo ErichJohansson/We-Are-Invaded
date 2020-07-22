@@ -59,6 +59,7 @@ MonoBehaviour:
   alwaysReceiveFullDamage: 0
   enemyShooting: {fileID: 3851277973938510322}
   hitAnimator: {fileID: 3851277974615193014}
+  hitSound: {fileID: 0}
   thisTransform: {fileID: 0}
   animator: {fileID: 0}
 --- !u!114 &3851277973938510322
@@ -717,7 +718,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: c8a8e91d9fd8c5c499c50c5dd52a2edb, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.575
   m_Pitch: 1
   Loop: 0
   Mute: 0

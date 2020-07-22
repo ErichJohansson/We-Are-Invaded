@@ -18,7 +18,6 @@ public class BossController : MonoBehaviour
         Instance = this;
         op = FindObjectOfType<ObjectPooler>();
         ui = UIController.Instance;
-        StartCoroutine("BossTimer");
     }
 
     private IEnumerator BossTimer()

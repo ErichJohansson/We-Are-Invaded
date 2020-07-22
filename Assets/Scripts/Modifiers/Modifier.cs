@@ -8,6 +8,8 @@ public class Modifier : MonoBehaviour
     public GameObject visualEffect;
     public Sprite icon;
     public Sprite effectImage;
+    public AudioPlayer pickUpSound;
+    public float soundDelay;
     public float effectTimeScale;
     private bool isIndependent;
 
@@ -82,6 +84,7 @@ public class Modifier : MonoBehaviour
 
     protected void DisableAppereance()
     {
+        pickUpSound?.Play(soundDelay);
         GetComponent<SpriteRenderer>().enabled = false;
         foreach (Collider2D col in GetComponents<Collider2D>())
             col.enabled = false;

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UI;
+﻿using UI;
 using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +7,7 @@ public class VehicleSelectionController : MonoBehaviour
 {
     public VehicleShowcase[] vehicles;
     public GameObject selectVehicleButton;
-
+    public AudioPlayer successSound;
     private GameObject playerObject;
     [SerializeField] private ScrollSnap scrollSnap;
 
@@ -73,7 +72,7 @@ public class VehicleSelectionController : MonoBehaviour
                 SetAndSpawnVehicle();
             AchievementController.Instance.UnlockAchievement(GPGSIds.achievement_level_up);
         }
-
+        successSound?.Play();
         FinishSelection();
     }
 
@@ -99,6 +98,7 @@ public class VehicleSelectionController : MonoBehaviour
         {
             GameController.Instance.cash -= vehicle.colorSchemes[colorShemeID].price;
             vehicle.colorSchemes[colorShemeID].purchased = true;
+            successSound?.Play();
             AchievementController.Instance.UnlockAchievement(GPGSIds.achievement_new_look);
         }
         if (SelectedVehicle.id == vehicle.id)
@@ -174,6 +174,10 @@ public class VehicleSelectionController : MonoBehaviour
         {
             ia.clip = SelectedVehicle.colorSchemes[SelectedVehicle.selectedColorScheme].previewClip;
             ia.sprites = SelectedVehicle.colorSchemes[SelectedVehicle.selectedColorScheme].previewSprites;
+        }
+        foreach (var vehicleShowcase in vehicles)
+        {
+            vehicleShowcase.ShowVehicle();
         }
         GameController.Instance.SaveGame();
     }

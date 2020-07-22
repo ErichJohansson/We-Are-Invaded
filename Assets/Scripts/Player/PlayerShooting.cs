@@ -21,13 +21,13 @@ public class PlayerShooting : MonoBehaviour
     [Header("Sounds")]
     public AudioPlayer gunSound;
     public AudioPlayer dryGunSound;
+    public AudioPlayer reloadSound;
 
     [Header("Gun Light settings")]
     public GameObject gunLightSource;
     [Range(0f, 1f)] public float gunLightLength;
 
     [HideInInspector] public Animator mainAnimator;
-    private ParticleSystem particleSystem;
 
     private int defaultDmg;
     private int baseDmg;
@@ -54,7 +54,6 @@ public class PlayerShooting : MonoBehaviour
     {
         rnd = new System.Random();
         mainAnimator = GetComponent<Animator>();
-        particleSystem = GetComponentInChildren<ParticleSystem>();
         defaultDmg = BaseDamage;
     }
 
@@ -112,10 +111,7 @@ public class PlayerShooting : MonoBehaviour
 
     private void Fire()
     {
-        if(mainAnimator != null)
-            mainAnimator.SetTrigger("shotStart");
-        if (particleSystem != null)
-            particleSystem.Play();
+        mainAnimator?.SetTrigger("shotStart");
         if (defaultDmg < baseDmg)
             CameraShakeController.Instance.ShakeCamera(0.2f, 2, 1);
 
@@ -182,6 +178,7 @@ public class PlayerShooting : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         Reloading = false;
+        reloadSound?.Play();
         CurrentAmmo = magazineCapacity;
         UIController.Instance.reloadBgrPlain.SetActive(false);
         UIController.Instance.UpdateReloadSlider(0f);

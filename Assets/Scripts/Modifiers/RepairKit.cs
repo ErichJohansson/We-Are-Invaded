@@ -14,7 +14,7 @@ public class RepairKit : Modifier
             GameController.Instance.AddHealthRestored(restoreAmount);
             yield return TriggerNotifier();
 
-            Destroy(gameObject);
+            Destroy(gameObject, 3f);
         }
         else
             yield return new WaitForEndOfFrame();
@@ -29,7 +29,7 @@ public class RepairKit : Modifier
             if (!Activated)
                 StartCoroutine(Activate());
             else
-                Destroy(gameObject);
+                Destroy(gameObject, 3f);
         }
     }
 }

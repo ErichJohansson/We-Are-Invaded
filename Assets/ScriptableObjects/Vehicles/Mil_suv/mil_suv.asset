@@ -22,12 +22,12 @@ MonoBehaviour:
   selectedColorScheme: 0
   currentLevel: 0
   name: HMMBEE
-  health: 55
+  health: 60
   fireRate: 0.2
   reloadTime: 8
-  damage: 12
+  damage: 15
   magazineCapacity: 30
-  speed: 10
+  speed: 11
   turning: 0.55
   price: 8000
   purchased: 0

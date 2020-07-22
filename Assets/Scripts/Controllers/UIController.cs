@@ -25,6 +25,7 @@ public class UIController : MonoBehaviour
     public PauseScreen pauseScreen;
 
     public GameObject rewardAdButton;
+    public GameObject endGameAdButton;
 
     [Header("Damage Effect")]
     public Image damageEffect;
@@ -202,7 +203,7 @@ public class UIController : MonoBehaviour
 
     public void OpenStorePage()
     {
-        Application.OpenURL("market://details?id=" + Application.productName);
+        Application.OpenURL("market://details?id=" + Application.identifier);
     }
 
     private IEnumerator DamageEffect()

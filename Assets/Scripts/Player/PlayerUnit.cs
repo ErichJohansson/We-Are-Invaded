@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using UI;
 using UnityEngine;
 
 [System.Serializable]
@@ -16,10 +15,18 @@ public class PlayerUnit : DamageRecieverComponent
 
     public float totalSpeedBoostLength;
     public float currentSpeedBoostLength;
-    public bool speedingUp;
 
     public Collider2D frontCollider;
     public Collider2D sideCollider;
+
+    public ParticleSystem smoke;
+
+    [Header("Sounds")]
+    public AudioPlayer engineStart;
+    public AudioPlayer engineSound;
+    public AudioPlayer tiresSound;
+    public AudioPlayer damageSound;
+    public AudioPlayer deathSound;
 
     [Header("Trail")]
     public TrailRenderer[] trails;
@@ -28,6 +35,7 @@ public class PlayerUnit : DamageRecieverComponent
 
     private Vector3 movingTo = Vector3.zero;
     private SpriteRenderer sr;
+    private bool gameStarted;
 
     private InfiniteAmmo infiniteAmmo;
     public InfiniteAmmo InfiniteAmmo { get { return infiniteAmmo; } set { infiniteAmmo = value; } }
@@ -46,6 +54,18 @@ public class PlayerUnit : DamageRecieverComponent
         } 
     }
     public bool IsFastTraveling { get; private set; }
+    private bool speedingUp;
+    public bool SpeedingUp { 
+        get { return speedingUp; } 
+        set { 
+            speedingUp = value;
+            if (value) 
+            {
+                smoke?.Play();
+                engineSound?.Play();
+            }
+        } 
+    }
 
     private Vector3 start;
     private Vector3 finish;
@@ -54,7 +74,9 @@ public class PlayerUnit : DamageRecieverComponent
     private Animator animator;
     private bool turningRight;
     private bool turningLeft;
+    private bool startedTurning;
 
+    private PhysicalCollisionHandler physicalCollision;
     private GameObject thisGameObject;
     private Transform thisTransform;
 
@@ -73,6 +95,7 @@ public class PlayerUnit : DamageRecieverComponent
 
         sr = GetComponent<SpriteRenderer>();
         shooting = GetComponent<PlayerShooting>();
+        physicalCollision = GetComponentInChildren<PhysicalCollisionHandler>();
     }
 
     void Start()
@@ -118,6 +141,7 @@ public class PlayerUnit : DamageRecieverComponent
         if (speedBoost != null)
             speedBoost.ForceDeactivation();
 
+        gameStarted = false;
         currentSpeed = 0;
         currentSpeedBoostLength = 0;
         shooting.Restart();
@@ -203,6 +227,12 @@ public class PlayerUnit : DamageRecieverComponent
     #region Movement
     public void MoveTowards(Vector3 moveTo)
     {
+        if (!startedTurning && (turningLeft || turningRight) && gameStarted)
+        {
+            startedTurning = true;
+            if (Mathf.Abs(thisTransform.position.y - moveTo.y) > 1f) tiresSound?.Play();
+        }
+
         movingTo = moveTo;
 
         if(thisTransform.position.y > movingTo.y)
@@ -225,7 +255,10 @@ public class PlayerUnit : DamageRecieverComponent
         Vector3 newPos = Vector3.MoveTowards(new Vector3(0, thisTransform.position.y), new Vector3(0, movingTo.y), currentSpeed * Time.deltaTime * turnRate);
 
         if (newPos.y >0.78f || (newPos.y < -4.5f && newPos.y - thisTransform.position.y < 0))
+        {
+            physicalCollision?.SlowDown();
             return;
+        }
 
         thisTransform.position = new Vector3(thisTransform.position.x, newPos.y, newPos.y / 10f);
     }
@@ -234,6 +267,7 @@ public class PlayerUnit : DamageRecieverComponent
     {
         turningRight = false;
         turningLeft = false;
+        startedTurning = false;
         animator.SetBool("turningRight", turningRight);
         animator.SetBool("turningLeft", turningLeft);
         animator.SetTrigger("drivingStraight");
@@ -241,19 +275,21 @@ public class PlayerUnit : DamageRecieverComponent
 
     private void MoveForward()
     {
-        if (speedingUp)
+        if (!gameStarted)
         {
-            if (currentSpeedBoostLength > 0)
-                SpeedUp();
-            else
-                speedingUp = false;
+            engineStart?.Play();
+            gameStarted = true;
+        }
+        if (SpeedingUp)
+        {
+            SpeedUp();
         }
         else if (currentSpeed < maxSpeed)
             currentSpeed += Time.deltaTime * speedUpRate / 5;
-        else if (!speedingUp)
+        else if (!SpeedingUp)
             currentSpeed -= Time.deltaTime * speedUpRate;
 
-        if (!speedingUp && currentSpeedBoostLength < totalSpeedBoostLength)
+        if (!SpeedingUp && currentSpeedBoostLength < totalSpeedBoostLength)
         {
             currentSpeedBoostLength += Time.deltaTime * 3;
         }
@@ -269,10 +305,7 @@ public class PlayerUnit : DamageRecieverComponent
 
     public void SpeedUp()
     {
-        if (currentSpeed < 3 * maxSpeed)
-        {
-            currentSpeed += Time.fixedDeltaTime * speedUpRate;
-        }
+        if (currentSpeed < 3 * maxSpeed) currentSpeed += Time.fixedDeltaTime * speedUpRate;
     }
 
     private IEnumerator FastTraveling(float fastTravelingTime)
@@ -296,7 +329,7 @@ public class PlayerUnit : DamageRecieverComponent
         Obstacle obs = col.gameObject.GetComponent<Obstacle>();
         if (obs != null)
         {
-            currentSpeed -= speedingUp ? 0 : currentSpeed - obs.slowAmount >= 0 ? obs.slowAmount : currentSpeed;
+            currentSpeed -= SpeedingUp ? 0 : currentSpeed - obs.slowAmount >= 0 ? obs.slowAmount : currentSpeed;
             if (obs.hardness > hardness)
                 ReceiveDamage(obs.hardness - hardness, thisTransform.position, false);
 
@@ -322,11 +355,13 @@ public class PlayerUnit : DamageRecieverComponent
         CurrentHP -= damage;
         if (CurrentHP <= 0)
         {
+            deathSound?.Play();
             animator.SetTrigger("die");
             GameOver();
         }
         else
         {
+            damageSound?.Play();
             UIController.Instance.currentDamageEffectLength = UIController.Instance.damageEffectLength;
         }
         UIController.Instance.UpdateHitPoints(this, true);

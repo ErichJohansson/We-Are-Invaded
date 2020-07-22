@@ -56,6 +56,7 @@ public class GameOverScreen : MonoBehaviour
 
     public void BackToMainMenu()
     {
+        GameController.Instance.mainMenuMusic.Play();
         UIController.Instance.loadEffect.gameObject.SetActive(false);
         panel.HidePanel();
         UIController.Instance.startGameScreen.panel.ShowPanel();
@@ -70,10 +71,27 @@ public class GameOverScreen : MonoBehaviour
         StartCoroutine(RestartRoutine());
     }
 
+    public void PartialRestart()
+    {
+        StartCoroutine(PartialRestartRoutine());
+    }
+
     private IEnumerator RestartRoutine()
     {
         pooler.Restart();
         GameController.Instance.StartGame(true);
+        yield return new WaitForSecondsRealtime(0.5f);
+        UIController.Instance.ChangeLoadEffectColor(new Color(0, 0, 0, 1f));
+        UIController.Instance.ActivateLoadEffect(1f, action: () => { UIController.Instance.loadEffect.gameObject.SetActive(false); });
+        GameController.Instance.UpdateCash();
+        GameController.Instance.SetPause(!panel.isShown);
+        UIController.Instance.HidePanel(panel);
+    }
+
+    private IEnumerator PartialRestartRoutine()
+    {
+        pooler.Restart();
+        GameController.Instance.PartialRestart(true);
         yield return new WaitForSecondsRealtime(0.5f);
         UIController.Instance.ChangeLoadEffectColor(new Color(0, 0, 0, 1f));
         UIController.Instance.ActivateLoadEffect(1f, action: () => { UIController.Instance.loadEffect.gameObject.SetActive(false); });

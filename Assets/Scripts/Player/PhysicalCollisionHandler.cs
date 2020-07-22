@@ -2,6 +2,9 @@
 
 public class PhysicalCollisionHandler : MonoBehaviour
 {
+    public AudioPlayer bumpSound;
+    public AudioPlayer scratchSound;
+
     private PlayerUnit parent;
     private float speedReduction;
     private float speedThreshold;
@@ -17,6 +20,22 @@ public class PhysicalCollisionHandler : MonoBehaviour
     {
         if (parent.currentSpeed <= speedThreshold)
             return;
+        SlowDown();
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        scratchSound?.Stop();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        bumpSound?.Play();
+        scratchSound?.Play();
+    }
+
+    public void SlowDown()
+    {
         parent.currentSpeed -= speedReduction;
     }
 }

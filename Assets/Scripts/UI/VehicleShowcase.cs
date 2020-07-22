@@ -45,7 +45,7 @@ namespace UI
 
         private void Awake()
         {
-            colorShowcases = GetComponentsInChildren<ColorShowcase>();
+            if (colorShowcases.Length == 0) colorShowcases = GetComponentsInChildren<ColorShowcase>();
             vehicle = Instantiate(vehicle);
             for (int i = 0; i < vehicle.colorSchemes.Length; i++)
             {
@@ -72,6 +72,7 @@ namespace UI
             reloadTime.value = Vehicle.minReload / vehicle.reloadTime;
 
             price.text = vehicle.purchased ? vehicle.currentLevel + 1 < vehicle.upgradeLevels.Length ? vehicle.upgradeLevels[vehicle.currentLevel + 1].upgradeCost.ToString() : "" : vehicle.price.ToString();
+            purchaseButton.gameObject.SetActive(vehicle.currentLevel + 1 != vehicle.upgradeLevels.Length);
 
             if (!vehicle.purchased)
                 price.color = vehicle.price <= GameController.Instance.cash ? enoughMoneyColor : notEnoughMoneyColor;
@@ -80,6 +81,7 @@ namespace UI
 
             Vehicle selectedVehicle = VehicleSelectionController.Instance.SelectedVehicle;
             if (selectedVehicle != null && selectedVehicle.id == vehicle.id) selectVehicleButton.interactable = vehicle.purchased;
+            if (colorShowcases.Length == 0) colorShowcases = GetComponentsInChildren<ColorShowcase>();
             foreach (ColorShowcase cs in colorShowcases)
                 cs.ShowScheme();
             if (VehicleSelectionController.Instance.SelectedVehicle != null)

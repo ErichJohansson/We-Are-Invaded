@@ -10,6 +10,8 @@ public class GameController : MonoBehaviour
     public ParallaxController[] backgrounds;
     public int cash;
 
+    public AudioPlayer mainMenuMusic;
+
     [Header("Tutorial")]
     public TutorialController tutorial;
     public TutorialController cutScene;
@@ -75,18 +77,51 @@ public class GameController : MonoBehaviour
 
         Pause = true;
         gameObject.AddComponent<InputController>();
+        mainMenuMusic?.Play();
     }
 
     public void StartGame(bool blockLoadEffect = false)
     {
-        StartCoroutine(StartRoutine(blockLoadEffect));
+        mainMenuMusic?.Stop();
+        StartCoroutine(FullRestartRoutine(blockLoadEffect));
     }
 
-    private IEnumerator StartRoutine(bool blockLoadEffect = false)
+    public void PartialRestart(bool blockLoadEffect = false)
+    {
+        StartCoroutine(PartialRestartRoutine(blockLoadEffect));
+    }
+
+    private IEnumerator PartialRestartRoutine(bool blockLoadEffect = false)
     {
         OnRestart(new EventArgs());
+        BossController.Instance.Restart();
+        if (!blockLoadEffect)
+        {
+            UIController.Instance.ChangeLoadEffectColor(new Color(0, 0, 0, 1f));
+            UIController.Instance.loadEffect.gameObject.SetActive(true);
+        }
+        if (!LevelController.Instance.generated) LevelController.Instance.GenerateWorld();
+        else LevelController.Instance.RegenerateLevel();
+        // restarts player
+        if (PlayerUnit != null) PlayerUnit.Restart();
+
+        Follower.Instance.Restart();
+        BossController.Instance.Restart();
+
+        yield return new WaitForSecondsRealtime(0.5f);
+        if (!blockLoadEffect)
+        {
+            UIController.Instance.ActivateLoadEffect(1f);
+        }
+    }
+
+    private IEnumerator FullRestartRoutine(bool blockLoadEffect = false)
+    {
+        OnRestart(new EventArgs());
+        BossController.Instance.Restart();
         AdController.Instance.IncreaseCounter();
         AdController.Instance.RequestInterstitial();
+        AdController.Instance.RequestEndGameRewardedAd();
         if (!blockLoadEffect)
         {
             UIController.Instance.ChangeLoadEffectColor(new Color(0, 0, 0, 1f));
@@ -133,8 +168,10 @@ public class GameController : MonoBehaviour
     #region Fire and Speed Up
     public void SpeedUp(bool state)
     {
-        if (PlayerUnit != null)
-            PlayerUnit.speedingUp = state;
+        if (PlayerUnit != null)     
+        {
+            PlayerUnit.SpeedingUp = state;
+        }
         else
             Debug.LogError("playerUnit is NULL");
     }
@@ -188,6 +225,7 @@ public class GameController : MonoBehaviour
             Debug.Log("creating default save");
             cash = initialCash;
 
+            initialVehicle = Instantiate(initialVehicle);
             initialVehicle.currentLevel = 0;
             initialVehicle.purchased = true;
             initialVehicle.UpdateStats();
@@ -199,7 +237,7 @@ public class GameController : MonoBehaviour
                 vhcl.ShowVehicle();
 
             UIController.Instance.rewardAdButton.SetActive(true);
-            AdController.Instance.RequestRewardAd();
+            AdController.Instance.RequestDailyRewardedAd();
             VehicleSelectionController.Instance.SelectVehicle(initialVehicle);
             UpdateCash();
             SaveGame();
@@ -215,6 +253,7 @@ public class GameController : MonoBehaviour
         {
             AdWatchedToday = false;
             ShowDailyAd = true;
+            ReviewSuggestedToday = gd.reviewSuggestedToday;
         }
         else if ((gd.lastLaunch.DayOfYear - DateTime.Now.DayOfYear) != 0)
         {
@@ -229,7 +268,6 @@ public class GameController : MonoBehaviour
             ShowDailyAd = false;
         }
 
-        VehicleSelectionController.Instance.SelectVehicle(gd.selectedTankID, gd.tankData[gd.selectedTankID].selectedColorScheme);
         tutorial.TutorialCompleted = gd.tutorialCompleted;
         cutScene.TutorialCompleted = gd.cutSceneCompleted;
         for (int i = 0; i < gd.tankData.Length; i++)
@@ -239,8 +277,9 @@ public class GameController : MonoBehaviour
 
             foreach (VehicleShowcase vhcl in VehicleSelectionController.Instance.vehicles)
             {
-                if(vhcl.vehicle.id == gd.tankData[i].id)
+                if (vhcl.vehicle.id == gd.tankData[i].id) 
                 {
+                    vhcl.vehicle = Instantiate(vhcl.vehicle);
                     vhcl.vehicle.UpdateStats(gd.tankData[i].currentLevel, gd.tankData[i].purchased);
                     vhcl.vehicle.selectedColorScheme = gd.tankData[i].selectedColorScheme;
                     if (gd.tankData[i].colorShemesPurchaseState != null)
@@ -249,10 +288,12 @@ public class GameController : MonoBehaviour
                         {
                             try
                             {
+                                vhcl.vehicle.colorSchemes[j] = Instantiate(vhcl.vehicle.colorSchemes[j]);
                                 vhcl.vehicle.colorSchemes[j].purchased = gd.tankData[i].colorShemesPurchaseState[j];
                             }
                             catch (IndexOutOfRangeException)
                             {
+                                vhcl.vehicle.colorSchemes[j] = Instantiate(vhcl.vehicle.colorSchemes[j]);
                                 vhcl.vehicle.colorSchemes[j].purchased = false;
                             }
                         }
@@ -262,11 +303,10 @@ public class GameController : MonoBehaviour
                 }
             }
         }
-
-        if (ShowDailyAd)
+        VehicleSelectionController.Instance.SelectVehicle(gd.selectedTankID, gd.tankData[gd.selectedTankID].selectedColorScheme);
+        if (ShowDailyAd && Application.internetReachability != NetworkReachability.NotReachable)
         {
-            UIController.Instance.rewardAdButton.SetActive(true);
-            AdController.Instance.RequestRewardAd();
+            AdController.Instance.RequestDailyRewardedAd();
         }
 
         UpdateCash();

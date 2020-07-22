@@ -9,6 +9,8 @@ public class AudioPlayer : MonoBehaviour
 
     private AudioSource source;
 
+    public AudioClip Clip { get { return source?.clip; } }
+
     private void Awake()
     {
         source = GetComponent<AudioSource>();
@@ -23,6 +25,11 @@ public class AudioPlayer : MonoBehaviour
     {
         if (variedSounds.Length > 0) source.clip = variedSounds[Random.Range(0, variedSounds.Length)];
         source?.Play();
+    }
+
+    public void Play(float delay)
+    {
+        source?.PlayDelayed(delay);
     }
 
     public void Stop()

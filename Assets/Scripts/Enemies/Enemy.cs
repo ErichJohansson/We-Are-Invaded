@@ -7,6 +7,7 @@ public class Enemy : DamageRecieverComponent
 {
     public EnemyGun enemyShooting;
     public Animator hitAnimator;
+    public AudioPlayer hitSound;
     [HideInInspector] public Transform thisTransform;
 
     private BoxCollider2D collider;
@@ -73,7 +74,10 @@ public class Enemy : DamageRecieverComponent
             OnDeath(new DieEventArgs(hitByPlayer));
         }
         else if (hitAnimator != null)
+        {
+            hitSound?.Play();
             StartCoroutine("AnimationDelay");
+        }
     }
 
     private IEnumerator AnimationDelay()
