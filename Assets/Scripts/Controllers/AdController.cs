@@ -27,7 +27,7 @@ public class AdController : MonoBehaviour
         }
 
 #if UNITY_ANDROID
-        string adUnitId = "ca-app-pub-3940256099942544/1033173712";
+        string adUnitId = "ca-app-pub-3711651415330507/1364874444";
 #else
             string adUnitId = "unexpected_platform";
 #endif
@@ -65,7 +65,7 @@ public class AdController : MonoBehaviour
     public void RequestDailyRewardedAd()
     {
 #if UNITY_ANDROID
-        string adUnitId = "ca-app-pub-3940256099942544/5224354917";
+        string adUnitId = "ca-app-pub-3711651415330507/4785733377";
 #else
             string adUnitId = "unexpected_platform";
 #endif
@@ -115,7 +115,7 @@ public class AdController : MonoBehaviour
     public void RequestEndGameRewardedAd()
     {
 #if UNITY_ANDROID
-        string adUnitId = "ca-app-pub-3940256099942544/5224354917";
+        string adUnitId = "ca-app-pub-3711651415330507/7926616624";
 #else
             string adUnitId = "unexpected_platform";
 #endif

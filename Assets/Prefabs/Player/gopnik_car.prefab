@@ -6456,7 +6456,6 @@ GameObject:
   - component: {fileID: 8381133733548462957}
   - component: {fileID: 8381133733548462956}
   - component: {fileID: -6715043946978430695}
-  - component: {fileID: -2179076262080239063}
   m_Layer: 16
   m_Name: gopnik_car
   m_TagString: Untagged
@@ -6612,7 +6611,7 @@ MonoBehaviour:
   engineStart: {fileID: 8970790456310751334}
   engineSound: {fileID: 7119797453176387948}
   tiresSound: {fileID: 7235514149846964386}
-  damageSound: {fileID: -2179076262080239063}
+  damageSound: {fileID: 0}
   deathSound: {fileID: 4545439876852106167}
   trails:
   - {fileID: 5273550169456856674}
@@ -6660,7 +6659,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 0ab308f9c7b45d941a0552a5808a43a2, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.21
   m_Pitch: 1
   Loop: 0
@@ -6745,20 +6744,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &-2179076262080239063
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8381133733548462959}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e8e860dcba049743ab1294289e8a05d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  useOnUI: 0
-  variedSounds: []
 --- !u!1 &8381133733744391745
 GameObject:
   m_ObjectHideFlags: 0

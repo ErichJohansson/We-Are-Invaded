@@ -95,6 +95,7 @@ public class GameController : MonoBehaviour
     {
         OnRestart(new EventArgs());
         BossController.Instance.Restart();
+        UIController.Instance.gameOverScreen.restartButton.SetActive(false);
         if (!blockLoadEffect)
         {
             UIController.Instance.ChangeLoadEffectColor(new Color(0, 0, 0, 1f));
@@ -153,7 +154,7 @@ public class GameController : MonoBehaviour
     public void UpdateCash()
     {
         cash += MoneyEarned;
-        foreach (VehicleShowcase vhcl in VehicleSelectionController.Instance.vehicles)
+        foreach (VehicleShowcase vhcl in VehicleSelectionController.Instance.vehicleShowcases)
             vhcl.ShowVehicle();
         MoneyEarned = 0;
         UIController.Instance.UpdateCash();
@@ -194,21 +195,21 @@ public class GameController : MonoBehaviour
         gd.reviewSuggestedToday = ReviewSuggestedToday; 
         gd.cash = cash;
         gd.selectedTankID = PlayerUnit == null ? 0 : PlayerUnit.ID;
-        gd.tankData = new TankData[VehicleSelectionController.Instance.vehicles.Length];
+        gd.tankData = new TankData[VehicleSelectionController.Instance.vehicleShowcases.Length];
         gd.tutorialCompleted = tutorial.TutorialCompleted;
         gd.cutSceneCompleted = cutScene.TutorialCompleted;
-        for (int i = 0; i < VehicleSelectionController.Instance.vehicles.Length; i++)
+        for (int i = 0; i < VehicleSelectionController.Instance.vehicleShowcases.Length; i++)
         {
             gd.tankData[i] = new TankData();
-            gd.tankData[i].selectedColorScheme = VehicleSelectionController.Instance.vehicles[i].vehicle.selectedColorScheme;
-            gd.tankData[i].id = VehicleSelectionController.Instance.vehicles[i].vehicle.id;
-            gd.tankData[i].purchased = VehicleSelectionController.Instance.vehicles[i].vehicle.purchased;
-            gd.tankData[i].currentLevel = VehicleSelectionController.Instance.vehicles[i].vehicle.currentLevel;
-            if (VehicleSelectionController.Instance.vehicles[i].vehicle.colorSchemes != null)
-                gd.tankData[i].colorShemesPurchaseState = new bool[VehicleSelectionController.Instance.vehicles[i].vehicle.colorSchemes.Length];
+            gd.tankData[i].selectedColorScheme = VehicleSelectionController.Instance.vehicleShowcases[i].vehicle.selectedColorScheme;
+            gd.tankData[i].id = VehicleSelectionController.Instance.vehicleShowcases[i].vehicle.id;
+            gd.tankData[i].purchased = VehicleSelectionController.Instance.vehicleShowcases[i].vehicle.purchased;
+            gd.tankData[i].currentLevel = VehicleSelectionController.Instance.vehicleShowcases[i].vehicle.currentLevel;
+            if (VehicleSelectionController.Instance.vehicleShowcases[i].vehicle.colorSchemes != null)
+                gd.tankData[i].colorShemesPurchaseState = new bool[VehicleSelectionController.Instance.vehicleShowcases[i].vehicle.colorSchemes.Length];
             for (int j = 0; j < gd.tankData[i].colorShemesPurchaseState.Length; j++)
             {
-                gd.tankData[i].colorShemesPurchaseState[j] = VehicleSelectionController.Instance.vehicles[i].vehicle.colorSchemes[j].purchased;
+                gd.tankData[i].colorShemesPurchaseState[j] = VehicleSelectionController.Instance.vehicleShowcases[i].vehicle.colorSchemes[j].purchased;
             }
         }
         SaveController.Instance.SaveGame(gd);
@@ -233,7 +234,7 @@ public class GameController : MonoBehaviour
             AdWatchedToday = false;
             ShowDailyAd = true;
 
-            foreach (VehicleShowcase vhcl in VehicleSelectionController.Instance.vehicles)
+            foreach (VehicleShowcase vhcl in VehicleSelectionController.Instance.vehicleShowcases)
                 vhcl.ShowVehicle();
 
             UIController.Instance.rewardAdButton.SetActive(true);
@@ -275,7 +276,7 @@ public class GameController : MonoBehaviour
             if (gd.tankData[i] == null)
                 continue;
 
-            foreach (VehicleShowcase vhcl in VehicleSelectionController.Instance.vehicles)
+            foreach (VehicleShowcase vhcl in VehicleSelectionController.Instance.vehicleShowcases)
             {
                 if (vhcl.vehicle.id == gd.tankData[i].id) 
                 {

@@ -333,12 +333,12 @@ public class PlayerUnit : DamageRecieverComponent
             if (obs.hardness > hardness)
                 ReceiveDamage(obs.hardness - hardness, thisTransform.position, false);
 
-            if(obs.hardness < 9999)
+            if (obs.hardness < 9999)
             {
                 if (trailRoutine == null)
                     trailRoutine = StartCoroutine("TrailLifetime");
                 if (thisTransform.position.x > obs.transform.position.x && obs.dealDamageOnDeath)
-                    ReceiveDamage(Random.Range(2, 5), thisTransform.position, false);
+                    ReceiveDamage(speedingUp ? Random.Range(2, 4) : Random.Range(4, 6), thisTransform.position, false);
                 obs.OnDeath(new Assets.Scripts.CustomEventArgs.DieEventArgs(true));
             }
 

@@ -21,7 +21,7 @@ MonoBehaviour:
   id: 2
   selectedColorScheme: 0
   currentLevel: 0
-  name: HMMBEE
+  name: Humvee
   health: 60
   fireRate: 0.2
   reloadTime: 8
@@ -29,22 +29,22 @@ MonoBehaviour:
   magazineCapacity: 30
   speed: 11
   turning: 0.55
-  price: 8000
+  price: 6000
   purchased: 0
   upgradeLevels:
-  - upgradeCost: 3000
+  - upgradeCost: 2000
     damage: 15
     health: 60
     reload: 8
     speed: 11
     turning: 0.55
-  - upgradeCost: 3500
+  - upgradeCost: 2500
     damage: 18
     health: 65
     reload: 7
     speed: 12
     turning: 0.55
-  - upgradeCost: 4000
+  - upgradeCost: 3000
     damage: 20
     health: 70
     reload: 4

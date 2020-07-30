@@ -29,10 +29,10 @@ MonoBehaviour:
   magazineCapacity: 15
   speed: 4.9
   turning: 0.63
-  price: 2000
+  price: 2500
   purchased: 0
   upgradeLevels:
-  - upgradeCost: 750
+  - upgradeCost: 1000
     damage: 11
     health: 40
     reload: 3.8

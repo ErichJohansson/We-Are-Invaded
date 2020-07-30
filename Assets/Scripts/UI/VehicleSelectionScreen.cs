@@ -16,6 +16,12 @@ namespace UI
         public void BackToMainMenu()
         {
             panel.HidePanel();
+            for (int i = 0; i < VehicleSelectionController.Instance.vehicleShowcases.Length; i++)
+            {
+                VehicleSelectionController.Instance.vehicleShowcases[i].question.SetActive(false);
+                VehicleSelectionController.Instance.vehicleShowcases[i].purchaseButton.gameObject.SetActive(true);
+                VehicleSelectionController.Instance.vehicleShowcases[i].priceTip.gameObject.SetActive(true);
+            }
             UIController.Instance.startGameScreen.panel.ShowPanel();
         }
 

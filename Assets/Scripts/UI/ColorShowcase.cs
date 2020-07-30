@@ -20,6 +20,16 @@ namespace UI
         public Button yesButton;
         public Button noButton;
 
+        private void Awake()
+        {
+            VehicleSelectionController.Instance.scrollSnap.PropertyChanged += OnVehicleViewed;
+        }
+
+        private void OnVehicleViewed(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            No();
+        }
+
         public void ShowScheme()
         {
             priceTag.text = showcase.vehicle.colorSchemes[id].price.ToString();
@@ -39,6 +49,7 @@ namespace UI
                 return;
             question.SetActive(true);
             showcase.purchaseButton.gameObject.SetActive(false);
+            showcase.priceTip.gameObject.SetActive(false);
             yesButton.onClick.RemoveAllListeners();
             noButton.onClick.RemoveAllListeners();
             yesButton.onClick.AddListener(Yes);
@@ -47,7 +58,8 @@ namespace UI
 
         public void No()
         {
-            showcase.purchaseButton.gameObject.SetActive(false);
+            showcase.priceTip.gameObject.SetActive(true);
+            showcase.purchaseButton.gameObject.SetActive(true);
             question.SetActive(false);
         }
 
@@ -57,7 +69,6 @@ namespace UI
             {
                 priceTag.gameObject.SetActive(false);
             }
-            showcase.purchaseButton.gameObject.SetActive(false);
             question.SetActive(false);
         }
         #endregion

@@ -39,7 +39,9 @@ PlayerSettings:
     y: 0
     width: 1
     height: 1
-  m_SplashScreenLogos: []
+  m_SplashScreenLogos:
+  - logo: {fileID: 21300000, guid: acbc5556d09546845a0d95c5f0cd329d, type: 3}
+    duration: 2
   m_VirtualRealitySplashScreen: {fileID: 0}
   m_HolographicTrackingLossScreen: {fileID: 0}
   defaultScreenWidth: 1024
@@ -119,7 +121,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.6.2.1b
+  bundleVersion: 0.1.1f
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -165,8 +167,8 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.BlackSoilDev.WeAreInvaded
   buildNumber: {}
-  AndroidBundleVersionCode: 11
-  AndroidMinSdkVersion: 19
+  AndroidBundleVersionCode: 15
+  AndroidMinSdkVersion: 21
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
   aotOptions: 

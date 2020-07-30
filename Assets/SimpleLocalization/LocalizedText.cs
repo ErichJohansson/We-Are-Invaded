@@ -15,8 +15,9 @@ namespace Assets.SimpleLocalization
 
         private void Awake()
         {
-            txt = GetComponent<Text>();
-            if (Regex.IsMatch(txt.text, "[a-z].[a-z]", RegexOptions.IgnoreCase))
+            if (txt == null)
+                txt = GetComponent<Text>();
+            if (LocalizationKey.Length == 0 && Regex.IsMatch(txt.text, "[a-z].[a-z]", RegexOptions.IgnoreCase))
                 LocalizationKey = txt.text;
         }
 
@@ -31,8 +32,9 @@ namespace Assets.SimpleLocalization
             LocalizationManager.LocalizationChanged -= Localize;
         }
 
-        private void Localize()
+        public void Localize()
         {
+            if (LocalizationKey.Length == 0) Awake();
             txt.text = LocalizationManager.Localize(LocalizationKey);
         }
     }

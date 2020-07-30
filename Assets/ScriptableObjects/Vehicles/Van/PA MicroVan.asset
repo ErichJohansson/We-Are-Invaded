@@ -21,7 +21,7 @@ MonoBehaviour:
   id: 0
   selectedColorScheme: 0
   currentLevel: 0
-  name: Blue Van
+  name: VAN 1960
   health: 30
   fireRate: 0.5
   reloadTime: 10
@@ -32,19 +32,19 @@ MonoBehaviour:
   price: 100
   purchased: 1
   upgradeLevels:
-  - upgradeCost: 750
+  - upgradeCost: 500
     damage: 9
     health: 32
     reload: 8
     speed: 6.4
     turning: 0.45
-  - upgradeCost: 1000
+  - upgradeCost: 750
     damage: 11
     health: 35
     reload: 7
     speed: 6.8
     turning: 0.5
-  - upgradeCost: 1250
+  - upgradeCost: 1000
     damage: 14
     health: 40
     reload: 6

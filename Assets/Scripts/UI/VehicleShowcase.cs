@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Assets.SimpleLocalization;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,11 @@ namespace UI
         public ImageAnimator previewClip;
         public Text price;
 
+        [Header("Price Tip")]
+        public LocalizedText priceTipText;
+        public Text priceTip;
+
+        [Header("Vehicle Characteristics Sliders")]
         public Slider damage;
         public Slider health;
         public Slider maxSpeed;
@@ -29,6 +35,8 @@ namespace UI
         public Button purchaseButton;
         public Button selectVehicleButton;
         public GameObject colorSchemeScrollView;
+
+        public GameObject shadow;
 
         [Header("Question settings")]
         public GameObject question;
@@ -72,7 +80,8 @@ namespace UI
             reloadTime.value = Vehicle.minReload / vehicle.reloadTime;
 
             price.text = vehicle.purchased ? vehicle.currentLevel + 1 < vehicle.upgradeLevels.Length ? vehicle.upgradeLevels[vehicle.currentLevel + 1].upgradeCost.ToString() : "" : vehicle.price.ToString();
-            purchaseButton.gameObject.SetActive(vehicle.currentLevel + 1 != vehicle.upgradeLevels.Length);
+            priceTip.text = vehicle.purchased ? vehicle.currentLevel + 1 < vehicle.upgradeLevels.Length ? "TankSelect.UpgradeAvailable" : "TankSelect.FullUpgrade" : "TankSelect.Purchase";
+            priceTipText.Localize();
 
             if (!vehicle.purchased)
                 price.color = vehicle.price <= GameController.Instance.cash ? enoughMoneyColor : notEnoughMoneyColor;
@@ -99,6 +108,7 @@ namespace UI
                 return;
 
             purchaseButton.gameObject.SetActive(false);
+            priceTip.gameObject.SetActive(false);
             if (upgradedVehicle.purchased == true)
             {
                 damageUpgraded.value = upgradedVehicle.damage / Vehicle.maxDamage;
@@ -121,6 +131,7 @@ namespace UI
             SetUpgradedStatsToZero();
             question.SetActive(false);
             purchaseButton.gameObject.SetActive(true);
+            priceTip.gameObject.SetActive(true);
         }
 
         public void Yes()
@@ -128,6 +139,7 @@ namespace UI
             SetUpgradedStatsToZero();
             question.SetActive(false);
             purchaseButton.gameObject.SetActive(true);
+            priceTip.gameObject.SetActive(true);
             VehicleSelectionController.Instance.PurchaseVehicle(vehicle);
         }
         #endregion
